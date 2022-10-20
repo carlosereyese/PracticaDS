@@ -3,14 +3,13 @@ import java.util.Observable;
 import java.util.Timer;
 
 public class ClockTimer extends Observable {
-    private Timer timer;
     private LocalDateTime dateTime;
 
     private void tick()
     {
-        dateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now();
         setChanged();
-        notifyObservers(dateTime);
+        notifyObservers(this.dateTime);
     }
 
     public void startTimer()
@@ -18,7 +17,7 @@ public class ClockTimer extends Observable {
         while(true)
         {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(2000);
             } catch(InterruptedException e) {
                 System.out.println("ERROR: Thread sleep interrupted");
             }

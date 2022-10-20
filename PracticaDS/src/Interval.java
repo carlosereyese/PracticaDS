@@ -5,10 +5,12 @@ import java.util.Observer;
 public class Interval implements Observer {
     private LocalDateTime initialDate = null;
     private LocalDateTime finalDate = null;
+    private boolean active = true;
     public Interval()
     {
         //void
     }
+    public boolean getActive() { return active; }
     public LocalDateTime getInitialDate()
     {
         return initialDate;
@@ -17,12 +19,18 @@ public class Interval implements Observer {
     {
         return finalDate;
     }
+    public void setActive(boolean active) { this.active = active; }
+
+    @Override
     public void update(Observable observable, Object object)
     {
-        if (initialDate == null)
+        if (active == true)
         {
-            initialDate = (LocalDateTime) object;
+            if (initialDate == null)
+            {
+                initialDate = (LocalDateTime) object;
+            }
+            finalDate = (LocalDateTime) object;
         }
-        finalDate = (LocalDateTime) object;
     }
 }

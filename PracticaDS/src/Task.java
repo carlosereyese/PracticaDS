@@ -3,22 +3,58 @@ import java.util.ArrayList;
 import java.util.List;
 public class Task extends Component{
     private List<Interval> intervalList = new ArrayList<Interval>();
-
-    public Task()
-    {
+    public Task() {
         //void
     }
-    public List<Interval> getIntervalList()
+    public Task(String nameTask, Component father)
     {
-        return intervalList;
+        super(nameTask, father);
     }
-    public Duration getActiveTime()
+
+    public Object getIList(int i)
     {
+        return intervalList.get(i);
+    }
+    public int getSizeList() { return intervalList.size(); }
+
+    public Interval start() {
+
+        Interval newInterval = new Interval();
+        intervalList.add(newInterval);
+        return newInterval;
+    }
+    public Interval stop() {
+        Interval oldInterval = intervalList.get(intervalList.size() - 1);
+        intervalList.get(intervalList.size() - 1).setActive(false);
+        return oldInterval;
+    }
+    public Duration getActiveTime() {
         Duration activeTimeTotal = Duration.ofSeconds(0);
+
         for (int i = 0; i < intervalList.size(); i++)
         {
-            Duration activeIimeInterval = Duration.between(intervalList.get(i).getInitialDate(), intervalList.get(i).getFinalDate());
-            activeTimeTotal = activeTimeTotal.plus(activeIimeInterval);
+            if ((intervalList.get(i).getInitialDate() != null) && (intervalList.get(i).getFinalDate() != null))
+            {
+                Duration activeIimeInterval = Duration.between(intervalList.get(i).getInitialDate(), intervalList.get(i).getFinalDate());
+                activeTimeTotal = activeTimeTotal.plus(activeIimeInterval);
+            }
+
+            if (finalDate == null)
+            {
+                finalDate = intervalList.get(i).getFinalDate();
+            }
+            else
+            {
+                if (intervalList.get(i).getFinalDate().isAfter(finalDate))
+                {
+                    finalDate = intervalList.get(i).getFinalDate();
+                }
+            }
+        }
+
+        if (intervalList.isEmpty() == false)
+        {
+            initialDate = intervalList.get(0).getInitialDate();
         }
 
         return activeTimeTotal;
