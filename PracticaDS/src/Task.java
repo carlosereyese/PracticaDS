@@ -17,16 +17,13 @@ public class Task extends Component{
     }
     public int getSizeList() { return intervalList.size(); }
 
-    public Interval start() {
+    public void start() {
 
         Interval newInterval = new Interval();
         intervalList.add(newInterval);
-        return newInterval;
     }
-    public Interval stop() {
-        Interval oldInterval = intervalList.get(intervalList.size() - 1);
-        intervalList.get(intervalList.size() - 1).setActive(false);
-        return oldInterval;
+    public void stop() {
+        intervalList.get(intervalList.size() - 1).stop();
     }
     public Duration getActiveTime() {
         Duration activeTimeTotal = Duration.ofSeconds(0);

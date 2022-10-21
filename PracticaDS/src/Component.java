@@ -5,10 +5,11 @@ public abstract class Component{
     private String nameComponent;
     private Component father;
 
-    protected LocalDateTime initialDate = null;
-    protected LocalDateTime finalDate = null;
+    protected LocalDateTime initialDate;
+    protected LocalDateTime finalDate;
     public Component() {
-        //void
+        initialDate = null;
+        finalDate = null;
     }
     public Component(String nameComponent, Component father)
     {

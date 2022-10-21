@@ -4,7 +4,12 @@ import java.util.Timer;
 
 public class ClockTimer extends Observable {
     private LocalDateTime dateTime;
+    private static ClockTimer instance;
 
+    private ClockTimer()
+    {
+        this.dateTime = null;
+    }
     private void tick()
     {
         this.dateTime = LocalDateTime.now();
@@ -12,6 +17,15 @@ public class ClockTimer extends Observable {
         notifyObservers(this.dateTime);
     }
 
+    public static ClockTimer getInstance()
+    {
+        if (instance ==  null)
+        {
+            instance = new ClockTimer();
+        }
+
+        return instance;
+    }
     public void startTimer()
     {
         while(true)

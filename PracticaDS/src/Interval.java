@@ -3,14 +3,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class Interval implements Observer {
-    private LocalDateTime initialDate = null;
-    private LocalDateTime finalDate = null;
-    private boolean active = true;
+    private LocalDateTime initialDate;
+    private LocalDateTime finalDate;
     public Interval()
     {
-        //void
+        initialDate = null;
+        finalDate = null;
+        ClockTimer.getInstance().addObserver(this);
     }
-    public boolean getActive() { return active; }
     public LocalDateTime getInitialDate()
     {
         return initialDate;
@@ -19,18 +19,18 @@ public class Interval implements Observer {
     {
         return finalDate;
     }
-    public void setActive(boolean active) { this.active = active; }
+    public void stop()
+    {
+        ClockTimer.getInstance().deleteObserver(this);
+    }
 
     @Override
     public void update(Observable observable, Object object)
     {
-        if (active == true)
+        if (initialDate == null)
         {
-            if (initialDate == null)
-            {
-                initialDate = (LocalDateTime) object;
-            }
-            finalDate = (LocalDateTime) object;
+            initialDate = (LocalDateTime) object;
         }
+        finalDate = (LocalDateTime) object;
     }
 }
