@@ -23,8 +23,8 @@ public class Printer implements Visitor, Observer
         }
         if ((project.getInitialDate() != null) && (project.getFinalDate() != null))
         {
-            System.out.println("activity: " + project.getNameComponent() + " " + project.getInitialDate()
-                    + " " + project.getFinalDate() + " " + project.getDuration().getSeconds());
+            System.out.println("activity: " + project.getNameComponent() + "\t" + project.getInitialDate()
+                    + "\t" + project.getFinalDate() + "\t" + project.getDuration().getSeconds());
         }
     }
     @Override
@@ -36,16 +36,15 @@ public class Printer implements Visitor, Observer
             if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null))
             {
                 Duration activeIimeInterval = Duration.between(((Interval) o).getInitialDate() , ((Interval) o).getFinalDate());
-                System.out.println("interval: " + root.getNameComponent() + " " +
-                        ((Interval) o).getInitialDate() + " " + ((Interval) o).getFinalDate() + " "
+                System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
                         + activeIimeInterval.getSeconds());
             }
         }
 
         if ((task.getInitialDate() != null) && (task.getFinalDate() != null))
         {
-            System.out.println("activity: " + task.getNameComponent() + " " + task.getInitialDate() + " "
-                    + task.getFinalDate() + " " + task.getDuration().getSeconds());
+            System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
+                    + task.getFinalDate() + "\t" + task.getDuration().getSeconds());
         }
     }
     public static void setInstance(Component root)

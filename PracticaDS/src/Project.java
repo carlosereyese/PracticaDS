@@ -29,6 +29,11 @@ public class Project extends Component{
         }
         this.finalDate = finalDate;
         this.duration = this.duration.plus(duration);
+
+        if(father != null)
+        {
+            father.changeTime(initialDate, finalDate, duration);
+        }
     }
     @Override
     public void acceptVisitor(Visitor visitor)
