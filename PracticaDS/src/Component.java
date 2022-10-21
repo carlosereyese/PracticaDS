@@ -2,14 +2,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public abstract class Component{
-    private String nameComponent;
-    private Component father;
-
+    protected String nameComponent;
+    protected Component father;
     protected LocalDateTime initialDate;
     protected LocalDateTime finalDate;
+    protected Duration duration;
+
     public Component() {
         initialDate = null;
         finalDate = null;
+        duration = Duration.ofSeconds(0);
     }
     public Component(String nameComponent, Component father)
     {
@@ -19,6 +21,7 @@ public abstract class Component{
         }
         this.nameComponent = nameComponent;
         this.father = father;
+        this.duration = Duration.ofSeconds(0);
     }
 
     public String getNameComponent()
@@ -32,21 +35,6 @@ public abstract class Component{
             return nameComponent;
         }
     }
-    public String getNameFather()
-    {
-        if (father == null)
-        {
-            return "null";
-        }
-        else
-        {
-            return father.getNameComponent();
-        }
-    }
-    public Component getFather()
-    {
-        return father;
-    }
     public LocalDateTime getInitialDate()
     {
         return initialDate;
@@ -55,15 +43,16 @@ public abstract class Component{
     {
         return finalDate;
     }
-    public abstract Duration getActiveTime();
     public abstract Object getIList(int i);
     public abstract int getSizeList();
+    public Duration getDuration()
+    {
+        return duration;
+    }
+
     public void add(Component c) {
         //void
     }
-    public void remove(Component r) {
-        //void
-    }
-
-
+    public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate, Duration duration);
+    public abstract void acceptVisitor(Visitor visitor);
 }

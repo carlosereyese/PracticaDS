@@ -1,48 +1,63 @@
 import java.time.Duration;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Printer {
-    Component root;
+public class Printer implements Visitor, Observer
+{
+    private static Visitor instance;
+    private static Component root;
 
-    public Printer(Component root)
+    private Printer(Component component)
     {
-        this.root = root;
+        ClockTimer.getInstance().addObserver(this);
+        root = component;
     }
 
-    public void print()
+    @Override
+    public void printProject(Project project)
     {
-        if (root instanceof Task)
+        for (int i = 0; i < project.getSizeList(); i ++)
         {
-            System.out.println("Task " + root.getNameComponent() + " child of " + root.getNameFather() + " " +
-                    root.getInitialDate() + " " + root.getFinalDate() + " " + root.getActiveTime().getSeconds());
-
-            for (int i = 0; i < root.getSizeList(); i++)
+            Object o = project.getIList(i);
+            ((Component) o).acceptVisitor(instance);
+        }
+        if ((project.getInitialDate() != null) && (project.getFinalDate() != null))
+        {
+            System.out.println("activity: " + project.getNameComponent() + " " + project.getInitialDate()
+                    + " " + project.getFinalDate() + " " + project.getDuration().getSeconds());
+        }
+    }
+    @Override
+    public void printTask(Task task)
+    {
+        for (int i = 0; i < task.getSizeList(); i++)
+        {
+            Object o = task.getIList(i);
+            if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null))
             {
-                Object o = root.getIList(i);
-                if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null))
-                {
-                    Duration activeIimeInterval = Duration.between(((Interval) o).getInitialDate() , ((Interval) o).getFinalDate());
-                    System.out.println("Interval child of " + root.getNameComponent() + " " +
-                                    ((Interval) o).getInitialDate() + " " + ((Interval) o).getFinalDate() + " "
-                                    + activeIimeInterval.getSeconds());
-                }
-                else
-                {
-
-                    System.out.println("Interval child of " + root.getNameComponent() + " null " + " null " + "0");
-                }
+                Duration activeIimeInterval = Duration.between(((Interval) o).getInitialDate() , ((Interval) o).getFinalDate());
+                System.out.println("interval: " + root.getNameComponent() + " " +
+                        ((Interval) o).getInitialDate() + " " + ((Interval) o).getFinalDate() + " "
+                        + activeIimeInterval.getSeconds());
             }
         }
-        else
-        {
-            System.out.println("Project " + root.getNameComponent() + " child of " + root.getNameFather() + " " +
-                    root.getInitialDate() + " " + root.getFinalDate() + " " + root.getActiveTime().getSeconds());
 
-            for(int i = 0; i < root.getSizeList(); i++)
-            {
-                Object o = root.getIList(i);
-                Printer printer = new Printer(((Component) o));
-                printer.print();
-            }
+        if ((task.getInitialDate() != null) && (task.getFinalDate() != null))
+        {
+            System.out.println("activity: " + task.getNameComponent() + " " + task.getInitialDate() + " "
+                    + task.getFinalDate() + " " + task.getDuration().getSeconds());
         }
+    }
+    public static void setInstance(Component root)
+    {
+        if (instance ==  null)
+        {
+            instance = new Printer(root);
+        }
+    }
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        root.acceptVisitor(instance);
     }
 }
