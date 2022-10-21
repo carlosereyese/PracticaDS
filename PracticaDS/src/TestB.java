@@ -50,6 +50,9 @@ public class TestB {
         t1.start();
         Thread.sleep(4000);
         t1.stop();
+
+        threadClock.stop();
+        System.out.println("end of test");
     }
 }
 

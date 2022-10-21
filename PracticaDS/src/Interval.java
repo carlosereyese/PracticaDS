@@ -38,7 +38,7 @@ public class Interval implements Observer {
             initialDate = (LocalDateTime) object;
         }
         finalDate = (LocalDateTime) object;
-        this.duration = Duration.between(initialDate, finalDate);
-        father.changeTime(initialDate, finalDate, this.duration);
+        duration = Duration.between(initialDate, finalDate);
+        father.changeTime(initialDate, finalDate, duration);
     }
 }
