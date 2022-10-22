@@ -24,7 +24,7 @@ public class Printer implements Visitor, Observer
         if ((project.getInitialDate() != null) && (project.getFinalDate() != null))
         {
             System.out.println("activity: " + project.getNameComponent() + "\t" + project.getInitialDate()
-                    + "\t" + project.getFinalDate() + "\t" + project.getDuration().getSeconds());
+                    + "\t" + project.getFinalDate() + "\t" + project.calculateTotalTime().getSeconds());
         }
     }
     @Override
@@ -35,16 +35,15 @@ public class Printer implements Visitor, Observer
             Object o = task.getIList(i);
             if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null))
             {
-                Duration activeIimeInterval = Duration.between(((Interval) o).getInitialDate() , ((Interval) o).getFinalDate());
                 System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
-                        + activeIimeInterval.getSeconds());
+                        + ((Interval) o).getDuration().getSeconds());
             }
         }
 
         if ((task.getInitialDate() != null) && (task.getFinalDate() != null))
         {
             System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
-                    + task.getFinalDate() + "\t" + task.getDuration().getSeconds());
+                    + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
         }
     }
     public static void setInstance(Component root)

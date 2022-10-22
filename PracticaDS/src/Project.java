@@ -21,18 +21,28 @@ public class Project extends Component{
     {
         componentList.add(c);
     }
-    public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate, Duration duration)
+    public Duration calculateTotalTime()
+    {
+        Duration duration = Duration.ofSeconds(0);
+
+        for(int i = 0; i < componentList.size(); i++)
+        {
+            duration = duration.plus(componentList.get(i).calculateTotalTime());
+        }
+
+        return duration;
+    }
+    public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
         if (this.initialDate == null)
         {
             this.initialDate = initialDate;
         }
         this.finalDate = finalDate;
-        this.duration = this.duration.plus(duration);
 
         if(father != null)
         {
-            father.changeTime(initialDate, finalDate, duration);
+            father.changeTime(initialDate, finalDate);
         }
     }
     @Override

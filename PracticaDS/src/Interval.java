@@ -23,13 +23,13 @@ public class Interval implements Observer {
     {
         return finalDate;
     }
-    public Task getFather() { return father; }
+    public Duration getDuration() { return duration; }
+
     public void setFather(Task father) { this.father = father; }
     public void stop()
     {
         ClockTimer.getInstance().deleteObserver(this);
     }
-
     @Override
     public void update(Observable observable, Object object)
     {
@@ -39,6 +39,7 @@ public class Interval implements Observer {
         }
         finalDate = (LocalDateTime) object;
         duration = Duration.between(initialDate, finalDate);
-        father.changeTime(initialDate, finalDate, duration);
+        duration = duration.plus(Duration.ofSeconds(2));
+        father.changeTime(initialDate, finalDate);
     }
 }

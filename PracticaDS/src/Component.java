@@ -6,12 +6,10 @@ public abstract class Component{
     protected Component father;
     protected LocalDateTime initialDate;
     protected LocalDateTime finalDate;
-    protected Duration duration;
 
     public Component() {
         initialDate = null;
         finalDate = null;
-        duration = Duration.ofSeconds(0);
     }
     public Component(String nameComponent, Component father)
     {
@@ -21,7 +19,6 @@ public abstract class Component{
         }
         this.nameComponent = nameComponent;
         this.father = father;
-        this.duration = Duration.ofSeconds(0);
     }
 
     public String getNameComponent()
@@ -45,14 +42,11 @@ public abstract class Component{
     }
     public abstract Object getIList(int i);
     public abstract int getSizeList();
-    public Duration getDuration()
-    {
-        return duration;
-    }
 
     public void add(Component c) {
         //void
     }
-    public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate, Duration duration);
+    public abstract Duration calculateTotalTime();
+    public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
     public abstract void acceptVisitor(Visitor visitor);
 }
