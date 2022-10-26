@@ -33,9 +33,9 @@ public class Printer implements Visitor, Observer
         for (int i = 0; i < task.getSizeList(); i++)
         {
             Object o = task.getIList(i);
-            if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null))
+            if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null) && (((Interval) o).getRunning() == true))
             {
-                System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
+                System.out.println("interval: " + ((Interval) o).getFather().getNameComponent() + " \t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
                         + ((Interval) o).getDuration().getSeconds());
             }
         }

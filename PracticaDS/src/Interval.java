@@ -8,11 +8,13 @@ public class Interval implements Observer {
     private LocalDateTime finalDate;
     private Task father;
     private Duration duration;
+    private boolean running;
 
     public Interval()
     {
         initialDate = null;
         finalDate = null;
+        running =  true;
         ClockTimer.getInstance().addObserver(this);
     }
     public LocalDateTime getInitialDate()
@@ -24,22 +26,24 @@ public class Interval implements Observer {
         return finalDate;
     }
     public Duration getDuration() { return duration; }
+    public Task getFather() { return father; }
+    public boolean getRunning() { return running; }
 
     public void setFather(Task father) { this.father = father; }
     public void stop()
     {
         ClockTimer.getInstance().deleteObserver(this);
+        running = false;
     }
     @Override
     public void update(Observable observable, Object object)
     {
         if (initialDate == null)
         {
-            initialDate = (LocalDateTime) object;
+            initialDate = ((LocalDateTime) object).minus(Duration.ofSeconds(2));
         }
         finalDate = (LocalDateTime) object;
         duration = Duration.between(initialDate, finalDate);
-        duration = duration.plus(Duration.ofSeconds(2));
         father.changeTime(initialDate, finalDate);
     }
 }

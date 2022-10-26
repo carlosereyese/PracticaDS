@@ -12,6 +12,7 @@ public class TestB {
     public void testB() throws InterruptedException
     {
         Thread threadClock = new threadClock();
+        threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
         Project root = new Project("root", null);
