@@ -16,6 +16,26 @@ public class Project extends Component{
         return componentList.get(i);
     }
     public int getSizeList() { return componentList.size(); }
+    public boolean getRunning()
+    {
+        boolean run = false;
+        int i = 0;
+
+        while ((run == false) && (i < componentList.size()))
+        {
+            if (componentList.get(i).getRunning() == true)
+            {
+                run = true;
+            }
+            else
+            {
+                i = i + 1;
+            }
+        }
+
+        running = run;
+        return running;
+    }
 
     public void add(Component c)
     {

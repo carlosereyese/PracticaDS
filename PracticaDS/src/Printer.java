@@ -21,7 +21,8 @@ public class Printer implements Visitor, Observer
             Object o = project.getIList(i);
             ((Component) o).acceptVisitor(instance);
         }
-        if ((project.getInitialDate() != null) && (project.getFinalDate() != null))
+
+        if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning() == true))
         {
             System.out.println("activity: " + project.getNameComponent() + "\t" + project.getInitialDate()
                     + "\t" + project.getFinalDate() + "\t" + project.calculateTotalTime().getSeconds());
@@ -30,17 +31,20 @@ public class Printer implements Visitor, Observer
     @Override
     public void printTask(Task task)
     {
+        boolean printTask = false;
+
         for (int i = 0; i < task.getSizeList(); i++)
         {
             Object o = task.getIList(i);
             if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null) && (((Interval) o).getRunning() == true))
             {
-                System.out.println("interval: " + ((Interval) o).getFather().getNameComponent() + " \t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
+                System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
                         + ((Interval) o).getDuration().getSeconds());
+                printTask = true;
             }
         }
 
-        if ((task.getInitialDate() != null) && (task.getFinalDate() != null))
+        if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask == true))
         {
             System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
                     + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());

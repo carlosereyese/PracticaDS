@@ -16,16 +16,21 @@ public class Task extends Component{
     {
         return intervalList.get(i);
     }
-
+    public boolean getRunning()
+    {
+        return running;
+    }
     public void start() {
         System.out.println(nameComponent + " starts");
         Interval newInterval = new Interval();
         newInterval.setFather(this);
         intervalList.add(newInterval);
+        running = true;
     }
     public void stop() {
         intervalList.get(intervalList.size() - 1).stop();
         System.out.println(nameComponent + " stops");
+        running = false;
     }
     public Duration calculateTotalTime()
     {

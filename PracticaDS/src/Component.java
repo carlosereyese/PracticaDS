@@ -6,10 +6,12 @@ public abstract class Component{
     protected Component father;
     protected LocalDateTime initialDate;
     protected LocalDateTime finalDate;
+    protected boolean running;
 
     public Component() {
         initialDate = null;
         finalDate = null;
+        running = false;
     }
     public Component(String nameComponent, Component father)
     {
@@ -19,6 +21,7 @@ public abstract class Component{
         }
         this.nameComponent = nameComponent;
         this.father = father;
+        running =  false;
     }
 
     public String getNameComponent()
@@ -40,8 +43,10 @@ public abstract class Component{
     {
         return finalDate;
     }
+    public abstract boolean getRunning();
     public abstract Object getIList(int i);
     public abstract int getSizeList();
+
 
     public void add(Component c) {
         //void
