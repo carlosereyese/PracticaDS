@@ -60,6 +60,10 @@ public class TestB {
 class threadClock extends Thread {
     @Override
     public void run() {
-        ClockTimer.getInstance().startTimer();
+        try {
+            ClockTimer.getInstance().startTimer();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -25,16 +25,11 @@ public class ClockTimer extends Observable {
         setChanged();
         notifyObservers(this.dateTime);
     }
-    public void startTimer()
-    {
+    public void startTimer() throws InterruptedException {
         while(true)
         {
-            try {
-                Thread.sleep(2000);
-            } catch(InterruptedException e) {
-                System.out.println("ERROR: Thread sleep interrupted");
-            }
             tick();
+            Thread.sleep(2000);
         }
     }
 }
