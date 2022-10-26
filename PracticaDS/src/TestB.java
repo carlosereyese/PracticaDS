@@ -30,7 +30,8 @@ public class TestB {
         Printer.setInstance(root);
 
         t1.start();
-        Thread.sleep(4000);
+        Thread.sleep(4200);
+        //Thread.sleep(1000);
         t1.stop();
 
         Thread.sleep(2000);
