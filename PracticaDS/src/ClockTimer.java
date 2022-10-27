@@ -1,8 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.Observable;
 
-import static java.lang.Thread.sleep;
-
 public class ClockTimer extends Observable {
     private LocalDateTime dateTime;
     private static ClockTimer instance;

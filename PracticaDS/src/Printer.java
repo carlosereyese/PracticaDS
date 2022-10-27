@@ -12,6 +12,13 @@ public class Printer implements Visitor, Observer
         ClockTimer.getInstance().addObserver(this);
         root = component;
     }
+    public static void setInstance(Component root)
+    {
+        if (instance ==  null)
+        {
+            instance = new Printer(root);
+        }
+    }
 
     @Override
     public void printProject(Project project)
@@ -48,13 +55,6 @@ public class Printer implements Visitor, Observer
         {
             System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
                     + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
-        }
-    }
-    public static void setInstance(Component root)
-    {
-        if (instance ==  null)
-        {
-            instance = new Printer(root);
         }
     }
     @Override

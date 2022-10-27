@@ -1,5 +1,11 @@
+import java.time.Clock;
+
 public class TestB {
     private static TestB instance;
+    private void TestB()
+    {
+        //void;
+    }
     public static TestB getInstance()
     {
         if (instance ==  null)
@@ -9,7 +15,7 @@ public class TestB {
 
         return instance;
     }
-    public void testB() throws InterruptedException
+    public Component testB() throws InterruptedException
     {
         Thread threadClock = new threadClock();
         threadClock.setPriority(Thread.MAX_PRIORITY);
@@ -31,7 +37,6 @@ public class TestB {
 
         t1.start();
         Thread.sleep(4200);
-        //Thread.sleep(1000);
         t1.stop();
 
         Thread.sleep(2000);
@@ -55,6 +60,8 @@ public class TestB {
 
         threadClock.stop();
         System.out.println("end of test");
+
+        return root;
     }
 }
 
