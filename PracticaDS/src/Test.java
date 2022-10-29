@@ -7,9 +7,10 @@ import java.time.Clock;
 import java.io.*;
 public class Test {
     private static Test instance;
+    private Thread threadClock = new ThreadClock();
     private void Test()
     {
-        //void;
+        //void
     }
     public static Test getInstance()
     {
@@ -38,7 +39,6 @@ public class Test {
     }
     public Activity testB() throws InterruptedException
     {
-        Thread threadClock = new ThreadClock();
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 

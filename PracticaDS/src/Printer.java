@@ -21,7 +21,7 @@ public class Printer implements Visitor, Observer
     }
 
     @Override
-    public void printProject(Project project)
+    public void visitProject(Project project)
     {
         for (int i = 0; i < project.getSizeList(); i ++)
         {
@@ -36,7 +36,7 @@ public class Printer implements Visitor, Observer
         }
     }
     @Override
-    public void printTask(Task task)
+    public void visitTask(Task task)
     {
         boolean printTask = false;
 

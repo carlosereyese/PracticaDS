@@ -79,7 +79,7 @@ public class Task extends Activity{
     @Override
     public void acceptVisitor(Visitor visitor)
     {
-        visitor.printTask(this);
+        visitor.visitTask(this);
     }
 
     public JSONObject toJSON(){

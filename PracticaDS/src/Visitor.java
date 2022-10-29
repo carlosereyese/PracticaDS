@@ -1,6 +1,4 @@
-import java.util.Observer;
-
 public interface Visitor {
-    public abstract void printProject(Project project);
-    public abstract void printTask(Task task);
+    public abstract void visitProject(Project project);
+    public abstract void visitTask(Task task);
 }

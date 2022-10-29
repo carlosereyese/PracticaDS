@@ -107,7 +107,7 @@ public class Project extends Activity{
     @Override
     public void acceptVisitor(Visitor visitor)
     {
-        visitor.printProject(this);
+        visitor.visitProject(this);
     }
     @Override
     public JSONObject toJSON(){
