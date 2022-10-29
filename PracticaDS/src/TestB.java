@@ -1,5 +1,10 @@
-import java.time.Clock;
+import org.json.JSONObject;
 
+import java.nio.channels.spi.AbstractSelectionKey;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.Clock;
+import java.io.*;
 public class TestB {
     private static TestB instance;
     private void TestB()
@@ -21,6 +26,19 @@ public class TestB {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
+        /*
+        String jsonPath = "componentsJSON.json";
+        Project root = new Project();
+        try{
+            String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
+            JSONObject jsonObj = new JSONObject(jsonString);
+            root = new Project(jsonObj);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        */
+
+
         Project root = new Project("root", null);
         Project p1 = new Project("software design", root);
         Project p2 = new Project("software testing", root);
@@ -33,7 +51,10 @@ public class TestB {
         Task t4 = new Task("read handout", p5);
         Task t5 = new Task("first milestone", p5);
 
+
+
         Printer.setInstance(root);
+
 
         t1.start();
         Thread.sleep(4200);
@@ -60,6 +81,14 @@ public class TestB {
 
         threadClock.stop();
         System.out.println("end of test");
+
+        /*
+        try(FileWriter file = new FileWriter(jsonPath)){
+            file.write(root.toJSON().toString());
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+         */
 
         return root;
     }

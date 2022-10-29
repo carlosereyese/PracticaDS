@@ -1,3 +1,6 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +12,27 @@ public class Task extends Component{
     public Task(String nameTask, Component father)
     {
         super(nameTask, father);
+    }
+
+    public Task(JSONObject jsonObj){
+        nameComponent = jsonObj.getString("nameComponent");
+
+        if (!jsonObj.isNull("initialDate"))
+            initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
+        else
+            initialDate = null;
+
+        if (!jsonObj.isNull("finalDate"))
+            finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"));
+        else
+            finalDate = null;
+
+        running = jsonObj.getBoolean("running");
+
+        JSONArray jsonList = jsonObj.getJSONArray("intervalList");
+        for (int i = 0; i < jsonList.length(); i++){
+            intervalList.add(new Interval(jsonList.getJSONObject(i)));
+        }
     }
 
     public int getSizeList() { return intervalList.size(); }
@@ -58,4 +82,34 @@ public class Task extends Component{
         visitor.printTask(this);
     }
 
+    public JSONObject toJSON(){
+
+        JSONObject compJSON = new JSONObject();
+        compJSON.put("nameComponent", nameComponent);
+
+        String tempDate;
+        if (initialDate == null)
+            compJSON.put("initialDate", JSONObject.NULL);
+        else{
+            tempDate = initialDate.toString();
+            compJSON.put("initialDate", tempDate);
+        }
+
+        if (finalDate == null)
+            compJSON.put("finalDate", JSONObject.NULL);
+        else{
+            tempDate = finalDate.toString();
+            compJSON.put("finalDate", tempDate);
+        }
+
+        compJSON.put("running", running);
+
+        JSONArray ja = new JSONArray();
+        for (int i = 0; i < intervalList.size(); i++){
+            ja.put(intervalList.get(i).toJSON());
+        }
+
+        compJSON.put("intervalList",ja);
+        return compJSON;
+    }
 }

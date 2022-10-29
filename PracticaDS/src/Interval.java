@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
@@ -16,6 +18,21 @@ public class Interval implements Observer {
         finalDate = null;
         running =  true;
         ClockTimer.getInstance().addObserver(this);
+    }
+
+    public Interval (JSONObject jsonObj){
+        if (!jsonObj.isNull("initialDate"))
+            initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
+        else
+            initialDate = null;
+
+        if (!jsonObj.isNull("finalDate"))
+            finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"));
+        else
+            finalDate = null;
+
+        running = jsonObj.getBoolean("running");
+        duration = Duration.parse(jsonObj.getString("duration"));
     }
     public LocalDateTime getInitialDate()
     {
@@ -45,5 +62,27 @@ public class Interval implements Observer {
         finalDate = (LocalDateTime) object;
         duration = Duration.between(initialDate, finalDate);
         father.changeTime(initialDate, finalDate);
+    }
+
+    public JSONObject toJSON(){
+        JSONObject intervalJSON = new JSONObject();
+        String tempDate;
+        if (initialDate == null)
+            intervalJSON.put("initialDate", JSONObject.NULL);
+        else{
+            tempDate = initialDate.toString();
+            intervalJSON.put("initialDate", tempDate);
+        }
+
+        if (finalDate == null)
+            intervalJSON.put("finalDate", JSONObject.NULL);
+        else{
+            tempDate = finalDate.toString();
+            intervalJSON.put("finalDate", tempDate);
+        }
+        intervalJSON.put("duration", duration.toString());
+        intervalJSON.put("running", running);
+
+        return intervalJSON;
     }
 }

@@ -1,3 +1,5 @@
+import org.json.JSONObject;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -22,6 +24,10 @@ public abstract class Component{
         this.nameComponent = nameComponent;
         this.father = father;
         running =  false;
+    }
+
+    public Component(JSONObject jsonObj){
+
     }
 
     public String getNameComponent()
@@ -54,4 +60,6 @@ public abstract class Component{
     public abstract Duration calculateTotalTime();
     public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
     public abstract void acceptVisitor(Visitor visitor);
+
+    public abstract JSONObject toJSON();
 }
