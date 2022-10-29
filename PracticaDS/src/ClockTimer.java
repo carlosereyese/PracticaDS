@@ -5,29 +5,26 @@ public class ClockTimer extends Observable {
     private LocalDateTime dateTime;
     private static ClockTimer instance;
 
-    private ClockTimer()
-    {
+    private ClockTimer() {
         this.dateTime = null;
     }
-    public static ClockTimer getInstance()
-    {
-        if (instance ==  null)
-        {
+
+    public static ClockTimer getInstance() {
+        if (instance == null) {
             instance = new ClockTimer();
         }
 
         return instance;
     }
 
-    private void tick()
-    {
+    private void tick() {
         this.dateTime = LocalDateTime.now();
         setChanged();
         notifyObservers(this.dateTime);
     }
+
     public void startTimer() throws InterruptedException {
-        while(true)
-        {
+        while (true) {
             tick();
             Thread.sleep(2000);
         }

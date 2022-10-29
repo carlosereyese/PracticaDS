@@ -5,29 +5,45 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Clock;
 import java.io.*;
-public class TestB {
-    private static TestB instance;
-    private void TestB()
+public class Test {
+    private static Test instance;
+    private void Test()
     {
         //void;
     }
-    public static TestB getInstance()
+    public static Test getInstance()
     {
         if (instance ==  null)
         {
-            instance = new TestB();
+            instance = new Test();
         }
 
         return instance;
     }
-    public Component testB() throws InterruptedException
+    public Activity testA() throws InterruptedException
     {
-        Thread threadClock = new threadClock();
+        Project root = new Project("root", null);
+        Project p1 = new Project("software design", root);
+        Project p2 = new Project("software testing", root);
+        Project p3 = new Project("databases", root);
+        Task t1 = new Task("transportation", root);
+        Project p4 = new Project("problems", p1);
+        Project p5 = new Project("project time tracker", p1);
+        Task t2 = new Task("first list", p4);
+        Task t3 = new Task("second list", p4);
+        Task t4 = new Task("read handout", p5);
+        Task t5 = new Task("first milestone", p5);
+
+        return root;
+    }
+    public Activity testB() throws InterruptedException
+    {
+        Thread threadClock = new ThreadClock();
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
         /*
-        String jsonPath = "componentsJSON.json";
+        String jsonPath = "activitiesJSON.json";
         Project root = new Project();
         try{
             String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
@@ -37,7 +53,6 @@ public class TestB {
             e.printStackTrace();
         }
         */
-
 
         Project root = new Project("root", null);
         Project p1 = new Project("software design", root);
@@ -51,10 +66,7 @@ public class TestB {
         Task t4 = new Task("read handout", p5);
         Task t5 = new Task("first milestone", p5);
 
-
-
         Printer.setInstance(root);
-
 
         t1.start();
         Thread.sleep(4200);
@@ -94,7 +106,7 @@ public class TestB {
     }
 }
 
-class threadClock extends Thread {
+class ThreadClock extends Thread {
     @Override
     public void run() {
         try {

@@ -5,14 +5,14 @@ import java.util.Observer;
 public class Printer implements Visitor, Observer
 {
     private static Visitor instance;
-    private static Component root;
+    private static Activity root;
 
-    private Printer(Component component)
+    private Printer(Activity activity)
     {
         ClockTimer.getInstance().addObserver(this);
-        root = component;
+        root = activity;
     }
-    public static void setInstance(Component root)
+    public static void setInstance(Activity root)
     {
         if (instance ==  null)
         {
@@ -26,12 +26,12 @@ public class Printer implements Visitor, Observer
         for (int i = 0; i < project.getSizeList(); i ++)
         {
             Object o = project.getIList(i);
-            ((Component) o).acceptVisitor(instance);
+            ((Activity) o).acceptVisitor(instance);
         }
 
         if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning() == true))
         {
-            System.out.println("activity: " + project.getNameComponent() + "\t" + project.getInitialDate()
+            System.out.println("activity: " + project.getNameActivity() + "\t" + project.getInitialDate()
                     + "\t" + project.getFinalDate() + "\t" + project.calculateTotalTime().getSeconds());
         }
     }
@@ -53,7 +53,7 @@ public class Printer implements Visitor, Observer
 
         if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask == true))
         {
-            System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
+            System.out.println("activity: " + task.getNameActivity() + "\t" + task.getInitialDate() + "\t"
                     + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
         }
     }

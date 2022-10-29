@@ -1,5 +1,7 @@
 public class Client {
     public static void main(String[] args) throws InterruptedException {
-        TestB.getInstance().testB();
+        Test.getInstance().testA();
+        Test.getInstance().testB();
     }
 }
+

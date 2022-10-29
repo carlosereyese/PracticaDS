@@ -6,24 +6,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project extends Component{
-    private List<Component> componentList = new ArrayList<Component>();
+public class Project extends Activity{
+    private List<Activity> activityList = new ArrayList<Activity>();
 
     public Project(){
-        nameComponent = "";
+        nameActivity = "";
         initialDate = null;
         finalDate = null;
         running = false;
-
-        componentList = null;
+        activityList = null;
     }
-    public Project(String nameProject, Component father)
+    public Project(String nameProject, Activity father)
     {
         super(nameProject, father);
     }
 
     public Project(JSONObject jsonObj){
-        nameComponent = jsonObj.getString("nameComponent");
+        nameActivity = jsonObj.getString("nameActivity");
 
         if (!jsonObj.isNull("initialDate")){
             String tiempo = jsonObj.getString("initialDate");
@@ -41,29 +40,29 @@ public class Project extends Component{
 
         running = jsonObj.getBoolean("running");
 
-        JSONArray jsonList = jsonObj.getJSONArray("componentList");
+        JSONArray jsonList = jsonObj.getJSONArray("activityList");
         for (int i = 0; i < jsonList.length(); i++){
             if(jsonList.getJSONObject(i).has("intervalList")){
-                componentList.add(new Task(jsonList.getJSONObject(i)));
+                activityList.add(new Task(jsonList.getJSONObject(i)));
             }else {
-                componentList.add(new Project(jsonList.getJSONObject(i)));
+                activityList.add(new Project(jsonList.getJSONObject(i)));
             }
         }
     }
 
     public Object getIList(int i)
     {
-        return componentList.get(i);
+        return activityList.get(i);
     }
-    public int getSizeList() { return componentList.size(); }
+    public int getSizeList() { return activityList.size(); }
     public boolean getRunning()
     {
         boolean run = false;
         int i = 0;
 
-        while ((run == false) && (i < componentList.size()))
+        while ((run == false) && (i < activityList.size()))
         {
-            if (componentList.get(i).getRunning() == true)
+            if (activityList.get(i).getRunning() == true)
             {
                 run = true;
             }
@@ -77,17 +76,17 @@ public class Project extends Component{
         return running;
     }
 
-    public void add(Component c)
+    public void add(Activity a)
     {
-        componentList.add(c);
+        activityList.add(a);
     }
     public Duration calculateTotalTime()
     {
         Duration duration = Duration.ofSeconds(0);
 
-        for(int i = 0; i < componentList.size(); i++)
+        for(int i = 0; i < activityList.size(); i++)
         {
-            duration = duration.plus(componentList.get(i).calculateTotalTime());
+            duration = duration.plus(activityList.get(i).calculateTotalTime());
         }
 
         return duration;
@@ -110,11 +109,10 @@ public class Project extends Component{
     {
         visitor.printProject(this);
     }
-
     @Override
     public JSONObject toJSON(){
         JSONObject compJSON = new JSONObject();
-        compJSON.put("nameComponent", nameComponent);
+        compJSON.put("nameActivity", nameActivity);
 
         String tempDate;
         if (initialDate == null)
@@ -135,11 +133,11 @@ public class Project extends Component{
         compJSON.put("running", running);
 
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < componentList.size(); i++){
-            ja.put(componentList.get(i).toJSON());
+        for (int i = 0; i < activityList.size(); i++){
+            ja.put(activityList.get(i).toJSON());
         }
 
-        compJSON.put("componentList", ja);
+        compJSON.put("activityList", ja);
 
         return compJSON;
     }

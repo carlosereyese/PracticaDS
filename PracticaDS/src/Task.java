@@ -6,16 +6,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Task extends Component{
+public class Task extends Activity{
     private List<Interval> intervalList = new ArrayList<Interval>();
 
-    public Task(String nameTask, Component father)
+    public Task(String nameTask, Activity father)
     {
         super(nameTask, father);
     }
 
     public Task(JSONObject jsonObj){
-        nameComponent = jsonObj.getString("nameComponent");
+        nameActivity = jsonObj.getString("nameActivity");
 
         if (!jsonObj.isNull("initialDate"))
             initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
@@ -45,7 +45,7 @@ public class Task extends Component{
         return running;
     }
     public void start() {
-        System.out.println(nameComponent + " starts");
+        System.out.println(nameActivity + " starts");
         Interval newInterval = new Interval();
         newInterval.setFather(this);
         intervalList.add(newInterval);
@@ -53,7 +53,7 @@ public class Task extends Component{
     }
     public void stop() {
         intervalList.get(intervalList.size() - 1).stop();
-        System.out.println(nameComponent + " stops");
+        System.out.println(nameActivity + " stops");
         running = false;
     }
     public Duration calculateTotalTime()
@@ -85,7 +85,7 @@ public class Task extends Component{
     public JSONObject toJSON(){
 
         JSONObject compJSON = new JSONObject();
-        compJSON.put("nameComponent", nameComponent);
+        compJSON.put("nameActivity", nameActivity);
 
         String tempDate;
         if (initialDate == null)
