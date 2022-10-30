@@ -68,8 +68,10 @@ public class Test {
 
         Printer.setInstance(root);
 
+        Thread.sleep(1500);
+
         t1.start();
-        Thread.sleep(4200);
+        Thread.sleep(6000);
         t1.stop();
 
         Thread.sleep(2000);
