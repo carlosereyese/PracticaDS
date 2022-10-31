@@ -63,6 +63,10 @@ public class Interval implements Observer {
         duration = Duration.between(initialDate, finalDate);
         father.changeTime(initialDate, finalDate);
     }
+    public void acceptVisitor(Visitor visitor)
+    {
+        visitor.visitInterval(this);
+    }
     public JSONObject toJSON(){
         JSONObject intervalJSON = new JSONObject();
         String tempDate;

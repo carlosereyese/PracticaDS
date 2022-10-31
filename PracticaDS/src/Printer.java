@@ -42,11 +42,11 @@ public class Printer implements Visitor, Observer
 
         for (int i = 0; i < task.getSizeList(); i++)
         {
-            Object o = task.getIList(i);
-            if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null) && (((Interval) o).getRunning() == true))
+            Object interval = task.getIList(i);
+            ((Interval) interval).acceptVisitor(instance);
+
+            if ((((Interval) interval).getInitialDate() != null) && (((Interval) interval).getFinalDate() != null) && (((Interval) interval).getRunning() == true))
             {
-                System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
-                        + ((Interval) o).getDuration().getSeconds());
                 printTask = true;
             }
         }
@@ -57,6 +57,16 @@ public class Printer implements Visitor, Observer
                     + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
         }
     }
+    @Override
+    public void visitInterval(Interval interval)
+    {
+        if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null) && (interval.getRunning() == true))
+        {
+            System.out.println("interval: " + "\t" + interval.getInitialDate() + "\t" + interval.getFinalDate() + "\t"
+                    + interval.getDuration().getSeconds());
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg)
     {
