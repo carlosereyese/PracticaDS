@@ -129,10 +129,8 @@ Project o-->"*" Activity
 Task o-->"0..*" Interval 
 Interval ..|> Observer
 Observable o--> Observer
-ClockTimer --|> Observable  
-ClockTimer --> ClockTimer 
-Printer --> Printer  
+ClockTimer --|> Observable   
 Printer --|> Visitor
-Printer ..|> Observable 
+Printer ..|> Observer
 
 @enduml
