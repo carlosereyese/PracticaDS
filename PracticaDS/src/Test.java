@@ -1,3 +1,5 @@
+/*The test class contains all the tests necessary to check the correct functionality of the
+Time Tracker program.*/
 public class Test {
     private static Test instance = null;
     private Thread threadClock = new ThreadClock();
@@ -14,7 +16,8 @@ public class Test {
 
         return instance;
     }
-    public Activity testA() throws InterruptedException
+    public Activity testA() throws InterruptedException /*Used to test if the project-task-interval tree is
+    generated correctly.*/
     {
         Project root = new Project("root", null);
         Project p1 = new Project("software design", root);
@@ -30,7 +33,8 @@ public class Test {
 
         return root;
     }
-    public Activity testB() throws InterruptedException
+    public Activity testB() throws InterruptedException /*It is used to check if the tasks are started and
+    stopped correctly by printing the contents of each task every 2 seconds.*/
     {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
@@ -96,17 +100,20 @@ public class Test {
         }catch (IOException e){
             e.printStackTrace();
         }
-         */
+        */
 
         return root;
     }
 }
 
+/*ThreadClock is a class derived from Thread and creates a thread in parallel to the main thread to execute the
+ClockTimer.*/
 class ThreadClock extends Thread {
     @Override
     public void run() {
         try {
-            ClockTimer.getInstance().startTimer();
+            ClockTimer clock = ClockTimer.getInstance();
+            clock.startTimer();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

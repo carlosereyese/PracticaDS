@@ -5,7 +5,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/*Project is a class that inherits from Activity and that contains more projects and tasks (it acts as a container),
+this means a project is a set of projects and tasks that have been created in the application.*/
 public class Project extends Activity{
     private List<Activity> activityList = new ArrayList<Activity>();
 
@@ -25,8 +26,6 @@ public class Project extends Activity{
         nameActivity = jsonObj.getString("nameActivity");
 
         if (!jsonObj.isNull("initialDate")){
-            String tiempo = jsonObj.getString("initialDate");
-            LocalDateTime asda = LocalDateTime.parse(tiempo);
             initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
         }
         else
@@ -48,7 +47,8 @@ public class Project extends Activity{
                 activityList.add(new Project(jsonList.getJSONObject(i)));
             }
         }
-    }
+    } /*It is a constructor used to load data from the JSON file to
+    initialize the project.*/
 
     public Object getIList(int i)
     {
@@ -80,7 +80,8 @@ public class Project extends Activity{
     {
         activityList.add(a);
     }
-    public Duration calculateTotalTime()
+    public Duration calculateTotalTime() /*Calculates the active time of the project consisting of the sum of
+    the active time of all its children (projects+tasks).*/
     {
         Duration duration = Duration.ofSeconds(0);
 
@@ -140,5 +141,6 @@ public class Project extends Activity{
         compJSON.put("activityList", ja);
 
         return compJSON;
-    }
+    } /*It is a function used to write the project data in a JSON file so that
+    it can be loaded in the future.*/
 }

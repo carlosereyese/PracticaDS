@@ -5,7 +5,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/*Task is a class that inherits from Activity and contains execution intervals that indicate how long the
+task has been active.*/
 public class Task extends Activity{
     private List<Interval> intervalList = new ArrayList<Interval>();
 
@@ -33,7 +34,8 @@ public class Task extends Activity{
         for (int i = 0; i < jsonList.length(); i++){
             intervalList.add(new Interval(jsonList.getJSONObject(i)));
         }
-    }
+    } /*It is a constructor used to load data from the JSON file to
+    initialize the task.*/
 
     public int getSizeList() { return intervalList.size(); }
     public Object getIList(int i)
@@ -56,7 +58,8 @@ public class Task extends Activity{
         System.out.println(nameActivity + " stops");
         running = false;
     }
-    public Duration calculateTotalTime()
+    public Duration calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
+    the active time of all of its intervals.*/
     {
         Duration duration = Duration.ofSeconds(0);
 
@@ -111,5 +114,6 @@ public class Task extends Activity{
 
         compJSON.put("intervalList",ja);
         return compJSON;
-    }
+    } /*It is a function used to write the task data in a JSON file so that
+    it can be loaded in the future.*/
 }

@@ -2,7 +2,8 @@ import org.json.JSONObject;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
+/*The class Activitat is a component from which the classes task and project inherit, it is used to represent the different activities of the
+Time Tracker.*/
 public abstract class Activity{
     protected String nameActivity;
     protected Activity father;
@@ -57,5 +58,4 @@ public abstract class Activity{
     public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
     public abstract void acceptVisitor(Visitor visitor);
     public abstract JSONObject toJSON();
-    //public Activity (JSONObject jsonObj){}
 }

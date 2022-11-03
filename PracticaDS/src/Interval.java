@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
-
+/*Interval is a class that contains the start and end time of a time interval contained in a task class.*/
 public class Interval implements Observer {
     private LocalDateTime initialDate;
     private LocalDateTime finalDate;
@@ -33,7 +33,8 @@ public class Interval implements Observer {
 
         running = jsonObj.getBoolean("running");
         duration = Duration.parse(jsonObj.getString("duration"));
-    }
+    }/*It is a constructor used to load data from the JSON file to
+    initialize the interval.*/
     public LocalDateTime getInitialDate()
     {
         return initialDate;
@@ -43,7 +44,6 @@ public class Interval implements Observer {
         return finalDate;
     }
     public Duration getDuration() { return duration; }
-    public Task getFather() { return father; }
     public boolean getRunning() { return running; }
 
     public void setFather(Task father) { this.father = father; }
@@ -87,5 +87,6 @@ public class Interval implements Observer {
         intervalJSON.put("running", running);
 
         return intervalJSON;
-    }
+    } /*It is a function used to write the interval data in a JSON file so that
+    it can be loaded in the future.*/
 }

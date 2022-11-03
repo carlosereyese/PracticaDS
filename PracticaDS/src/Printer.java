@@ -1,6 +1,7 @@
 import java.util.Observable;
 import java.util.Observer;
-
+/*Printer is a class that contains the methods to screen print the generated tree to keep track of which activities are
+active.*/
 public class Printer implements Visitor, Observer
 {
     private static Visitor instance = null;;
@@ -11,12 +12,13 @@ public class Printer implements Visitor, Observer
         ClockTimer.getInstance().addObserver(this);
         root = activity;
     }
-    public static void getInstance(Activity root)
+    public static Visitor getInstance(Activity root)
     {
         if (instance ==  null)
         {
             instance = new Printer(root);
         }
+        return instance;
     }
 
     @Override
