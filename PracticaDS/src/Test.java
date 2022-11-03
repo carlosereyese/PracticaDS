@@ -1,12 +1,5 @@
-import org.json.JSONObject;
-
-import java.nio.channels.spi.AbstractSelectionKey;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Clock;
-import java.io.*;
 public class Test {
-    private static Test instance;
+    private static Test instance = null;
     private Thread threadClock = new ThreadClock();
     private void Test()
     {
@@ -41,6 +34,7 @@ public class Test {
     {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
+        //ClockTimer.getInstance().startTimer();
 
         /*
         String jsonPath = "activitiesJSON.json";
@@ -66,7 +60,7 @@ public class Test {
         Task t4 = new Task("read handout", p5);
         Task t5 = new Task("first milestone", p5);
 
-        Printer.setInstance(root);
+        Printer.getInstance(root);
 
         Thread.sleep(1500);
 

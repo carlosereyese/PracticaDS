@@ -1,10 +1,9 @@
-import java.time.Duration;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Printer implements Visitor, Observer
 {
-    private static Visitor instance;
+    private static Visitor instance = null;;
     private static Activity root;
 
     private Printer(Activity activity)
@@ -12,7 +11,7 @@ public class Printer implements Visitor, Observer
         ClockTimer.getInstance().addObserver(this);
         root = activity;
     }
-    public static void setInstance(Activity root)
+    public static void getInstance(Activity root)
     {
         if (instance ==  null)
         {
