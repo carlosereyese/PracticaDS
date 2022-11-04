@@ -58,17 +58,15 @@ public class Task extends Activity{
         System.out.println(nameActivity + " stops");
         running = false;
     }
-    public Duration calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
+    public void calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
     the active time of all of its intervals.*/
     {
-        Duration duration = Duration.ofSeconds(0);
+        duration = Duration.ofSeconds(0);
 
         for (int i = 0; i < intervalList.size(); i++)
         {
             duration = duration.plus(intervalList.get(i).getDuration());
         }
-
-        return duration;
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
@@ -77,6 +75,7 @@ public class Task extends Activity{
             this.initialDate = initialDate;
         }
         this.finalDate = finalDate;
+        this.calculateTotalTime();
         father.changeTime(initialDate, finalDate);
     }
     @Override

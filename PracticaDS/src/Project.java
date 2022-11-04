@@ -80,17 +80,15 @@ public class Project extends Activity{
     {
         activityList.add(a);
     }
-    public Duration calculateTotalTime() /*Calculates the active time of the project consisting of the sum of
+    public void calculateTotalTime() /*Calculates the active time of the project consisting of the sum of
     the active time of all its children (projects+tasks).*/
     {
-        Duration duration = Duration.ofSeconds(0);
+        duration = Duration.ofSeconds(0);
 
         for(int i = 0; i < activityList.size(); i++)
         {
-            duration = duration.plus(activityList.get(i).calculateTotalTime());
+            duration = duration.plus(activityList.get(i).getDuration());
         }
-
-        return duration;
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
@@ -99,6 +97,7 @@ public class Project extends Activity{
             this.initialDate = initialDate;
         }
         this.finalDate = finalDate;
+        this.calculateTotalTime();
 
         if(father != null)
         {

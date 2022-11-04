@@ -33,7 +33,7 @@ public class Printer implements Visitor, Observer
         if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning() == true))
         {
             System.out.println("activity: " + project.getNameActivity() + "\t" + project.getInitialDate()
-                    + "\t" + project.getFinalDate() + "\t" + project.calculateTotalTime().getSeconds());
+                    + "\t" + project.getFinalDate() + "\t" + project.getDuration().getSeconds());
         }
     }
     @Override
@@ -55,7 +55,7 @@ public class Printer implements Visitor, Observer
         if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask == true))
         {
             System.out.println("activity: " + task.getNameActivity() + "\t" + task.getInitialDate() + "\t"
-                    + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
+                    + task.getFinalDate() + "\t" + task.getDuration().getSeconds());
         }
     }
     @Override
