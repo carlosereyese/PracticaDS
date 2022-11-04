@@ -1,3 +1,10 @@
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /*The test class contains all the tests necessary to check the correct functionality of the
 Time Tracker program.*/
 public class Test {
@@ -41,16 +48,15 @@ public class Test {
         //ClockTimer.getInstance().startTimer();
 
         /*
-        String jsonPath = "activitiesJSON.json";
-        Project root = new Project();
+        String jsonPath = "activityJSON.json";
+        Project root1 = new Project();
         try{
             String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
             JSONObject jsonObj = new JSONObject(jsonString);
-            root = new Project(jsonObj);
+            root1 = new Project(jsonObj);
         } catch (IOException e){
             e.printStackTrace();
-        }
-        */
+        }*/
 
         Project root = new Project("root", null);
         Project p1 = new Project("software design", root);
@@ -99,8 +105,8 @@ public class Test {
             file.write(root.toJSON().toString());
         }catch (IOException e){
             e.printStackTrace();
-        }
-        */
+        }*/
+
 
         return root;
     }

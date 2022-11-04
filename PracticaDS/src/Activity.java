@@ -49,7 +49,7 @@ public abstract class Activity{
     {
         return finalDate;
     }
-    public Duration getDuration() { return duration; }
+    public Duration getDuration() {  return duration; }
     public abstract boolean getRunning();
     public abstract Object getIList(int i);
     public abstract int getSizeList();

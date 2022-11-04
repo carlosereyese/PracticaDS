@@ -28,6 +28,7 @@ public class Task extends Activity{
         else
             finalDate = null;
 
+        duration = Duration.parse(jsonObj.getString("duration"));
         running = jsonObj.getBoolean("running");
 
         JSONArray jsonList = jsonObj.getJSONArray("intervalList");
@@ -84,7 +85,9 @@ public class Task extends Activity{
         visitor.visitTask(this);
     }
 
-    public JSONObject toJSON(){
+    public JSONObject toJSON()/*It is a function used to write the task data in a JSON file so that
+    it can be loaded in the future.*/
+    {
 
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
@@ -104,6 +107,7 @@ public class Task extends Activity{
             compJSON.put("finalDate", tempDate);
         }
 
+        compJSON.put("duration", duration.toString());
         compJSON.put("running", running);
 
         JSONArray ja = new JSONArray();
@@ -113,6 +117,5 @@ public class Task extends Activity{
 
         compJSON.put("intervalList",ja);
         return compJSON;
-    } /*It is a function used to write the task data in a JSON file so that
-    it can be loaded in the future.*/
+    }
 }

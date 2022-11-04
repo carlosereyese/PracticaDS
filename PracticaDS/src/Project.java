@@ -36,7 +36,7 @@ public class Project extends Activity{
         else
             finalDate = null;
 
-
+        duration = Duration.parse(jsonObj.getString("duration"));
         running = jsonObj.getBoolean("running");
 
         JSONArray jsonList = jsonObj.getJSONArray("activityList");
@@ -129,7 +129,7 @@ public class Project extends Activity{
             compJSON.put("finalDate", tempDate);
         }
 
-
+        compJSON.put("duration", duration.toString());
         compJSON.put("running", running);
 
         JSONArray ja = new JSONArray();

@@ -31,10 +31,11 @@ abstract class           Activity
      # father : Activity
      # initialDate : LocalDateTime
      # finalDate : LocalDateTime
+     # duration : Duration
      # running : boolean
      + Activity(nameActivity : String, father : Activity)
      + add(a : Activity)
-     + {abstract} calculateTotalTime : Duration
+     + {abstract} calculateTotalTime() : void
      + {abstract} changeTime(initialDate : LocalDateTime, finalDate : LocalDateTime) : void
      + {abstract} acceptVisitor(visitor : Visitor) : void
      + {abstract} toJSON() : JSONObject 
