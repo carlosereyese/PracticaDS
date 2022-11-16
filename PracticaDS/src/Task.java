@@ -18,6 +18,11 @@ public class Task extends Activity{
     public Task(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
 
+        JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
+        for (int i = 0; i < jsonListTags.length(); i++){
+            listOfTags.add(jsonListTags.getString(i));
+        }
+
         if (!jsonObj.isNull("initialDate"))
             initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
         else
@@ -90,6 +95,12 @@ public class Task extends Activity{
 
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
+
+        JSONArray jl = new JSONArray();
+        for (String tag : listOfTags) {
+            jl.put(tag);
+        }
+        compJSON.put("listOfTags", jl);
 
         String tempDate;
         if (initialDate == null)

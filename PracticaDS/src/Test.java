@@ -35,7 +35,6 @@ public class Test {
         Task t3 = new Task("second list", List.of("Dart"), p4);
         Task t4 = new Task("read handout", List.of(), p5);
         Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
-
     }
     public void testB() throws InterruptedException /*It is used to check if the tasks are started and
     stopped correctly by printing the contents of each task every 2 seconds.*/
@@ -43,15 +42,6 @@ public class Test {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
-        /*String jsonPath = "activityJSON.json";
-        Project root1 = new Project();
-        try{
-            String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
-            JSONObject jsonObj = new JSONObject(jsonString);
-            root1 = new Project(jsonObj);
-        } catch (IOException e){
-            e.printStackTrace();
-        }*/
         Project root = new Project("root", List.of(), null);
         Project p1 = new Project("software design", List.of("java", "flutter"), root);
         Project p2 = new Project("software testing", List.of("c++", "Java", "python"), root);
@@ -65,7 +55,6 @@ public class Test {
         Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
 
         Printer.getInstance(root);
-        List<Activity> a = SearchByTag.getInstance(root).searchByTag("python");
         Thread.sleep(1500);
 
         t1.start();
@@ -94,12 +83,31 @@ public class Test {
         ClockTimer.getInstance().stopTimer();
         System.out.println("end of test");
 
-        /*try(FileWriter file = new FileWriter(jsonPath)){
+        String jsonPath = "activityJSON.json";
+        try(FileWriter file = new FileWriter(jsonPath)){
             file.write(root.toJSON().toString());
         }catch (IOException e){
             e.printStackTrace();
-        }*/
+        }
+    }
+    public void testC() {
+        String jsonPath = "activityJSON.json";
+        Project root = new Project();
+        try {
+            String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
+            JSONObject jsonObj = new JSONObject(jsonString);
+            root = new Project(jsonObj);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        Activity activity1 = SearchByName.getInstance(root).searchByName("software design");
+        System.out.println("ACTIVITY: " + activity1.getNameActivity());
+        System.out.println("DURATION: " + activity1.getDuration());
+
+        List<Activity> activity2 = SearchByTag.getInstance(root).searchByTag("Dart");
+        System.out.println("ACTIVITY: " + activity2.get(0).getNameActivity());
+        System.out.println("DURATION: " + activity2.get(0).getDuration());
     }
 }
 

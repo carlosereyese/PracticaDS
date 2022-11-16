@@ -19,7 +19,7 @@ public class SearchByName implements Visitor{
 
     @Override
     public void visitProject(Project project) {
-        if (project.getNameActivity() == name)
+        if (project.getNameActivity().equals(name))
         {
             foundActivity = project;
         }
@@ -34,7 +34,7 @@ public class SearchByName implements Visitor{
     }
     @Override
     public void visitTask(Task task) {
-        if (task.getNameActivity() == name)
+        if (task.getNameActivity().equals(name))
         {
             foundActivity = task;
         }

@@ -25,6 +25,11 @@ public class Project extends Activity{
     public Project(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
 
+        JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
+        for (int i = 0; i < jsonListTags.length(); i++){
+            listOfTags.add(jsonListTags.getString(i));
+        }
+
         if (!jsonObj.isNull("initialDate")){
             initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
         }
@@ -113,6 +118,12 @@ public class Project extends Activity{
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
 
+        JSONArray jl = new JSONArray();
+        for (String tag : listOfTags) {
+            jl.put(tag);
+        }
+        compJSON.put("listOfTags", jl);
+
         String tempDate;
         if (initialDate == null)
             compJSON.put("initialDate", JSONObject.NULL);
@@ -135,7 +146,6 @@ public class Project extends Activity{
         for (Activity activity : activityList) {
             ja.put(activity.toJSON());
         }
-
         compJSON.put("activityList", ja);
 
         return compJSON;

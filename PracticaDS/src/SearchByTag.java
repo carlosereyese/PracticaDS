@@ -26,7 +26,7 @@ public class SearchByTag implements Visitor{
         int i = 0;
 
         while ((i < project.getListOfTags().size()) && (!found)) {
-            if (project.getListOfTags().get(i) == tag)
+            if (project.getListOfTags().get(i).equals(tag))
             {
                 foundActivity.add(project);
                 found = true;
@@ -51,7 +51,7 @@ public class SearchByTag implements Visitor{
 
         while ((i < task.getListOfTags().size()) && (!found))
         {
-            if (task.getListOfTags().get(i) == tag)
+            if (task.getListOfTags().get(i).equals(tag))
             {
                 foundActivity.add(task);
                 found = true;
