@@ -10,11 +10,14 @@ task has been active.*/
 public class Task extends Activity{
     private final List<Interval> intervalList = new ArrayList<>();
 
+    private boolean invariant()
+    {
+        return false;
+    }
     public Task(String nameTask, List<String> listOfTags, Activity father)
     {
         super(nameTask, listOfTags, father);
     }
-
     public Task(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
 

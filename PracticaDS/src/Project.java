@@ -10,6 +10,10 @@ this means a project is a set of projects and tasks that have been created in th
 public class Project extends Activity{
     private List<Activity> activityList = new ArrayList<>();
 
+    private boolean invariant()
+    {
+        return false;
+    }
     public Project(){
         nameActivity = "";
         initialDate = null;

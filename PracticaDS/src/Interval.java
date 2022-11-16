@@ -19,7 +19,6 @@ public class Interval implements Observer {
         running =  true;
         ClockTimer.getInstance().addObserver(this);
     }
-
     public Interval (JSONObject jsonObj){
         if (!jsonObj.isNull("initialDate"))
             initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));

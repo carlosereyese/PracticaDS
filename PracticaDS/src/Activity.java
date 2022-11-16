@@ -17,6 +17,10 @@ public abstract class Activity{
     protected Duration duration;
     protected boolean running;
 
+    private boolean invariant()
+    {
+        return false;
+    }
     public Activity() {
         initialDate = null;
         finalDate = null;
