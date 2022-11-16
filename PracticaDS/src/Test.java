@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /*The test class contains all the tests necessary to check the correct functionality of the
 Time Tracker program.*/
@@ -22,17 +24,17 @@ public class Test {
     public void testA()  /*Used to test if the project-task-interval tree is
     generated correctly.*/
     {
-        Project root = new Project("root", null);
-        Project p1 = new Project("software design", root);
-        Project p2 = new Project("software testing", root);
-        Project p3 = new Project("databases", root);
-        Task t1 = new Task("transportation", root);
-        Project p4 = new Project("problems", p1);
-        Project p5 = new Project("project time tracker", p1);
-        Task t2 = new Task("first list", p4);
-        Task t3 = new Task("second list", p4);
-        Task t4 = new Task("read handout", p5);
-        Task t5 = new Task("first milestone", p5);
+        Project root = new Project("root", List.of(), null);
+        Project p1 = new Project("software design", List.of("java", "flutter"), root);
+        Project p2 = new Project("software testing", List.of("c++", "Java", "python"), root);
+        Project p3 = new Project("databases", List.of("SQL", "python", "C++"), root);
+        Task t1 = new Task("transportation", List.of(), root);
+        Project p4 = new Project("problems", List.of(), p1);
+        Project p5 = new Project("project time tracker", List.of(), p1);
+        Task t2 = new Task("first list", List.of("java"), p4);
+        Task t3 = new Task("second list", List.of("Dart"), p4);
+        Task t4 = new Task("read handout", List.of(), p5);
+        Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
 
     }
     public void testB() throws InterruptedException /*It is used to check if the tasks are started and
@@ -41,7 +43,7 @@ public class Test {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
-        String jsonPath = "activityJSON.json";
+        /*String jsonPath = "activityJSON.json";
         Project root1 = new Project();
         try{
             String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
@@ -49,22 +51,21 @@ public class Test {
             root1 = new Project(jsonObj);
         } catch (IOException e){
             e.printStackTrace();
-        }
-
-        Project root = new Project("root", null);
-        Project p1 = new Project("software design", root);
-        Project p2 = new Project("software testing", root);
-        Project p3 = new Project("databases", root);
-        Task t1 = new Task("transportation", root);
-        Project p4 = new Project("problems", p1);
-        Project p5 = new Project("project time tracker", p1);
-        Task t2 = new Task("first list", p4);
-        Task t3 = new Task("second list", p4);
-        Task t4 = new Task("read handout", p5);
-        Task t5 = new Task("first milestone", p5);
+        }*/
+        Project root = new Project("root", List.of(), null);
+        Project p1 = new Project("software design", List.of("java", "flutter"), root);
+        Project p2 = new Project("software testing", List.of("c++", "Java", "python"), root);
+        Project p3 = new Project("databases", List.of("SQL", "python", "C++"), root);
+        Task t1 = new Task("transportation", List.of(), root);
+        Project p4 = new Project("problems", List.of(), p1);
+        Project p5 = new Project("project time tracker", List.of(), p1);
+        Task t2 = new Task("first list", List.of("java"), p4);
+        Task t3 = new Task("second list", List.of("Dart"), p4);
+        Task t4 = new Task("read handout", List.of(), p5);
+        Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
 
         Printer.getInstance(root);
-
+        List<Activity> a = SearchByTag.getInstance(root).searchByTag("python");
         Thread.sleep(1500);
 
         t1.start();
@@ -93,12 +94,11 @@ public class Test {
         ClockTimer.getInstance().stopTimer();
         System.out.println("end of test");
 
-
-        try(FileWriter file = new FileWriter(jsonPath)){
+        /*try(FileWriter file = new FileWriter(jsonPath)){
             file.write(root.toJSON().toString());
         }catch (IOException e){
             e.printStackTrace();
-        }
+        }*/
 
     }
 }

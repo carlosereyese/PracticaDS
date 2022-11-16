@@ -4,7 +4,7 @@ import java.util.Observer;
 active.*/
 public class Printer implements Visitor, Observer
 {
-    private static Visitor instance = null;
+    private static Printer instance = null;
     private static Activity root;
 
     private Printer(Activity activity)

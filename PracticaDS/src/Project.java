@@ -17,9 +17,9 @@ public class Project extends Activity{
         running = false;
         activityList = null;
     }
-    public Project(String nameProject, Activity father)
+    public Project(String nameTask, List<String> listOfTags, Activity father)
     {
-        super(nameProject, father);
+        super(nameTask, listOfTags, father);
     }
 
     public Project(JSONObject jsonObj){
