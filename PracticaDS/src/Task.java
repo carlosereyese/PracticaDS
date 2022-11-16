@@ -8,7 +8,7 @@ import java.util.List;
 /*Task is a class that inherits from Activity and contains execution intervals that indicate how long the
 task has been active.*/
 public class Task extends Activity{
-    private List<Interval> intervalList = new ArrayList<Interval>();
+    private final List<Interval> intervalList = new ArrayList<>();
 
     public Task(String nameTask, Activity father)
     {
@@ -64,9 +64,8 @@ public class Task extends Activity{
     {
         duration = Duration.ofSeconds(0);
 
-        for (int i = 0; i < intervalList.size(); i++)
-        {
-            duration = duration.plus(intervalList.get(i).getDuration());
+        for (Interval interval : intervalList) {
+            duration = duration.plus(interval.getDuration());
         }
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
@@ -111,8 +110,8 @@ public class Task extends Activity{
         compJSON.put("running", running);
 
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < intervalList.size(); i++){
-            ja.put(intervalList.get(i).toJSON());
+        for (Interval interval : intervalList) {
+            ja.put(interval.toJSON());
         }
 
         compJSON.put("intervalList",ja);

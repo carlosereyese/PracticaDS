@@ -8,7 +8,7 @@ import java.util.List;
 /*Project is a class that inherits from Activity and that contains more projects and tasks (it acts as a container),
 this means a project is a set of projects and tasks that have been created in the application.*/
 public class Project extends Activity{
-    private List<Activity> activityList = new ArrayList<Activity>();
+    private List<Activity> activityList = new ArrayList<>();
 
     public Project(){
         nameActivity = "";
@@ -60,9 +60,9 @@ public class Project extends Activity{
         boolean run = false;
         int i = 0;
 
-        while ((run == false) && (i < activityList.size()))
+        while ((!run) && (i < activityList.size()))
         {
-            if (activityList.get(i).getRunning() == true)
+            if (activityList.get(i).getRunning())
             {
                 run = true;
             }
@@ -85,9 +85,8 @@ public class Project extends Activity{
     {
         duration = Duration.ofSeconds(0);
 
-        for(int i = 0; i < activityList.size(); i++)
-        {
-            duration = duration.plus(activityList.get(i).getDuration());
+        for (Activity activity : activityList) {
+            duration = duration.plus(activity.getDuration());
         }
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
@@ -133,8 +132,8 @@ public class Project extends Activity{
         compJSON.put("running", running);
 
         JSONArray ja = new JSONArray();
-        for (int i = 0; i < activityList.size(); i++){
-            ja.put(activityList.get(i).toJSON());
+        for (Activity activity : activityList) {
+            ja.put(activity.toJSON());
         }
 
         compJSON.put("activityList", ja);

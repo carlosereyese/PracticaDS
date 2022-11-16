@@ -1,5 +1,4 @@
 import org.json.JSONObject;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,11 +8,8 @@ import java.nio.file.Paths;
 Time Tracker program.*/
 public class Test {
     private static Test instance = null;
-    private Thread threadClock = new ThreadClock();
-    private void Test()
-    {
-        //void
-    }
+    private final Thread threadClock = new ThreadClock();
+
     public static Test getInstance()
     {
         if (instance ==  null)
@@ -23,7 +19,7 @@ public class Test {
 
         return instance;
     }
-    public Activity testA() throws InterruptedException /*Used to test if the project-task-interval tree is
+    public void testA()  /*Used to test if the project-task-interval tree is
     generated correctly.*/
     {
         Project root = new Project("root", null);
@@ -38,16 +34,13 @@ public class Test {
         Task t4 = new Task("read handout", p5);
         Task t5 = new Task("first milestone", p5);
 
-        return root;
     }
-    public Activity testB() throws InterruptedException /*It is used to check if the tasks are started and
+    public void testB() throws InterruptedException /*It is used to check if the tasks are started and
     stopped correctly by printing the contents of each task every 2 seconds.*/
     {
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
-        //ClockTimer.getInstance().startTimer();
 
-        /*
         String jsonPath = "activityJSON.json";
         Project root1 = new Project();
         try{
@@ -56,7 +49,7 @@ public class Test {
             root1 = new Project(jsonObj);
         } catch (IOException e){
             e.printStackTrace();
-        }*/
+        }
 
         Project root = new Project("root", null);
         Project p1 = new Project("software design", root);
@@ -97,18 +90,16 @@ public class Test {
         Thread.sleep(4000);
         t1.stop();
 
-        threadClock.stop();
+        ClockTimer.getInstance().stopTimer();
         System.out.println("end of test");
 
-        /*
+
         try(FileWriter file = new FileWriter(jsonPath)){
             file.write(root.toJSON().toString());
         }catch (IOException e){
             e.printStackTrace();
-        }*/
+        }
 
-
-        return root;
     }
 }
 

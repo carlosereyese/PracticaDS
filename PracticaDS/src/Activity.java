@@ -2,7 +2,9 @@ import org.json.JSONObject;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-/*The class Activitat is a component from which the classes task and project inherit, it is used to represent the different activities of the
+import java.util.Objects;
+
+/*The class Activity is a component from which the classes task and project inherit, it is used to represent the different activities of the
 Time Tracker.*/
 public abstract class Activity{
     protected String nameActivity;
@@ -32,14 +34,7 @@ public abstract class Activity{
 
     public String getNameActivity()
     {
-        if (nameActivity == null)
-        {
-            return "null";
-        }
-        else
-        {
-            return nameActivity;
-        }
+        return Objects.requireNonNullElse(nameActivity, "null");
     }
     public LocalDateTime getInitialDate()
     {
@@ -50,14 +45,11 @@ public abstract class Activity{
         return finalDate;
     }
     public Duration getDuration() {  return duration; }
-    public abstract boolean getRunning();
-    public abstract Object getIList(int i);
-    public abstract int getSizeList();
-
     public void add(Activity a) {
         //void
     }
-    public abstract void calculateTotalTime();
+
+    public abstract boolean getRunning();
     public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
     public abstract void acceptVisitor(Visitor visitor);
     public abstract JSONObject toJSON();

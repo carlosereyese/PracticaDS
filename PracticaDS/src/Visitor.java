@@ -1,5 +1,5 @@
 public interface Visitor {
-    public abstract void visitProject(Project project);
-    public abstract void visitTask(Task task);
-    public abstract void visitInterval(Interval interval);
+    void visitProject(Project project);
+    void visitTask(Task task);
+    void visitInterval(Interval interval);
 }

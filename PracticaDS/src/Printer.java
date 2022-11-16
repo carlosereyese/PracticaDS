@@ -4,7 +4,7 @@ import java.util.Observer;
 active.*/
 public class Printer implements Visitor, Observer
 {
-    private static Visitor instance = null;;
+    private static Visitor instance = null;
     private static Activity root;
 
     private Printer(Activity activity)
@@ -12,13 +12,12 @@ public class Printer implements Visitor, Observer
         ClockTimer.getInstance().addObserver(this);
         root = activity;
     }
-    public static Visitor getInstance(Activity root)
+    public static void getInstance(Activity root)
     {
         if (instance ==  null)
         {
             instance = new Printer(root);
         }
-        return instance;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class Printer implements Visitor, Observer
             ((Activity) o).acceptVisitor(instance);
         }
 
-        if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning() == true))
+        if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning()))
         {
             System.out.println("activity: " + project.getNameActivity() + "\t" + project.getInitialDate()
                     + "\t" + project.getFinalDate() + "\t" + project.getDuration().getSeconds());
@@ -46,13 +45,13 @@ public class Printer implements Visitor, Observer
             Object interval = task.getIList(i);
             ((Interval) interval).acceptVisitor(instance);
 
-            if ((((Interval) interval).getInitialDate() != null) && (((Interval) interval).getFinalDate() != null) && (((Interval) interval).getRunning() == true))
+            if ((((Interval) interval).getInitialDate() != null) && (((Interval) interval).getFinalDate() != null) && (((Interval) interval).getRunning()))
             {
                 printTask = true;
             }
         }
 
-        if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask == true))
+        if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask))
         {
             System.out.println("activity: " + task.getNameActivity() + "\t" + task.getInitialDate() + "\t"
                     + task.getFinalDate() + "\t" + task.getDuration().getSeconds());
@@ -61,7 +60,7 @@ public class Printer implements Visitor, Observer
     @Override
     public void visitInterval(Interval interval)
     {
-        if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null) && (interval.getRunning() == true))
+        if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null) && (interval.getRunning()))
         {
             System.out.println("interval: " + "\t" + interval.getInitialDate() + "\t" + interval.getFinalDate() + "\t"
                     + interval.getDuration().getSeconds());
