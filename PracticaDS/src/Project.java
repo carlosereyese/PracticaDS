@@ -25,16 +25,18 @@ public class Project extends Activity{
         finalDate = null;
         running = false;
         activityList = null;
+
+        assert(this.nameActivity != null); //Post condition
     }
-    public Project(String nameTask, List<String> listOfTags, Activity father)
+    public Project(String nameActivity, List<String> listOfTags, Activity father)
     {
-        super(nameTask, listOfTags, father);
-        checkInvariant();
+        super(nameActivity, listOfTags, father);
+
+        assert(this.nameActivity != null); //Post condition
+        checkInvariant(); //Invariant
     }
-
-    public Project(JSONObject jsonObj){
+    public Project(JSONObject jsonObj) {
         nameActivity = jsonObj.getString("nameActivity");
-
         father = null;
 
         JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
@@ -70,9 +72,9 @@ public class Project extends Activity{
             activityList.get(i).father = this;
         }
 
-        checkInvariant();
-    } /*It is a constructor used to load data from the JSON file to
-    initialize the project.*/
+        assert(this.nameActivity != null); //Post condition
+        checkInvariant(); //Invariant
+    }
 
     public Object getIList(int i)
     {
@@ -102,25 +104,44 @@ public class Project extends Activity{
 
     public void add(Activity a)
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
+        if (a == null) //Pre condition
+        {
+            throw new IllegalArgumentException("Illegal activity");
+        }
+
         activityList.add(a);
-        checkInvariant();
+
+        assert(activityList != null);
+        checkInvariant(); //Invariant
     }
     public void calculateTotalTime() /*Calculates the active time of the project consisting of the sum of
     the active time of all its children (projects+tasks).*/
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
 
         duration = Duration.ofSeconds(0);
         for (Activity activity : activityList) {
             duration = duration.plus(activity.getDuration());
         }
 
-        checkInvariant();
+        assert ((duration == Duration.ofSeconds(0))
+                || (duration.toDays() >= Duration.ofSeconds(0).toDays() && duration.toHours() >= Duration.ofSeconds(0).toHours()
+                && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes() && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
+                && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
+        checkInvariant(); //Invariant
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
+        if (initialDate == null) //Pre condition
+        {
+            throw new IllegalArgumentException("Illegal initialDate");
+        }
+        else if (finalDate == null) //Pre condition
+        {
+            throw new IllegalArgumentException("Illegal finalDate");
+        }
 
         if (this.initialDate == null)
         {
@@ -134,7 +155,8 @@ public class Project extends Activity{
             father.changeTime(initialDate, finalDate);
         }
 
-        checkInvariant();
+        assert(this.initialDate != null && this.finalDate != null); //Post condition
+        checkInvariant(); //Invariant
     }
     @Override
     public void acceptVisitor(Visitor visitor)
@@ -176,7 +198,7 @@ public class Project extends Activity{
         }
         compJSON.put("activityList", ja);
 
-        checkInvariant();
+        checkInvariant(); //Invariant
         return compJSON;
     } /*It is a function used to write the project data in a JSON file so that
     it can be loaded in the future.*/

@@ -20,10 +20,12 @@ public class Task extends Activity{
                 && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes() && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
     }
-    public Task(String nameTask, List<String> listOfTags, Activity father)
+    public Task(String nameActivity, List<String> listOfTags, Activity father)
     {
-        super(nameTask, listOfTags, father);
-        checkInvariant();
+        super(nameActivity, listOfTags, father);
+
+        assert(this.nameActivity != null && this.father != null); //Post condition
+        checkInvariant(); //Invariant
     }
     public Task(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
@@ -59,7 +61,8 @@ public class Task extends Activity{
             intervalList.get(i).setFather(this);
         }
 
-        checkInvariant();
+        assert(this.nameActivity != null && this.father != null); //Post condition
+        checkInvariant(); //Invariant
     } /*It is a constructor used to load data from the JSON file to
     initialize the task.*/
 
@@ -73,32 +76,63 @@ public class Task extends Activity{
         return running;
     }
     public void start() {
+        checkInvariant(); //Invariant
+        if (running == true) //Pre condition
+        {
+            throw new IllegalArgumentException("An attempt is being made to initiate a transaction that has already been initiated");
+        }
+
         System.out.println(nameActivity + " starts");
         Interval newInterval = new Interval();
         newInterval.setFather(this);
         intervalList.add(newInterval);
         running = true;
+
+        assert(running == true); //Post condition
+        assert(intervalList != null); //Post condition
+        checkInvariant(); //Invariant
     }
     public void stop() {
+        checkInvariant(); //Invariant
+        if (running == false) //Pre condition
+        {
+            throw new IllegalArgumentException("An attempt is being made to finalize a completed share");
+        }
+
         intervalList.get(intervalList.size() - 1).stop();
         System.out.println(nameActivity + " stops");
         running = false;
+
+        assert(running == false); //Post condition
+        checkInvariant(); //Invariant
     }
     public void calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
     the active time of all of its intervals.*/
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
 
         duration = Duration.ofSeconds(0);
         for (Interval interval : intervalList) {
             duration = duration.plus(interval.getDuration());
         }
 
-        checkInvariant();
+        assert ((duration == Duration.ofSeconds(0))
+                || (duration.toDays() >= Duration.ofSeconds(0).toDays() && duration.toHours() >= Duration.ofSeconds(0).toHours()
+                && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes() && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
+                && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
+        checkInvariant(); //Invariant
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
+        if (initialDate == null) //Pre condition
+        {
+            throw new IllegalArgumentException("Illegal initialDate");
+        }
+        else if (finalDate == null) //Pre condition
+        {
+            throw new IllegalArgumentException("Illegal finalDate");
+        }
 
         if (this.initialDate == null)
         {
@@ -108,7 +142,8 @@ public class Task extends Activity{
         this.calculateTotalTime();
         father.changeTime(initialDate, finalDate);
 
-        checkInvariant();
+        assert(this.initialDate != null && this.finalDate != null); //Post condition
+        checkInvariant(); //Invariant
     }
     @Override
     public void acceptVisitor(Visitor visitor)
@@ -119,7 +154,7 @@ public class Task extends Activity{
     public JSONObject toJSON()/*It is a function used to write the task data in a JSON file so that
     it can be loaded in the future.*/
     {
-        checkInvariant();
+        checkInvariant(); //Invariant
 
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
@@ -155,7 +190,7 @@ public class Task extends Activity{
 
         compJSON.put("intervalList",ja);
 
-        checkInvariant();
+        checkInvariant(); //Invariant
         return compJSON;
     }
 }
