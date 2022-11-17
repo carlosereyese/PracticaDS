@@ -12,7 +12,7 @@ public class Project extends Activity{
 
     private void checkInvariant()
     {
-        assert ((nameActivity == null) || (nameActivity != null && nameActivity.charAt(0) != ' '));
+        assert nameActivity == null || nameActivity.charAt(0) != ' ';
         assert ((initialDate == null && finalDate == null) || (initialDate != null && finalDate != null));
         assert ((duration == Duration.ofSeconds(0))
                 || (duration.toDays() >= Duration.ofSeconds(0).toDays() && duration.toHours() >= Duration.ofSeconds(0).toHours()
@@ -67,9 +67,8 @@ public class Project extends Activity{
             }
         }
 
-        for (int i = 0; i < activityList.size(); i++)
-        {
-            activityList.get(i).father = this;
+        for (Activity activity : activityList) {
+            activity.father = this;
         }
 
         assert(this.nameActivity != null); //Post condition

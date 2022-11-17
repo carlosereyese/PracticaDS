@@ -4,7 +4,7 @@ import java.util.List;
 public class SearchByTag implements Visitor{
     private static SearchByTag instance = null;
     private static Activity root;
-    private static List<Activity> foundActivity = new ArrayList<>();
+    private static final List<Activity> foundActivity = new ArrayList<>();
     private static String tag;
 
     private SearchByTag(Activity activity)

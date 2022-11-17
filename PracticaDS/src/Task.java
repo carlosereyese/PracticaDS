@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 /*Task is a class that inherits from Activity and contains execution intervals that indicate how long the
 task has been active.*/
 public class Task extends Activity{
@@ -13,7 +15,7 @@ public class Task extends Activity{
     private void checkInvariant()
     {
         assert ((nameActivity == null && father == null) || (nameActivity != null && father != null));
-        assert (nameActivity.charAt(0) != ' ');
+        assert (Objects.requireNonNull(nameActivity).charAt(0) != ' ');
         assert ((initialDate == null && finalDate == null) || (initialDate != null && finalDate != null));
         assert ((duration == Duration.ofSeconds(0))
                 || (duration.toDays() >= Duration.ofSeconds(0).toDays() && duration.toHours() >= Duration.ofSeconds(0).toHours()
@@ -30,8 +32,7 @@ public class Task extends Activity{
     public Task(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
 
-        Project auxiliar = new Project();
-        father = auxiliar;
+        father = new Project();
 
         JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
         for (int i = 0; i < jsonListTags.length(); i++){
@@ -56,9 +57,8 @@ public class Task extends Activity{
             intervalList.add(new Interval(jsonList.getJSONObject(i)));
         }
 
-        for (int i = 0; i < intervalList.size(); i++)
-        {
-            intervalList.get(i).setFather(this);
+        for (Interval interval : intervalList) {
+            interval.setFather(this);
         }
 
         assert(this.nameActivity != null && this.father != null); //Post condition
@@ -77,7 +77,7 @@ public class Task extends Activity{
     }
     public void start() {
         checkInvariant(); //Invariant
-        if (running == true) //Pre condition
+        if (running) //Pre condition
         {
             throw new IllegalArgumentException("An attempt is being made to initiate a transaction that has already been initiated");
         }
@@ -88,13 +88,13 @@ public class Task extends Activity{
         intervalList.add(newInterval);
         running = true;
 
-        assert(running == true); //Post condition
+        assert(running); //Post condition
         assert(intervalList != null); //Post condition
         checkInvariant(); //Invariant
     }
     public void stop() {
         checkInvariant(); //Invariant
-        if (running == false) //Pre condition
+        if (!running) //Pre condition
         {
             throw new IllegalArgumentException("An attempt is being made to finalize a completed share");
         }
@@ -103,7 +103,7 @@ public class Task extends Activity{
         System.out.println(nameActivity + " stops");
         running = false;
 
-        assert(running == false); //Post condition
+        assert(!running); //Post condition
         checkInvariant(); //Invariant
     }
     public void calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
