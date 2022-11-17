@@ -5,8 +5,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-/*Project is a class that inherits from Activity and that contains more projects and tasks (it acts as a container),
-this means a project is a set of projects and tasks that have been created in the application.*/
+/*
+Project is a class that inherits from Activity and that contains more projects and tasks (it acts as a container),
+this means a project is a set of projects and tasks that have been created in the application.
+A project can be decomposed into more activities, it can be decomposed into more projects and tasks.
+*/
 public class Project extends Activity{
     private List<Activity> activityList = new ArrayList<>();
 

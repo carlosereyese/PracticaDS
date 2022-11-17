@@ -4,7 +4,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
-/*Interval is a class that contains the start and end time of a time interval contained in a task class.*/
+/*
+Interval is a class that contains the start and end time of a time interval contained in a task class.
+The design pattern that applies to this class is the "Observer-Observable" pattern, because this class is pending of
+clock warnings to update the start-end data of an interval.
+*/
 public class Interval implements Observer {
     private LocalDateTime initialDate;
     private LocalDateTime finalDate;
@@ -52,7 +56,8 @@ public class Interval implements Observer {
         running = false;
     }
     @Override
-    public void update(Observable observable, Object object)
+    public void update(Observable observable, Object object) /*With the "update" method it is possible to receive the
+    notifications of the observed class "ClockTimer" in order to proceed with the update of the times.*/
     {
         if (initialDate == null)
         {
@@ -60,7 +65,8 @@ public class Interval implements Observer {
         }
         finalDate = (LocalDateTime) object;
         duration = Duration.between(initialDate, finalDate);
-        father.changeTime(initialDate, finalDate);
+        father.changeTime(initialDate, finalDate); /*With this line of code, its parent is notified recursively to
+        update its times.*/
     }
     public void acceptVisitor(Visitor visitor)
     {

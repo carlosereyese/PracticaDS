@@ -7,8 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/*Task is a class that inherits from Activity and contains execution intervals that indicate how long the
-task has been active.*/
+/*
+Task is a class that inherits from Activity and contains execution intervals that indicate how long the task has been
+active.
+A task is an activity that cannot be decomposed into other activities such as the project, an activity is made up of
+intervals that indicate the time slots in which the task has been active.
+*/
 public class Task extends Activity{
     private final List<Interval> intervalList = new ArrayList<>();
 

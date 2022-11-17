@@ -1,7 +1,12 @@
 import java.util.Observable;
 import java.util.Observer;
-/*Printer is a class that contains the methods to screen print the generated tree to keep track of which activities are
-active.*/
+/*
+Printer is a class that contains the methods to screen print the generated tree to keep track of which activities are
+active.
+This class implements the "Visitor" interface so that the project, the price and the interval can be self-printed.
+In addition to implementing the "Visitor" pattern, it also implements the "Observer-Observable" pattern so that the
+clock can notify the printer when active activities need to be printed on the screen.
+*/
 public class Printer implements Visitor, Observer
 {
     private static Printer instance = null;
@@ -71,5 +76,7 @@ public class Printer implements Visitor, Observer
     public void update(Observable o, Object arg)
     {
         root.acceptVisitor(instance);
-    }
+    } /*With the "update" method it is possible to receive the
+    notifications of the observed class "ClockTimer" in order to proceed to print the active projects, tasks and
+    activities.*/
 }
