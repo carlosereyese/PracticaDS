@@ -10,16 +10,26 @@ task has been active.*/
 public class Task extends Activity{
     private final List<Interval> intervalList = new ArrayList<>();
 
-    private boolean invariant()
+    private void checkInvariant()
     {
-        return false;
+        assert ((nameActivity == null && father == null) || (nameActivity != null && father != null));
+        assert (nameActivity.charAt(0) != ' ');
+        assert ((initialDate == null && finalDate == null) || (initialDate != null && finalDate != null));
+        assert ((duration == Duration.ofSeconds(0))
+                || (duration.toDays() >= Duration.ofSeconds(0).toDays() && duration.toHours() >= Duration.ofSeconds(0).toHours()
+                && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes() && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
+                && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
     }
     public Task(String nameTask, List<String> listOfTags, Activity father)
     {
         super(nameTask, listOfTags, father);
+        checkInvariant();
     }
     public Task(JSONObject jsonObj){
         nameActivity = jsonObj.getString("nameActivity");
+
+        Project auxiliar = new Project();
+        father = auxiliar;
 
         JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
         for (int i = 0; i < jsonListTags.length(); i++){
@@ -43,6 +53,13 @@ public class Task extends Activity{
         for (int i = 0; i < jsonList.length(); i++){
             intervalList.add(new Interval(jsonList.getJSONObject(i)));
         }
+
+        for (int i = 0; i < intervalList.size(); i++)
+        {
+            intervalList.get(i).setFather(this);
+        }
+
+        checkInvariant();
     } /*It is a constructor used to load data from the JSON file to
     initialize the task.*/
 
@@ -70,14 +87,19 @@ public class Task extends Activity{
     public void calculateTotalTime()/*Calculates the active time of the task consisting of the sum of
     the active time of all of its intervals.*/
     {
-        duration = Duration.ofSeconds(0);
+        checkInvariant();
 
+        duration = Duration.ofSeconds(0);
         for (Interval interval : intervalList) {
             duration = duration.plus(interval.getDuration());
         }
+
+        checkInvariant();
     }
     public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate)
     {
+        checkInvariant();
+
         if (this.initialDate == null)
         {
             this.initialDate = initialDate;
@@ -85,6 +107,8 @@ public class Task extends Activity{
         this.finalDate = finalDate;
         this.calculateTotalTime();
         father.changeTime(initialDate, finalDate);
+
+        checkInvariant();
     }
     @Override
     public void acceptVisitor(Visitor visitor)
@@ -95,6 +119,7 @@ public class Task extends Activity{
     public JSONObject toJSON()/*It is a function used to write the task data in a JSON file so that
     it can be loaded in the future.*/
     {
+        checkInvariant();
 
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
@@ -129,6 +154,8 @@ public class Task extends Activity{
         }
 
         compJSON.put("intervalList",ja);
+
+        checkInvariant();
         return compJSON;
     }
 }
