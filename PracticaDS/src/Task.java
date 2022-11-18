@@ -155,7 +155,7 @@ public class Task extends Activity{
         visitor.visitTask(this);
     }
 
-    public JSONObject toJSON()/*It is a function used to write the task data in a JSON file so that
+    public JSONObject toJson()/*It is a function used to write the task data in a JSON file so that
     it can be loaded in the future.*/
     {
         checkInvariant(); //Invariant

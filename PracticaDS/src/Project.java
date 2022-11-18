@@ -166,7 +166,7 @@ public class Project extends Activity{
         visitor.visitProject(this);
     }
     @Override
-    public JSONObject toJSON(){
+    public JSONObject toJson(){
         JSONObject compJSON = new JSONObject();
         compJSON.put("nameActivity", nameActivity);
 
@@ -196,7 +196,7 @@ public class Project extends Activity{
 
         JSONArray ja = new JSONArray();
         for (Activity activity : activityList) {
-            ja.put(activity.toJSON());
+            ja.put(activity.toJson());
         }
         compJSON.put("activityList", ja);
 

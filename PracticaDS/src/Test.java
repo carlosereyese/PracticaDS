@@ -84,7 +84,7 @@ public class Test {
 
         String jsonPath = "activityJSON.json";
         try(FileWriter file = new FileWriter(jsonPath)){
-            file.write(root.toJSON().toString());
+            file.write(root.toJson().toString());
         }catch (IOException e){
             e.printStackTrace();
         }
