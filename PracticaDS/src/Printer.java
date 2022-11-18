@@ -64,8 +64,7 @@ public class Printer implements Visitor, Observer {
 
   @Override
   public void visitInterval(Interval interval) {
-    if ((interval.getInitialDate() != null)
-        && (interval.getFinalDate() != null)
+    if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null)
         && (interval.getRunning())) {
       System.out.println("interval: " + "\t" + interval.getInitialDate()
                 + "\t" + interval.getFinalDate() + "\t"
