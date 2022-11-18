@@ -2,57 +2,54 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 /*
-The "SearchByTag" class is used to search for all activities that has a specific tag, this class implements the "Visitor".
+The "SearchByTag" class is used to search for all activities that has a specific tag,
+this class implements the "Visitor".
 */
-public class SearchByTag implements Visitor{
-    private final Activity root;
-    private final List<Activity> foundActivity = new ArrayList<>();
-    private String tag;
 
-    public SearchByTag(Activity activity)
-    {
-        root = activity;
-    }
+public class SearchByTag implements Visitor {
+  private final Activity root;
+  private final List<Activity> foundActivity = new ArrayList<>();
+  private String tag;
 
-    @Override
-    public void visitProject(Project project) {
-        if (Arrays.asList(project.getListOfTags()).contains(tag)) {
-            foundActivity.add(project);
-        }
-        else {
-            for (int i = 0; i < project.getSizeList(); i++) {
-                Object o = project.getElementFromList(i);
-                ((Activity) o).acceptVisitor(this);
-            }
-        }
-    }
-    @Override
-    public void visitTask(Task task) {
-        boolean found = false;
-        int i = 0;
+  public SearchByTag(Activity activity) {
+    root = activity;
+  }
 
-        while ((i < task.getListOfTags().size()) && (!found))
-        {
-            if (task.getListOfTags().get(i).equals(tag))
-            {
-                foundActivity.add(task);
-                found = true;
-            }
-            else
-            {
-                i = i + 1;
-            }
-        }
+  @Override
+  public void visitProject(Project project) {
+    if (Arrays.asList(project.getListOfTags()).contains(tag)) {
+      foundActivity.add(project);
+    } else {
+      for (int i = 0; i < project.getSizeList(); i++) {
+        Object o = project.getElementFromList(i);
+        ((Activity) o).acceptVisitor(this);
+      }
     }
-    @Override
-    public void visitInterval(Interval interval) {
+  }
+
+  @Override
+  public void visitTask(Task task) {
+    boolean found = false;
+    int i = 0;
+
+    while ((i < task.getListOfTags().size()) && (!found)) {
+      if (task.getListOfTags().get(i).equals(tag)) {
+        foundActivity.add(task);
+        found = true;
+      } else {
+        i = i + 1;
+      }
+    }
+  }
+
+  @Override
+  public void visitInterval(Interval interval) {
         //This method is not implemented because the intervals have no tag.
-    }
+  }
 
-    public List<Activity> searchByTag(String tag)
-    {
-        this.tag = tag;
-        root.acceptVisitor(this);
-        return foundActivity;
-    }
+  public List<Activity> searchByTag(String tag) {
+    this.tag = tag;
+    root.acceptVisitor(this);
+    return foundActivity;
+  }
 }
