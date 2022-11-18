@@ -189,7 +189,7 @@ public class Task extends Activity{
 
         JSONArray ja = new JSONArray();
         for (Interval interval : intervalList) {
-            ja.put(interval.toJSON());
+            ja.put(interval.toJson());
         }
 
         compJSON.put("intervalList",ja);

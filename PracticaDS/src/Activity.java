@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import org.json.JSONObject;
 
-
-
-
 /*
 The class Activity is a component from which the classes task and project inherit,
 it is used to represent the different activities of the Time Tracker. The design
