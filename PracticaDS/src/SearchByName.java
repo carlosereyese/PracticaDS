@@ -13,7 +13,7 @@ public class SearchByName implements Visitor {
 
   @Override
   public void visitProject(Project project) {
-    if (project.getNameActivity().equals(name)) {
+    if (project.getNameActivity().equalsIgnoreCase(name)) {
       foundActivity = project;
     } else {
       for (int i = 0; i < project.getSizeList(); i++) {
@@ -25,7 +25,7 @@ public class SearchByName implements Visitor {
 
   @Override
   public void visitTask(Task task) {
-    if (task.getNameActivity().equals(name)) {
+    if (task.getNameActivity().equalsIgnoreCase(name)) {
       foundActivity = task;
     }
   }

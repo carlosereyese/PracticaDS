@@ -17,10 +17,20 @@ public class SearchByTag implements Visitor {
 
   @Override
   public void visitProject(Project project) {
-    if (Arrays.asList(project.getListOfTags()).contains(tag)) {
-      foundActivity.add(project);
-    } else {
-      for (int i = 0; i < project.getSizeList(); i++) {
+    boolean found = false;
+    int i = 0;
+
+    while ((i < project.getListOfTags().size()) && (!found)) {
+      if (project.getListOfTags().get(i).equalsIgnoreCase(tag)) {
+        foundActivity.add(project);
+        found = true;
+      } else {
+        i = i + 1;
+      }
+    }
+
+    if (found == false) {
+      for (i = 0; i < project.getSizeList(); i++) {
         Object o = project.getElementFromList(i);
         ((Activity) o).acceptVisitor(this);
       }
@@ -33,7 +43,7 @@ public class SearchByTag implements Visitor {
     int i = 0;
 
     while ((i < task.getListOfTags().size()) && (!found)) {
-      if (task.getListOfTags().get(i).equals(tag)) {
+      if (task.getListOfTags().get(i).equalsIgnoreCase(tag)) {
         foundActivity.add(task);
         found = true;
       } else {
