@@ -109,9 +109,11 @@ public class Test {
     System.out.println("DURATION: " + activity1.getDuration());
 
     SearchByTag searchTag = new SearchByTag(root);
-    List<Activity> activity2 = searchTag.searchByTag("Dart");
+    List<Activity> activity2 = searchTag.searchByTag("java");
     System.out.println("ACTIVITY: " + activity2.get(0).getNameActivity());
     System.out.println("DURATION: " + activity2.get(0).getDuration());
+    System.out.println("ACTIVITY: " + activity2.get(1).getNameActivity());
+    System.out.println("DURATION: " + activity2.get(1).getDuration());
   }
 }
 
