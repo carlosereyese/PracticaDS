@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 The "SearchByTag" class is used to search for all activities that has a specific tag, this class implements the "Visitor".
@@ -16,22 +17,14 @@ public class SearchByTag implements Visitor{
     @Override
     public void visitProject(Project project) {
         boolean found = false;
-        int i = 0;
-
-        while ((i < project.getListOfTags().size()) && (!found)) {
-            if (project.getListOfTags().get(i).equals(tag))
-            {
-                foundActivity.add(project);
-                found = true;
-            }
-            else
-            {
-                i = i + 1;
-            }
+        if (Arrays.asList(project.getListOfTags()).contains(tag))
+        {
+            foundActivity.add(project);
+            found = true;
         }
 
         if (!found) {
-            for (i = 0; i < project.getSizeList(); i++) {
+            for (int i = 0; i < project.getSizeList(); i++) {
                 Object o = project.getIList(i);
                 ((Activity) o).acceptVisitor(this);
             }
