@@ -4,22 +4,13 @@ import java.util.List;
 The "SearchByTag" class is used to search for all activities that has a specific tag, this class implements the "Visitor".
 */
 public class SearchByTag implements Visitor{
-    private static SearchByTag instance = null;
-    private static Activity root;
-    private static final List<Activity> foundActivity = new ArrayList<>();
-    private static String tag;
+    private Activity root;
+    private final List<Activity> foundActivity = new ArrayList<>();
+    private String tag;
 
-    private SearchByTag(Activity activity)
+    public SearchByTag(Activity activity)
     {
         root = activity;
-    }
-    public static SearchByTag getInstance(Activity root)
-    {
-        if (instance ==  null)
-        {
-            instance = new SearchByTag(root);
-        }
-        return instance;
     }
 
     @Override
@@ -42,7 +33,7 @@ public class SearchByTag implements Visitor{
         if (!found) {
             for (i = 0; i < project.getSizeList(); i++) {
                 Object o = project.getIList(i);
-                ((Activity) o).acceptVisitor(instance);
+                ((Activity) o).acceptVisitor(this);
             }
         }
     }
@@ -72,7 +63,7 @@ public class SearchByTag implements Visitor{
     public List<Activity> searchByTag(String tag)
     {
         this.tag = tag;
-        root.acceptVisitor(instance);
+        root.acceptVisitor(this);
         return foundActivity;
     }
 }

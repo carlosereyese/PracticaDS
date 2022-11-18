@@ -100,11 +100,13 @@ public class Test {
             e.printStackTrace();
         }
 
-        Activity activity1 = SearchByName.getInstance(root).searchByName("software design");
+        SearchByName seachName = new SearchByName(root);
+        Activity activity1 = seachName.searchByName("software design");
         System.out.println("ACTIVITY: " + activity1.getNameActivity());
         System.out.println("DURATION: " + activity1.getDuration());
 
-        List<Activity> activity2 = SearchByTag.getInstance(root).searchByTag("Dart");
+        SearchByTag searchTag = new SearchByTag(root);
+        List<Activity> activity2 = searchTag.searchByTag("Dart");
         System.out.println("ACTIVITY: " + activity2.get(0).getNameActivity());
         System.out.println("DURATION: " + activity2.get(0).getDuration());
     }

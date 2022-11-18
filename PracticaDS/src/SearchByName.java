@@ -2,22 +2,13 @@
 The "SearchByName" class is used to search for an activity by name, this class implements the "Visitor".
 */
 public class SearchByName implements Visitor{
-    private static SearchByName instance = null;
-    private static Activity root;
-    private static Activity foundActivity;
-    private static String name;
+    private Activity root;
+    private Activity foundActivity;
+    private String name;
 
-    private SearchByName(Activity activity)
+    public SearchByName(Activity activity)
     {
         root = activity;
-    }
-    public static SearchByName getInstance(Activity root)
-    {
-        if (instance ==  null)
-        {
-            instance = new SearchByName(root);
-        }
-        return instance;
     }
 
     @Override
@@ -31,7 +22,7 @@ public class SearchByName implements Visitor{
             for (int i = 0; i < project.getSizeList(); i ++)
             {
                 Object o = project.getIList(i);
-                ((Activity) o).acceptVisitor(instance);
+                ((Activity) o).acceptVisitor(this);
             }
         }
     }
@@ -49,7 +40,7 @@ public class SearchByName implements Visitor{
 
     public Activity searchByName(String name) {
         this.name = name;
-        root.acceptVisitor(instance);
+        root.acceptVisitor(this);
         return foundActivity;
     }
 }
