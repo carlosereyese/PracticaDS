@@ -16,14 +16,10 @@ public class SearchByTag implements Visitor{
 
     @Override
     public void visitProject(Project project) {
-        boolean found = false;
-        if (Arrays.asList(project.getListOfTags()).contains(tag))
-        {
+        if (Arrays.asList(project.getListOfTags()).contains(tag)) {
             foundActivity.add(project);
-            found = true;
         }
-
-        if (!found) {
+        else {
             for (int i = 0; i < project.getSizeList(); i++) {
                 Object o = project.getIList(i);
                 ((Activity) o).acceptVisitor(this);
