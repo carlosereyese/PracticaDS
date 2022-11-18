@@ -3,7 +3,7 @@ import java.util.Observer;
 /*
 Printer is a class that contains the methods to screen print the generated tree
 to keep track of which activities are active. This class implements the "Visitor"
-interface so that the project, the price and the interval can be self-printed.
+interface so that the project, the task and the interval can be self-printed.
 In addition to implementing the "Visitor" pattern, it also implements the
 "Observer-Observable" pattern so that the clock can notify the printer when active
 activities need to be printed on the screen.
@@ -45,7 +45,7 @@ public class Printer implements Visitor, Observer {
     boolean printTask = false;
 
     for (int i = 0; i < task.getSizeList(); i++) {
-      Object interval = task.getIList(i);
+      Object interval = task.getElementsFromList(i);
       ((Interval) interval).acceptVisitor(instance);
 
       if ((((Interval) interval).getInitialDate() != null)
