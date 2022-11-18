@@ -1,5 +1,7 @@
 import java.util.Observable;
 import java.util.Observer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /*
 Printer is a class that contains the methods to screen print the generated tree
 to keep track of which activities are active. This class implements the "Visitor"
@@ -12,8 +14,10 @@ activities need to be printed on the screen.
 public class Printer implements Visitor, Observer {
   private static Printer instance = null;
   private static Activity root;
+  private static final Logger logger = LoggerFactory.getLogger(Printer.class);
 
   private Printer(Activity activity) {
+    logger.info("HOLAAAAAAAAAAAA ESTOY EN EL CONSTRUCTOR DE PRINTER");
     ClockTimer.getInstance().addObserver(this);
     root = activity;
   }
