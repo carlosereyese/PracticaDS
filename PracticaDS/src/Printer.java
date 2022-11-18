@@ -27,7 +27,7 @@ public class Printer implements Visitor, Observer {
   @Override
   public void visitProject(Project project) {
     for (int i = 0; i < project.getSizeList(); i++) {
-      Object o = project.getIList(i);
+      Object o = project.getElementFromList(i);
       ((Activity) o).acceptVisitor(instance);
     }
 
