@@ -44,5 +44,5 @@ public class ClockTimer extends Observable {
     {
         loop = false;
     } /*The "stopTimer" method is the method used to stop the execution of the clock and therefore stop the
-    execution of the entire program..*/
+    execution of the entire program.*/
 }

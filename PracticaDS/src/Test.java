@@ -100,8 +100,8 @@ public class Test {
             e.printStackTrace();
         }
 
-        SearchByName seachName = new SearchByName(root);
-        Activity activity1 = seachName.searchByName("software design");
+        SearchByName searchName = new SearchByName(root);
+        Activity activity1 = searchName.searchByName("software design");
         System.out.println("ACTIVITY: " + activity1.getNameActivity());
         System.out.println("DURATION: " + activity1.getDuration());
 

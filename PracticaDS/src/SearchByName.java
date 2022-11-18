@@ -2,7 +2,7 @@
 The "SearchByName" class is used to search for an activity by name, this class implements the "Visitor".
 */
 public class SearchByName implements Visitor{
-    private Activity root;
+    private final Activity root;
     private Activity foundActivity;
     private String name;
 
