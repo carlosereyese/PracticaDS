@@ -14,10 +14,10 @@ activities need to be printed on the screen.
 public class Printer implements Visitor, Observer {
   private static Printer instance = null;
   private static Activity root;
-  private static final Logger logger = LoggerFactory.getLogger(Printer.class);
+  private static final Logger logger = LoggerFactory.getLogger("Milestone 1");
 
   private Printer(Activity activity) {
-    logger.info("HOLAAAAAAAAAAAA ESTOY EN EL CONSTRUCTOR DE PRINTER");
+    logger.info("HOLAAAAAAAAAAAA ESTOY EN EL CONSTRUCTOR DE {}", Printer.class.getName());
     ClockTimer.getInstance().addObserver(this);
     root = activity;
   }

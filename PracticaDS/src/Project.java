@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /*
@@ -14,6 +16,7 @@ decomposed into more projects and tasks.
 */
 public class Project extends Activity {
   private List<Activity> activityList = new ArrayList<>();
+  private static final Logger logger = LoggerFactory.getLogger("Milestone 1");
 
   private void checkInvariant() {
         assert nameActivity == null || nameActivity.charAt(0) != ' ';
@@ -39,7 +42,7 @@ public class Project extends Activity {
 
   public Project(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
-
+    logger.info("HOLAAAAAAAAAAAAAA ESTOY EN {}", Project.class.getName());
     assert (this.nameActivity != null); //Post condition
     checkInvariant(); //Invariant
   }
@@ -121,8 +124,7 @@ public class Project extends Activity {
     checkInvariant(); //Invariant
   }
 
-  public void calculateTotalTime() { /*Calculates the active time of the project consisting of
-    the sum of the active time of all its children (projects+tasks).*/
+  public void calculateTotalTime() {
     checkInvariant(); //Invariant
 
     duration = Duration.ofSeconds(0);
@@ -137,7 +139,8 @@ public class Project extends Activity {
                 && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*Calculates the active time of the project consisting of
+    the sum of the active time of all its children (projects+tasks).*/
 
   public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate) {
     checkInvariant(); //Invariant
