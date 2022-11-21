@@ -1,18 +1,17 @@
-import java.time.Duration;
 import java.util.Observable;
 import java.util.Observer;
 
 public class Printer implements Visitor, Observer
 {
-    private static Visitor instance;
-    private static Component root;
+    private static Visitor instance = null;;
+    private static Activity root;
 
-    private Printer(Component component)
+    private Printer(Activity activity)
     {
         ClockTimer.getInstance().addObserver(this);
-        root = component;
+        root = activity;
     }
-    public static void setInstance(Component root)
+    public static void getInstance(Activity root)
     {
         if (instance ==  null)
         {
@@ -21,42 +20,52 @@ public class Printer implements Visitor, Observer
     }
 
     @Override
-    public void printProject(Project project)
+    public void visitProject(Project project)
     {
         for (int i = 0; i < project.getSizeList(); i ++)
         {
             Object o = project.getIList(i);
-            ((Component) o).acceptVisitor(instance);
+            ((Activity) o).acceptVisitor(instance);
         }
 
         if (((project.getInitialDate() != null) && (project.getFinalDate() != null)) && (project.getRunning() == true))
         {
-            System.out.println("activity: " + project.getNameComponent() + "\t" + project.getInitialDate()
+            System.out.println("activity: " + project.getNameActivity() + "\t" + project.getInitialDate()
                     + "\t" + project.getFinalDate() + "\t" + project.calculateTotalTime().getSeconds());
         }
     }
     @Override
-    public void printTask(Task task)
+    public void visitTask(Task task)
     {
         boolean printTask = false;
 
         for (int i = 0; i < task.getSizeList(); i++)
         {
-            Object o = task.getIList(i);
-            if ((((Interval) o).getInitialDate() != null) && (((Interval) o).getFinalDate() != null) && (((Interval) o).getRunning() == true))
+            Object interval = task.getIList(i);
+            ((Interval) interval).acceptVisitor(instance);
+
+            if ((((Interval) interval).getInitialDate() != null) && (((Interval) interval).getFinalDate() != null) && (((Interval) interval).getRunning() == true))
             {
-                System.out.println("interval: " + "\t" + ((Interval) o).getInitialDate() + "\t" + ((Interval) o).getFinalDate() + "\t"
-                        + ((Interval) o).getDuration().getSeconds());
                 printTask = true;
             }
         }
 
         if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask == true))
         {
-            System.out.println("activity: " + task.getNameComponent() + "\t" + task.getInitialDate() + "\t"
+            System.out.println("activity: " + task.getNameActivity() + "\t" + task.getInitialDate() + "\t"
                     + task.getFinalDate() + "\t" + task.calculateTotalTime().getSeconds());
         }
     }
+    @Override
+    public void visitInterval(Interval interval)
+    {
+        if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null) && (interval.getRunning() == true))
+        {
+            System.out.println("interval: " + "\t" + interval.getInitialDate() + "\t" + interval.getFinalDate() + "\t"
+                    + interval.getDuration().getSeconds());
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg)
     {

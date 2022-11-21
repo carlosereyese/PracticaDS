@@ -1,0 +1,136 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class           Client
+{
+     + {static} main() : void
+}
+
+class           Test
+{
+     - {static} instance : Test
+     - threadClock : Thread
+     + {static} getInstance() : Test
+     + testA() : Activity 
+     + testB() : Activity 
+}
+
+class           ThreadClock
+{
+     + run : void
+}
+
+class           Thread
+{
+}
+
+abstract class           Activity
+{
+     # nameActivity : String
+     # father : Activity
+     # initialDate : LocalDateTime
+     # finalDate : LocalDateTime
+     # running : boolean
+     + Activity(nameActivity : String, father : Activity)
+     + add(a : Activity)
+     + {abstract} calculateTotalTime : Duration
+     + {abstract} changeTime(initialDate : LocalDateTime, finalDate : LocalDateTime) : void
+     + {abstract} acceptVisitor(visitor : Visitor) : void
+     + {abstract} toJSON() : JSONObject 
+}
+
+class           Task
+{
+     + Task(nameProject : String ,father : Activity)
+     + Task(jsonObj : JSONObject)
+     + start() : void
+     + stop() : void
+     + calculateTotalTime() : Duration
+     + changeTime(initialDate : LocalDateTime, finalDate : LocalDateTime) : void
+     + acceptVisitor(visitor Visitor) : void
+     + toJSON() : JSONObject 
+}
+
+class           Project
+{
+     + Project(nameProject : String ,father : Activity)
+     + Project(jsonObj : JSONObject)
+     + add(a Activity) : void
+     + calculateTotalTime() : void
+     + changeTime(initialDate : LocalDateTime, finalDate : LocalDateTime)
+     + acceptVisitor(visitor : Visitor) : void
+     + toJSON() : JSONObject
+}
+
+class           Interval
+{
+     - initialDate : LocalDateTime
+     - finalDate : LocalDateTime
+     - father : Task
+     - duration : Duration
+     - running : boolean
+     + Interval (jsonObj : JSONObject)
+     + stop() : void
+     + update(arg() : Observable, arg1 : Object) : void
+     + toJSON() : JSONObject 
+}
+
+
+package java.util <<Folder>>
+{
+       interface           Observer
+       {
+            + {abstract} update(arg() : Observable, arg1 : Object)
+       }
+
+       abstract class           Observable
+       {
+            + addObserve(ob : Observer)
+            + deleteObserver(ob : Observer)
+            + setChanged()  
+            + notifyObservers(arg() : Observable, arg1 : Object)
+       }
+}
+
+class           ClockTimer
+{
+     - {static} instance : ClockTimer
+     - dateTimer : LocalDateTime
+     - tick() : void
+     + {static} getInstance() : ClockTimer 
+     + startTimer() : void
+}
+
+interface           Visitor
+{
+     + {abstract} visitProject(project : Project) : void
+     + {abstract} visitTask(task : Task) : void  
+}
+
+class           Printer
+{
+     - {static} instance : Visitor
+     - {static} root : Activity
+     + Printer(activity : Activity)
+     + setInstance(root : Activity) : void
+     + visitProject(project : Project) : void
+     + visitTask(task : Task) : void
+     + update(arg() : Observable, arg1 : Object) : void
+}
+
+Client .. Test : instantiates
+Test .. Activity : instantiates
+Test --> ThreadClock
+ThreadClock --|> Thread
+Task --|> Activity 
+Project --|> Activity 
+Project o-->"*" Activity 
+Task o-->"0..*" Interval 
+Interval ..|> Observer
+Observable o--> Observer
+ClockTimer --|> Observable   
+Printer --|> Visitor
+Printer ..|> Observer
+
+@enduml

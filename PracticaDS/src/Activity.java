@@ -1,38 +1,41 @@
+import org.json.JSONObject;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public abstract class Component{
-    protected String nameComponent;
-    protected Component father;
+public abstract class Activity{
+    protected String nameActivity;
+    protected Activity father;
     protected LocalDateTime initialDate;
+
     protected LocalDateTime finalDate;
     protected boolean running;
 
-    public Component() {
+    public Activity() {
         initialDate = null;
         finalDate = null;
         running = false;
     }
-    public Component(String nameComponent, Component father)
+    public Activity(String nameActivity, Activity father)
     {
         if (father != null)
         {
             father.add(this);
         }
-        this.nameComponent = nameComponent;
+        this.nameActivity = nameActivity;
         this.father = father;
         running =  false;
     }
 
-    public String getNameComponent()
+    public String getNameActivity()
     {
-        if (nameComponent == null)
+        if (nameActivity == null)
         {
             return "null";
         }
         else
         {
-            return nameComponent;
+            return nameActivity;
         }
     }
     public LocalDateTime getInitialDate()
@@ -47,11 +50,11 @@ public abstract class Component{
     public abstract Object getIList(int i);
     public abstract int getSizeList();
 
-
-    public void add(Component c) {
+    public void add(Activity a) {
         //void
     }
     public abstract Duration calculateTotalTime();
     public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
     public abstract void acceptVisitor(Visitor visitor);
+    public abstract JSONObject toJSON();
 }
