@@ -29,11 +29,9 @@ public class SearchByTag implements Visitor {
       }
     }
 
-    if (found == false) {
-      for (i = 0; i < project.getSizeList(); i++) {
-        Object o = project.getElementFromList(i);
-        ((Activity) o).acceptVisitor(this);
-      }
+    for (i = 0; i < project.getSizeList(); i++) {
+      Object o = project.getElementFromList(i);
+      ((Activity) o).acceptVisitor(this);
     }
   }
 

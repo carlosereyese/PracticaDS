@@ -20,8 +20,7 @@ public class Test {
     return instance;
   }
 
-  public void testA() { /*Used to test if the project-task-interval tree is
-    generated correctly.*/
+  public void testA() {
 
     Project root = new Project("root", List.of(), null);
     Project p1 = new Project("software design", List.of("java", "flutter"), root);
@@ -34,7 +33,8 @@ public class Test {
     Task t3 = new Task("second list", List.of("Dart"), p4);
     Task t4 = new Task("read handout", List.of(), p5);
     Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
-  }
+  } /*Used to test if the project-task-interval tree is
+    generated correctly.*/
 
   public void testB() throws InterruptedException { /*It is used to check if
     the tasks are started and stopped correctly by printing the contents of
@@ -103,17 +103,23 @@ public class Test {
       e.printStackTrace();
     }
 
+    System.out.println("---------------- SEARCH BY NAME: databases ----------------");
     SearchByName searchName = new SearchByName(root);
-    Activity activity1 = searchName.searchByName("software design");
+    Activity activity1 = searchName.searchByName("databases");
     System.out.println("ACTIVITY: " + activity1.getNameActivity());
     System.out.println("DURATION: " + activity1.getDuration());
 
+    System.out.println("---------------- SEARCH BY TAG: java ----------------");
     SearchByTag searchTag = new SearchByTag(root);
     List<Activity> activity2 = searchTag.searchByTag("java");
     System.out.println("ACTIVITY: " + activity2.get(0).getNameActivity());
     System.out.println("DURATION: " + activity2.get(0).getDuration());
     System.out.println("ACTIVITY: " + activity2.get(1).getNameActivity());
     System.out.println("DURATION: " + activity2.get(1).getDuration());
+    System.out.println("ACTIVITY: " + activity2.get(2).getNameActivity());
+    System.out.println("DURATION: " + activity2.get(2).getDuration());
+    System.out.println("ACTIVITY: " + activity2.get(3).getNameActivity());
+    System.out.println("DURATION: " + activity2.get(3).getDuration());
   }
 }
 
