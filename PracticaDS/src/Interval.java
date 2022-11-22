@@ -2,6 +2,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 /*
@@ -15,6 +18,8 @@ public class Interval implements Observer {
   private Task father;
   private Duration duration;
   private boolean running;
+  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
   public Interval() {
     initialDate = null;
@@ -24,6 +29,7 @@ public class Interval implements Observer {
   }
 
   public Interval(JSONObject jsonObj) {
+    loggerMilestone2.debug("Entering the interval constructor from JSON file.");
     if (!jsonObj.isNull("initialDate")) {
       initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
     } else {
@@ -42,6 +48,7 @@ public class Interval implements Observer {
     }
 
     running = jsonObj.getBoolean("running");
+    loggerMilestone2.debug("Exiting in the interval builder from JSON file.");
   } /*It is a constructor used to load data from the JSON file to
     initialize the interval.*/
 
@@ -68,14 +75,15 @@ public class Interval implements Observer {
   initialize the variable father with the task to which the interval belongs.*/
 
   public void stop() {
+    loggerMilestone1.debug("Entering the stop method of Interval.");
     ClockTimer.getInstance().deleteObserver(this);
+    loggerMilestone1.debug("Exiting the stop method of Interval.");
     running = false;
+    loggerMilestone1.trace("The value of the running attribute in Interval is: {}", running);
   } /*This method is used to indicate when the interval has finished its execution.*/
 
   @Override
-  public void update(Observable observable, Object object) { /*With the "update" method
-    it is possible to receive the notifications of the observed class "ClockTimer" in
-    order to proceed with the update of the times.*/
+  public void update(Observable observable, Object object) {
     if (initialDate == null) {
       initialDate = ((LocalDateTime) object).minus(Duration.ofSeconds(2));
     }
@@ -93,6 +101,7 @@ public class Interval implements Observer {
   functionalities.*/
 
   public JSONObject toJson() {
+    loggerMilestone1.debug("Entering the toJson method of Interval.");
     JSONObject intervalJson = new JSONObject();
     String tempDate;
     if (initialDate == null) {
@@ -119,6 +128,7 @@ public class Interval implements Observer {
     intervalJson.put("duration", duration.toString());
     intervalJson.put("running", running);
 
+    loggerMilestone1.debug("Exiting the toJson method of Interval.");
     return intervalJson;
   } /*It is a function used to write the interval data in a JSON file so that
     it can be loaded in the future.*/

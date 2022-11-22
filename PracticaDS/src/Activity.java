@@ -3,6 +3,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 /*
@@ -19,6 +22,7 @@ public abstract class Activity {
   protected LocalDateTime finalDate;
   protected Duration duration;
   protected boolean running;
+  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
 
   public Activity() {
     initialDate = null;
@@ -28,14 +32,20 @@ public abstract class Activity {
   }
 
   public Activity(String nameActivity, List<String> listOfTags, Activity father) {
+    loggerMilestone1.debug("It has just entered the constructor by parameters of the class Activity.");
     duration = Duration.ofSeconds(0);
+    loggerMilestone1.trace("The default value of Duration is: {}", duration);
     if (father != null) {
       father.add(this);
     }
     this.nameActivity = nameActivity;
+    loggerMilestone1.trace("The default value of nameActivity is: {}", nameActivity);
     this.listOfTags = listOfTags;
     this.father = father;
     running =  false;
+    loggerMilestone1.trace("The default value of running is: {}", running);
+    loggerMilestone1.debug("The attributes of the Activity class have been initialized with the values passed by " +
+            "parameter to the constructor.");
   } /*This is the constructor of the
   Activity class, it initializes the attributes of this class with the parameters it receives.*/
 
@@ -61,7 +71,6 @@ public abstract class Activity {
 
   public void add(Activity a) {
         //void
-
   } /*This method is used to add one more activity to the list attribute.*/
 
   public abstract boolean getRunning(); /*This is an abstract method that is implemented by the classes that inherit

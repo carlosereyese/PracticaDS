@@ -1,3 +1,6 @@
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /*
 The "SearchByName" class is used to search for an activity by name,
 this class implements the "Visitor".
@@ -6,9 +9,12 @@ public class SearchByName implements Visitor {
   private final Activity root;
   private Activity foundActivity;
   private String name;
+  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
   public SearchByName(Activity activity) {
+    loggerMilestone2.debug("Entering the SearchByName constructor.");
     root = activity;
+    loggerMilestone2.debug("Exiting the SearchByName constructor");
   } /*This is a constructor of the SearchByName class, the utility of this class is to initialize the "root" variable
   (the "root" variable is used to indicate from which activity to start searching for an activity by name) with the
   value that is passed by the parameter.*/
@@ -45,8 +51,10 @@ public class SearchByName implements Visitor {
   of its methods.*/
 
   public Activity searchByName(String name) {
+    loggerMilestone2.debug("Entering the searchByName method.");
     this.name = name;
     root.acceptVisitor(this);
+    loggerMilestone2.debug("Exiting the searchByName method.");
     return foundActivity;
   } /*This method is used so that an activity can be searched by name.
   What this method does is to store the name to be searched and calls the "acceptVisitor" method of the root to start a

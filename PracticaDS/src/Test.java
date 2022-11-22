@@ -3,6 +3,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 
@@ -11,6 +14,8 @@ Time Tracker program.*/
 public class Test {
     private static Test instance = null;
     private final Thread threadClock = new ThreadClock();
+    private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+    private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
     public static Test getInstance() {
         if (instance ==  null) {
@@ -22,7 +27,7 @@ public class Test {
     the test that shares all the program, in case that an instance does not exist it creates it and returns it.*/
 
     public void testA() {
-
+        loggerMilestone1.debug("Starting test A");
         Project root = new Project("root", List.of(), null);
         Project p1 = new Project("software design", List.of("java", "flutter"), root);
         Project p2 = new Project("software testing", List.of("c++", "Java", "python"), root);
@@ -34,13 +39,12 @@ public class Test {
         Task t3 = new Task("second list", List.of("Dart"), p4);
         Task t4 = new Task("read handout", List.of(), p5);
         Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
+        loggerMilestone1.debug("Finishing test A");
     } /*Used to test if the project-task-interval tree is
     generated correctly.*/
 
-    public void testB() throws InterruptedException { /*It is used to check if
-    the tasks are started and stopped correctly by printing the contents of
-    each task every 2 seconds.*/
-
+    public void testB() throws InterruptedException {
+        loggerMilestone1.debug("Starting test B");
         threadClock.setPriority(Thread.MAX_PRIORITY);
         threadClock.start();
 
@@ -83,18 +87,20 @@ public class Test {
         t1.stop();
 
         ClockTimer.getInstance().stopTimer();
-        System.out.println("end of test");
+        loggerMilestone1.info("end of test");
 
         String jsonPath = "activityJSON.json";
         try (FileWriter file = new FileWriter(jsonPath)) {
             file.write(root.toJson().toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            loggerMilestone1.warn("{}", e);
         }
+        loggerMilestone1.debug("Finishing test B");
     } /*This method is the one that executes the second test to
-    check if the execution of the activities starts and stops well.*/
+    check if the tasks are started and stopped correctly by printing the contents of each task every 2 seconds.*/
 
     public void testC() {
+        loggerMilestone2.debug("Starting test C");
         String jsonPath = "activityJSON.json";
         Project root = new Project();
         try {
@@ -107,44 +113,45 @@ public class Test {
 
         SearchByTag searchTag = new SearchByTag(root);
 
-        System.out.println("---------------- SEARCH BY TAG: java ----------------");
+        loggerMilestone2.info("---------------- SEARCH BY TAG: java ----------------");
         List<Activity> activity1 = searchTag.searchByTag("java");
         for (int i = 0; i < activity1.size(); i++)
         {
-            System.out.println("ACTIVITY: " + activity1.get(i).getNameActivity());
+            loggerMilestone2.info("ACTIVITY: " + activity1.get(i).getNameActivity());
         }
 
-        System.out.println("---------------- SEARCH BY TAG: Java ----------------");
+        loggerMilestone2.info("---------------- SEARCH BY TAG: Java ----------------");
         searchTag.resetList();
         List<Activity> activity2 = searchTag.searchByTag("Java");
         for (int i = 0; i < activity2.size(); i++)
         {
-            System.out.println("ACTIVITY: " + activity2.get(i).getNameActivity());
+            loggerMilestone2.info("ACTIVITY: " + activity2.get(i).getNameActivity());
         }
 
-        System.out.println("--------------- SEARCH BY TAG: intellij --------------");
+        loggerMilestone2.info("--------------- SEARCH BY TAG: intellij --------------");
         searchTag.resetList();
         List<Activity> activity3 = searchTag.searchByTag("intellij");
         for (int i = 0; i < activity3.size(); i++)
         {
-            System.out.println("ACTIVITY: " + activity3.get(i).getNameActivity());
+            loggerMilestone2.info("ACTIVITY: " + activity3.get(i).getNameActivity());
         }
 
-        System.out.println("---------------- SEARCH BY TAG: c++ ------------------");
+        loggerMilestone2.info("---------------- SEARCH BY TAG: c++ ------------------");
         searchTag.resetList();
         List<Activity> activity4 = searchTag.searchByTag("c++");
         for (int i = 0; i < activity4.size(); i++)
         {
-            System.out.println("ACTIVITY: " + activity4.get(i).getNameActivity());
+            loggerMilestone2.info("ACTIVITY: " + activity4.get(i).getNameActivity());
         }
 
-        System.out.println("---------------- SEARCH BY TAG: python ---------------");
+        loggerMilestone2.info("---------------- SEARCH BY TAG: python ---------------");
         searchTag.resetList();
         List<Activity> activity5 = searchTag.searchByTag("python");
         for (int i = 0; i < activity5.size(); i++)
         {
-            System.out.println("ACTIVITY: " + activity5.get(i).getNameActivity());
+            loggerMilestone2.info("ACTIVITY: " + activity5.get(i).getNameActivity());
         }
+        loggerMilestone2.debug("Finishing test C");
 
     } /*This method is the one that executes the third test to check if when searching for an
     activity by tag the search does well.*/

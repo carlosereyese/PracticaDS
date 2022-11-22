@@ -16,7 +16,8 @@ decomposed into more projects and tasks.
 */
 public class Project extends Activity {
     private List<Activity> activityList = new ArrayList<>();
-    private static Logger logger = LogManager.getLogger("Milestone 2");
+    private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+    private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
     private void checkInvariant() {
         assert nameActivity == null || nameActivity.charAt(0) != ' ';
@@ -43,13 +44,15 @@ public class Project extends Activity {
 
     public Project(String nameActivity, List<String> listOfTags, Activity father) {
         super(nameActivity, listOfTags, father);
-        logger.info("HOLAAAAAAAAAAAAAA ESTOY EN {}", Project.class.getName());
+        loggerMilestone1.debug("The parent constructor has just been executed to initialize the Project class with the " +
+                "values passed as parameters.");
         assert (this.nameActivity != null); //Post condition
         checkInvariant(); //Invariant
     } /*This is the constructor of the
     Project class, it initializes the attributes of this class with the parameters it receives.*/
 
     public Project(JSONObject jsonObj) {
+        loggerMilestone2.debug("Entering the project constructor from JSON file.");
         nameActivity = jsonObj.getString("nameActivity");
         father = null;
 
@@ -88,6 +91,7 @@ public class Project extends Activity {
 
         assert (this.nameActivity != null); //Post condition
         checkInvariant(); //Invariant
+        loggerMilestone2.debug("Exiting in the project builder from JSON file.");
     } /*This is a constructor of the Project class, this constructor initializes
     the attributes of this class with the data that it has stored in a JSON format file that it had generated at the end
     of the last execution. The objective of this constructor is to recover the last state of the class before shutting
@@ -123,6 +127,7 @@ public class Project extends Activity {
     public void add(Activity a) {
         checkInvariant(); //Invariant
         if (a == null) { //Pre condition
+            loggerMilestone1.error("Illegal activity");
             throw new IllegalArgumentException("Illegal activity");
         }
 
@@ -182,6 +187,7 @@ public class Project extends Activity {
 
     @Override
     public JSONObject toJson() {
+        loggerMilestone1.debug("Entering the toJson method of Project.");
         JSONObject compJson = new JSONObject();
         compJson.put("nameActivity", nameActivity);
 
@@ -216,6 +222,7 @@ public class Project extends Activity {
         compJson.put("activityList", ja);
 
         checkInvariant(); //Invariant
+        loggerMilestone1.debug("Exiting the toJson method of Project.");
         return compJson;
     } /*It is a function used to write the project data in a JSON file so that
     it can be loaded in the future.*/

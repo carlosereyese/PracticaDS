@@ -3,9 +3,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 
 
 /*
@@ -16,6 +18,8 @@ an activity is made up of intervals that indicate the time slots in which the ta
 */
 public class Task extends Activity {
   private final List<Interval> intervalList = new ArrayList<>();
+  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
   private void checkInvariant() {
         assert ((nameActivity == null && father == null)
@@ -34,13 +38,15 @@ public class Task extends Activity {
 
   public Task(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
-
+    loggerMilestone1.debug("The parent constructor has just been executed to initialize the Task class with the " +
+            "values passed as parameters.");
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
   } /*This is the constructor of the
   Task class, it initializes the attributes of this class with the parameters it receives.*/
 
   public Task(JSONObject jsonObj) {
+    loggerMilestone2.debug("Entering the task constructor from JSON file.");
     nameActivity = jsonObj.getString("nameActivity");
 
     father = new Project();
@@ -76,6 +82,7 @@ public class Task extends Activity {
 
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
+    loggerMilestone2.debug("Exiting in the task builder from JSON file.");
   } /*It is a constructor used to load data from the JSON file to
   initialize the task.*/
 
@@ -96,11 +103,12 @@ public class Task extends Activity {
   public void start() {
     checkInvariant(); //Invariant
     if (running) { //Pre condition
+      loggerMilestone1.error("An attempt is being made to initiate a transaction that has already been initiated");
       throw new IllegalArgumentException("An attempt is being made to initiate a "
                                        + "transaction that has already been initiated");
     }
 
-    System.out.println(nameActivity + " starts");
+    loggerMilestone1.info(nameActivity + " starts");
     Interval newInterval = new Interval();
     newInterval.setFather(this);
     intervalList.add(newInterval);
@@ -115,20 +123,20 @@ public class Task extends Activity {
   public void stop() {
     checkInvariant(); //Invariant
     if (!running) { //Pre condition
+      loggerMilestone1.error("An attempt is being made to finalize a completed share");
       throw new IllegalArgumentException("An attempt is being made to "
                                        + "finalize a completed share");
     }
 
     intervalList.get(intervalList.size() - 1).stop();
-    System.out.println(nameActivity + " stops");
+    loggerMilestone1.info(nameActivity + " stops");
     running = false;
 
     assert (!running); //Post condition
     checkInvariant(); //Invariant
   } /*This method is used to indicate that a transaction is no longer running.*/
 
-  public void calculateTotalTime() { /*Calculates the active time of the task consisting of
-    the sum of the active time of all of its intervals.*/
+  public void calculateTotalTime() {
 
     checkInvariant(); //Invariant
 
@@ -175,7 +183,7 @@ public class Task extends Activity {
   functionalities.*/
 
   public JSONObject toJson() {
-
+    loggerMilestone1.debug("Entering the toJson method of Task.");
     checkInvariant(); //Invariant
 
     JSONObject compJson = new JSONObject();
@@ -213,6 +221,7 @@ public class Task extends Activity {
     compJson.put("intervalList", ja);
 
     checkInvariant(); //Invariant
+    loggerMilestone1.debug("Exiting the toJson method of Task.");
     return compJson;
   } /*It is a function used to write the task data in a JSON file so that
   it can be loaded in the future.*/
