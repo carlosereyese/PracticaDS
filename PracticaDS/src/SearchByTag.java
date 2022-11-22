@@ -64,6 +64,10 @@ public class SearchByTag implements Visitor {
   inside. It is implemented because the class is obliged to do it because it implements the visitor class and it is one
   of its methods.*/
 
+  public void resetList()
+  {
+    foundActivity.clear();
+  } /*This method is used to clean up the list of activities that are generated.*/
   public List<Activity> searchByTag(String tag) {
     this.tag = tag;
     root.acceptVisitor(this);

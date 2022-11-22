@@ -105,24 +105,48 @@ public class Test {
             e.printStackTrace();
         }
 
-        System.out.println("---------------- SEARCH BY NAME: databases ----------------");
-        SearchByName searchName = new SearchByName(root);
-        Activity activity1 = searchName.searchByName("databases");
-        System.out.println("ACTIVITY: " + activity1.getNameActivity());
-        System.out.println("DURATION: " + activity1.getDuration());
+        SearchByTag searchTag = new SearchByTag(root);
 
         System.out.println("---------------- SEARCH BY TAG: java ----------------");
-        SearchByTag searchTag = new SearchByTag(root);
-        List<Activity> activity2 = searchTag.searchByTag("java");
-        System.out.println("ACTIVITY: " + activity2.get(0).getNameActivity());
-        System.out.println("DURATION: " + activity2.get(0).getDuration());
-        System.out.println("ACTIVITY: " + activity2.get(1).getNameActivity());
-        System.out.println("DURATION: " + activity2.get(1).getDuration());
-        System.out.println("ACTIVITY: " + activity2.get(2).getNameActivity());
-        System.out.println("DURATION: " + activity2.get(2).getDuration());
-        System.out.println("ACTIVITY: " + activity2.get(3).getNameActivity());
-        System.out.println("DURATION: " + activity2.get(3).getDuration());
+        List<Activity> activity1 = searchTag.searchByTag("java");
+        for (int i = 0; i < activity1.size(); i++)
+        {
+            System.out.println("ACTIVITY: " + activity1.get(i).getNameActivity());
+        }
+
+        System.out.println("---------------- SEARCH BY TAG: Java ----------------");
+        searchTag.resetList();
+        List<Activity> activity2 = searchTag.searchByTag("Java");
+        for (int i = 0; i < activity2.size(); i++)
+        {
+            System.out.println("ACTIVITY: " + activity2.get(i).getNameActivity());
+        }
+
+        System.out.println("--------------- SEARCH BY TAG: intellij --------------");
+        searchTag.resetList();
+        List<Activity> activity3 = searchTag.searchByTag("intellij");
+        for (int i = 0; i < activity3.size(); i++)
+        {
+            System.out.println("ACTIVITY: " + activity3.get(i).getNameActivity());
+        }
+
+        System.out.println("---------------- SEARCH BY TAG: c++ ------------------");
+        searchTag.resetList();
+        List<Activity> activity4 = searchTag.searchByTag("c++");
+        for (int i = 0; i < activity4.size(); i++)
+        {
+            System.out.println("ACTIVITY: " + activity4.get(i).getNameActivity());
+        }
+
+        System.out.println("---------------- SEARCH BY TAG: python ---------------");
+        searchTag.resetList();
+        List<Activity> activity5 = searchTag.searchByTag("python");
+        for (int i = 0; i < activity5.size(); i++)
+        {
+            System.out.println("ACTIVITY: " + activity5.get(i).getNameActivity());
+        }
+
     } /*This method is the one that executes the third test to check if when searching for an
-    activity by name or by tag the search does well.*/
+    activity by tag the search does well.*/
 }
 
