@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 /*
@@ -16,7 +16,7 @@ decomposed into more projects and tasks.
 */
 public class Project extends Activity {
     private List<Activity> activityList = new ArrayList<>();
-    private static final Logger logger = LoggerFactory.getLogger("Milestone 1");
+    private static Logger logger = LogManager.getLogger("Milestone 2");
 
     private void checkInvariant() {
         assert nameActivity == null || nameActivity.charAt(0) != ' ';
