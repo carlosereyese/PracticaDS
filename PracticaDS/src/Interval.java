@@ -108,7 +108,7 @@ public class Interval implements Observer {
       intervalJson.put("duration", JSONObject.NULL);
     } else {
       String tempDuration = duration.toString();
-      intervalJson.put("finalDate", tempDuration);
+      intervalJson.put("duration", tempDuration);
     }
 
     intervalJson.put("duration", duration.toString());
