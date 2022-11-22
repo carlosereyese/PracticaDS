@@ -9,5 +9,6 @@ class ThreadClock extends Thread {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-  }
+  } /*The run method is the method that has to be executed to start a second thread in order to
+  run the clock in parallel to the main program.*/
 }

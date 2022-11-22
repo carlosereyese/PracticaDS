@@ -87,6 +87,6 @@ public class Printer implements Visitor, Observer {
   public void update(Observable o, Object arg) {
     root.acceptVisitor(instance);
   } /*With the "update" method it is possible to receive the
-    notifications of the observed class "ClockTimer" in order
-    to proceed to print the active projects, tasks and activities.*/
+  notifications of the observed class "ClockTimer" in order to proceed to print the active projects, tasks and
+  activities.*/
 }

@@ -18,7 +18,8 @@ public class Test {
         }
 
         return instance;
-    }
+    } /*This method is a getter that serves to return the unique instance of
+    the test that shares all the program, in case that an instance does not exist it creates it and returns it.*/
 
     public void testA() {
 
@@ -90,7 +91,8 @@ public class Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } /*This method is the one that executes the second test to
+    check if the execution of the activities starts and stops well.*/
 
     public void testC() {
         String jsonPath = "activityJSON.json";
@@ -120,6 +122,7 @@ public class Test {
         System.out.println("DURATION: " + activity2.get(2).getDuration());
         System.out.println("ACTIVITY: " + activity2.get(3).getNameActivity());
         System.out.println("DURATION: " + activity2.get(3).getDuration());
-    }
+    } /*This method is the one that executes the third test to check if when searching for an
+    activity by name or by tag the search does well.*/
 }
 
