@@ -28,7 +28,8 @@ public class Project extends Activity {
                 && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
                 && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
-    }
+    } /* The check Invariant method is used to apply the design by contract, this
+    method is used to check if the values of the attributes are valid.*/
 
     public Project() {
         nameActivity = "";
@@ -45,7 +46,8 @@ public class Project extends Activity {
         logger.info("HOLAAAAAAAAAAAAAA ESTOY EN {}", Project.class.getName());
         assert (this.nameActivity != null); //Post condition
         checkInvariant(); //Invariant
-    }
+    } /*This is the constructor of the
+    Project class, it initializes the attributes of this class with the parameters it receives.*/
 
     public Project(JSONObject jsonObj) {
         nameActivity = jsonObj.getString("nameActivity");
@@ -86,15 +88,19 @@ public class Project extends Activity {
 
         assert (this.nameActivity != null); //Post condition
         checkInvariant(); //Invariant
-    }
+    } /*This is a constructor of the Project class, this constructor initializes
+    the attributes of this class with the data that it has stored in a JSON format file that it had generated at the end
+    of the last execution. The objective of this constructor is to recover the last state of the class before shutting
+    down the program.*/
 
     public Object getElementFromList(int i) {
         return activityList.get(i);
-    }
+    } /*This is a getter used to return an activity indicated by parameter that is part of the project.*/
 
     public int getSizeList() {
         return activityList.size();
-    }
+    } /*This is a getter that is used to return the "activityList" size in order to know how many activities are part
+    of a project.*/
 
     public boolean getRunning() {
         boolean run = false;
@@ -110,7 +116,8 @@ public class Project extends Activity {
 
         running = run;
         return running;
-    }
+    } /*This method has the objective of returning if the activity is being
+    executed or not.*/
 
     public void add(Activity a) {
         checkInvariant(); //Invariant
@@ -122,7 +129,8 @@ public class Project extends Activity {
 
         assert (activityList != null);
         checkInvariant(); //Invariant
-    }
+    } /*To find out if the project is in execution, the method looks at all the
+    activities that make up the project to see if there is any active activity.*/
 
     public void calculateTotalTime() {
         checkInvariant(); //Invariant
@@ -162,12 +170,15 @@ public class Project extends Activity {
 
         assert (this.initialDate != null && this.finalDate != null); //Post condition
         checkInvariant(); //Invariant
-    }
+    } /*This method is used so that if
+    any activity that is part of this project updates its time it can update the time of its parent (this project) for
+    consistency by calling this method.*/
 
     @Override
     public void acceptVisitor(Visitor visitor) {
         visitor.visitProject(this);
-    }
+    } /*This method is used for a visitor to call an activity so that the Project can execute one of the visitor's
+    functionalities.*/
 
     @Override
     public JSONObject toJson() {

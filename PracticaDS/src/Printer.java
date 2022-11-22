@@ -20,13 +20,17 @@ public class Printer implements Visitor, Observer {
     logger.info("HOLAAAAAAAAAAAA ESTOY EN EL CONSTRUCTOR DE {}", Printer.class.getName());
     ClockTimer.getInstance().addObserver(this);
     root = activity;
-  }
+  } /*This is a private constructor of the "Printer" class and it is used to
+  initialize the "root" variable (the root variable is the activity from which the printer will always start printing)
+  with the value passed as a parameter. It is a private constructor to avoid creating more than one instance of this
+  class, since we only want a single printer in the program.*/
 
   public static void getInstance(Activity root) {
     if (instance ==  null) {
       instance = new Printer(root);
     }
-  }
+  } /*This getter is used to access the only instance of the printer
+  class in order to be able to use its methods, if the instance does not exist, it creates it at the moment.*/
 
   @Override
   public void visitProject(Project project) {
@@ -42,7 +46,8 @@ public class Printer implements Visitor, Observer {
           + project.getInitialDate() + "\t" + project.getFinalDate() + "\t"
                 + project.getDuration().getSeconds());
     }
-  }
+  } /*This method is the method that the project uses to print its
+  content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
 
   @Override
   public void visitTask(Task task) {
@@ -64,7 +69,8 @@ public class Printer implements Visitor, Observer {
                 + task.getInitialDate() + "\t" + task.getFinalDate() + "\t"
                 + task.getDuration().getSeconds());
     }
-  }
+  } /*This method is the method that the task uses to print its
+  content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
 
   @Override
   public void visitInterval(Interval interval) {
@@ -74,7 +80,8 @@ public class Printer implements Visitor, Observer {
                 + "\t" + interval.getFinalDate() + "\t"
                 + interval.getDuration().getSeconds());
     }
-  }
+  } /*This method is the method that the interval uses to print its
+  content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
 
   @Override
   public void update(Observable o, Object arg) {
