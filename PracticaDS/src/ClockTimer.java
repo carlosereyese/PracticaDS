@@ -19,7 +19,9 @@ public class ClockTimer extends Observable {
 
   private ClockTimer() {
     this.dateTime = null;
-  }
+  } /*The ClockTimer is a private constructor used to create an instance of this class. It is private to prevent anyone
+  outside the class from creating more than one instance, since the idea is that there is only one clock for the whole
+  program.*/
 
   public static ClockTimer getInstance() {
     if (instance == null) {

@@ -57,25 +57,25 @@ public abstract class Activity {
 
   public List<String> getListOfTags() {
     return listOfTags;
-  } /*This is a getter that returns the duration that the activity has been active.*/
+  } /*This is a getter that returns the activity tags.*/
 
   public void add(Activity a) {
         //void
   }
 
   public abstract boolean getRunning(); /*This is an abstract method that is implemented by the classes that inherit
-  from the activity class (project and tasca). This method has the objective of returning if the activity is being
+  from the activity class (project and task). This method has the objective of returning if the activity is being
   executed or not.*/
 
   public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate); /*This is an abstract method that
-  is implemented by the classes that inherit from the activity class (project and tasca). The purpose of this method is
+  is implemented by the classes that inherit from the activity class (project and task). The purpose of this method is
   to update the time of the activity.*/
 
   public abstract void acceptVisitor(Visitor visitor); /*This is an abstract method that is implemented by the classes
-  that inherit from the activity class (project and tasca). This method is used for a visitor to call an activity so
+  that inherit from the activity class (project and task). This method is used for a visitor to call an activity so
   that the activity can execute one of the visitor's functionalities.*/
 
   public abstract JSONObject toJson(); /*This is an abstract method that is implemented by the classes that inherit from
-  the activity class (project and tasca). The "toJson" method is used so that before closing the program or ending the
+  the activity class (project and task). The "toJson" method is used so that before closing the program or ending the
   execution, the data generated from the activities can be stored in JSON format.*/
 }
