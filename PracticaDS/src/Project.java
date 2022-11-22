@@ -28,7 +28,7 @@ public class Project extends Activity {
                 && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
                 && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
-    } /* The check Invariant method is used to apply the design by contract, this
+    } /*The check Invariant method is used to apply the design by contract, this
     method is used to check if the values of the attributes are valid.*/
 
     public Project() {
@@ -116,8 +116,9 @@ public class Project extends Activity {
 
         running = run;
         return running;
-    } /*This method has the objective of returning if the activity is being
-    executed or not.*/
+    } /*This method has the objective of returning if the activity is being executed or
+    not. To find out if the project is in execution, the method looks at all the activities that make up the project to
+    see if there is any active activity.*/
 
     public void add(Activity a) {
         checkInvariant(); //Invariant
@@ -129,8 +130,7 @@ public class Project extends Activity {
 
         assert (activityList != null);
         checkInvariant(); //Invariant
-    } /*To find out if the project is in execution, the method looks at all the
-    activities that make up the project to see if there is any active activity.*/
+    } /*This method is used to add one more activity to the list attribute.*/
 
     public void calculateTotalTime() {
         checkInvariant(); //Invariant

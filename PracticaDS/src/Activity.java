@@ -62,7 +62,7 @@ public abstract class Activity {
   public void add(Activity a) {
         //void
 
-  }
+  } /*This method is used to add one more activity to the list attribute.*/
 
   public abstract boolean getRunning(); /*This is an abstract method that is implemented by the classes that inherit
   from the activity class (project and task). This method has the objective of returning if the activity is being

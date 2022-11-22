@@ -29,14 +29,16 @@ public class Task extends Activity {
                 && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
                 && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
-  }
+  } /*The check Invariant method is used to apply the design by contract, this
+  method is used to check if the values of the attributes are valid.*/
 
   public Task(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
 
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*This is the constructor of the
+  Task class, it initializes the attributes of this class with the parameters it receives.*/
 
   public Task(JSONObject jsonObj) {
     nameActivity = jsonObj.getString("nameActivity");
@@ -75,19 +77,21 @@ public class Task extends Activity {
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
   } /*It is a constructor used to load data from the JSON file to
-    initialize the task.*/
+  initialize the task.*/
 
   public int getSizeList() {
     return intervalList.size();
-  }
+  } /*This is a getter that is used to return the "intervalList" size in order to know how many execution time intervals
+  does the task have.*/
 
   public Object getElementsFromList(int i) {
     return intervalList.get(i);
-  }
+  } /*This is a getter used to return an interval indicated by parameter that is part of the project.*/
 
   public boolean getRunning() {
     return running;
-  }
+  } /*This method has the objective of returning if the activity is being
+    executed or not.*/
 
   public void start() {
     checkInvariant(); //Invariant
@@ -105,7 +109,8 @@ public class Task extends Activity {
     assert (running); //Post condition
     assert (intervalList != null); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*This method is used to indicate that a task becomes active, when activating the rate a new
+  execution interval is created.*/
 
   public void stop() {
     checkInvariant(); //Invariant
@@ -120,7 +125,7 @@ public class Task extends Activity {
 
     assert (!running); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*This method is used to indicate that a transaction is no longer running.*/
 
   public void calculateTotalTime() { /*Calculates the active time of the task consisting of
     the sum of the active time of all of its intervals.*/
@@ -139,7 +144,8 @@ public class Task extends Activity {
                 && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
                 && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*Calculates the active time of the task consisting of
+  the sum of the active time of all its intervals.*/
 
   public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate) {
     checkInvariant(); //Invariant
@@ -158,12 +164,15 @@ public class Task extends Activity {
 
     assert (this.initialDate != null && this.finalDate != null); //Post condition
     checkInvariant(); //Invariant
-  }
+  } /*This method is used so that when
+  one of its intervals updates its time, the interval can update the time of the rate it belongs to by calling this
+  method.*/
 
   @Override
   public void acceptVisitor(Visitor visitor) {
     visitor.visitTask(this);
-  }
+  } /*This method is used for a visitor to call an activity so that the Project can execute one of the visitor's
+  functionalities.*/
 
   public JSONObject toJson() {
 
