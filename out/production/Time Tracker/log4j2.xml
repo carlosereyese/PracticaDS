@@ -4,7 +4,7 @@
         <Console name="Console">
             <PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </Console>
-        <File name="fout" fileName="loggerTimeTracker.html" append="false">
+        <File name="HTML" fileName="loggerTimeTracker.html" append="false">
             <HTMLLayout>
             </HTMLLayout>
         </File>
@@ -12,9 +12,9 @@
     <Loggers>
         <Root level="debug">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="fout"/>
+            <AppenderRef ref="HTML"/>
         </Root>
-        <logger name="Milestone 1" level="off"/> <!-- level="off" to deactivate-->
-        <logger name="Milestone 2" level="debug"/> <!-- level="off" to deactivate-->
+        <logger name="Milestone 1" level="info"/> <!-- level="off" to deactivate-->
+        <logger name="Milestone 2" level="info"/> <!-- level="off" to deactivate-->
     </Loggers>
 </Configuration>
