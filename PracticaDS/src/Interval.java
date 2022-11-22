@@ -47,31 +47,33 @@ public class Interval implements Observer {
 
   public LocalDateTime getInitialDate() {
     return initialDate;
-  }
+  } /*This is a getter that returns the date on which the activity was first started.*/
 
   public LocalDateTime getFinalDate() {
     return finalDate;
-  }
+  } /*This is a getter that returns the date on which the activity was last executed.*/
 
   public Duration getDuration() {
     return duration;
-  }
+  } /*This is a getter that returns the duration that the activity has been active.*/
 
   public boolean getRunning() {
     return running;
-  }
+  } /* This method has the objective of returning if the activity is being
+  executed or not.*/
 
   public void setFather(Task father) {
     this.father = father;
-  }
+  } /*This method is a setter that serves to indicate who is the parent of the interval, in other words it serves to
+  initialize the variable father with the task to which the interval belongs.*/
 
   public void stop() {
     ClockTimer.getInstance().deleteObserver(this);
     running = false;
-  }
+  } /*This method is used to indicate when the interval has finished its execution.*/
 
   @Override
-    public void update(Observable observable, Object object) { /*With the "update" method
+  public void update(Observable observable, Object object) { /*With the "update" method
     it is possible to receive the notifications of the observed class "ClockTimer" in
     order to proceed with the update of the times.*/
     if (initialDate == null) {
@@ -81,11 +83,14 @@ public class Interval implements Observer {
     duration = Duration.between(initialDate, finalDate);
     father.changeTime(initialDate, finalDate); /*With this line of code,
     its parent is notified recursively to update its times.*/
-  }
+  } /*The update method is used so that the interval can
+  receive notifications from the ClockTimer class when there is an update of the time for the interval to change its
+  dates.*/
 
   public void acceptVisitor(Visitor visitor) {
     visitor.visitInterval(this);
-  }
+  } /*This method is used for a visitor to call the interval so that the interval can execute one of the visitor's
+  functionalities.*/
 
   public JSONObject toJson() {
     JSONObject intervalJson = new JSONObject();
