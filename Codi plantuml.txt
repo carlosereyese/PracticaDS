@@ -112,7 +112,8 @@ class           ClockTimer
 interface           Visitor
 {
      + {abstract} visitProject(project : Project) : void
-     + {abstract} visitTask(task : Task) : void  
+     + {abstract} visitTask(task : Task) : void 
+     + {abstract} visitInterval(interval : Interval) : void
 }
 
 class           Printer
@@ -135,6 +136,7 @@ class           SearchByName
      + SearchByName(activity : Activity)
      + visitProject(project : Project) : void
      + visitTask(task : Task) : void
+     + visitInterval(interval : Interval) : void
      + searchByName(name : String) : Activity
 }
 
@@ -145,6 +147,7 @@ class           SearchByTag
      + SearchByTag(activity : Activity)
      + visitProject(project : Project) : void
      + visitTask(task : Task) : void
+     + visitInterval(interval : Interval) : void
      + searchByTag(tag: String) : List<Activity>
 }
 
@@ -165,4 +168,4 @@ SearchByTag --|> Visitor
 Printer ..|> Observer
 SearchByTag o-->"0..*" Activity 
 
-@enduml
+@endum
