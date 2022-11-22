@@ -61,6 +61,7 @@ public abstract class Activity {
 
   public void add(Activity a) {
         //void
+
   }
 
   public abstract boolean getRunning(); /*This is an abstract method that is implemented by the classes that inherit
@@ -78,4 +79,5 @@ public abstract class Activity {
   public abstract JSONObject toJson(); /*This is an abstract method that is implemented by the classes that inherit from
   the activity class (project and task). The "toJson" method is used so that before closing the program or ending the
   execution, the data generated from the activities can be stored in JSON format.*/
+
 }

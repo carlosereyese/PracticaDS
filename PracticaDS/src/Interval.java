@@ -35,8 +35,13 @@ public class Interval implements Observer {
       finalDate = null;
     }
 
+    if (!jsonObj.isNull("duration")) {
+      duration = Duration.parse(jsonObj.getString("duration"));
+    } else {
+      duration = null;
+    }
+
     running = jsonObj.getBoolean("running");
-    duration = Duration.parse(jsonObj.getString("duration"));
   } /*It is a constructor used to load data from the JSON file to
     initialize the interval.*/
 
@@ -98,6 +103,14 @@ public class Interval implements Observer {
       tempDate = finalDate.toString();
       intervalJson.put("finalDate", tempDate);
     }
+
+    if (duration == null) {
+      intervalJson.put("duration", JSONObject.NULL);
+    } else {
+      String tempDuration = duration.toString();
+      intervalJson.put("finalDate", tempDuration);
+    }
+
     intervalJson.put("duration", duration.toString());
     intervalJson.put("running", running);
 
