@@ -3,7 +3,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
@@ -32,7 +31,8 @@ public abstract class Activity {
   }
 
   public Activity(String nameActivity, List<String> listOfTags, Activity father) {
-    loggerMilestone1.debug("It has just entered the constructor by parameters of the class Activity.");
+    loggerMilestone1.debug("It has just entered the constructor by parameters of "
+                           + "the class Activity.");
     duration = Duration.ofSeconds(0);
     loggerMilestone1.trace("The default value of Duration is: {}", duration);
     if (father != null) {
@@ -44,8 +44,8 @@ public abstract class Activity {
     this.father = father;
     running =  false;
     loggerMilestone1.trace("The default value of running is: {}", running);
-    loggerMilestone1.debug("The attributes of the Activity class have been initialized with the values passed by " +
-            "parameter to the constructor.");
+    loggerMilestone1.debug("The attributes of the Activity class have been initialized with "
+                           + "the values passed by parameter to the constructor.");
   } /*This is the constructor of the
   Activity class, it initializes the attributes of this class with the parameters it receives.*/
 
@@ -73,20 +73,22 @@ public abstract class Activity {
         //void
   } /*This method is used to add one more activity to the list attribute.*/
 
-  public abstract boolean getRunning(); /*This is an abstract method that is implemented by the classes that inherit
-  from the activity class (project and task). This method has the objective of returning if the activity is being
-  executed or not.*/
+  public abstract boolean getRunning(); /*This is an abstract method that is implemented by
+  the classes that inherit from the activity class (project and task). This method has the
+  objective of returning if the activity is being executed or not.*/
 
-  public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate); /*This is an abstract method that
-  is implemented by the classes that inherit from the activity class (project and task). The purpose of this method is
-  to update the time of the activity.*/
+  public abstract void changeTime(LocalDateTime initialDate, LocalDateTime finalDate);
+  /*This is an abstract method that is implemented by the classes that inherit from
+  the activity class (project and task). The purpose of this method is to update the
+  time of the activity.*/
 
-  public abstract void acceptVisitor(Visitor visitor); /*This is an abstract method that is implemented by the classes
-  that inherit from the activity class (project and task). This method is used for a visitor to call an activity so
+  public abstract void acceptVisitor(Visitor visitor); /*This is an abstract method
+  that is implemented by the classes that inherit from the activity class
+  (project and task). This method is used for a visitor to call an activity so
   that the activity can execute one of the visitor's functionalities.*/
 
-  public abstract JSONObject toJson(); /*This is an abstract method that is implemented by the classes that inherit from
-  the activity class (project and task). The "toJson" method is used so that before closing the program or ending the
-  execution, the data generated from the activities can be stored in JSON format.*/
-
+  public abstract JSONObject toJson(); /*This is an abstract method that is implemented
+  by the classes that inherit from the activity class (project and task). The "toJson"
+  method is used so that before closing the program or ending the execution, the data
+  generated from the activities can be stored in JSON format.*/
 }

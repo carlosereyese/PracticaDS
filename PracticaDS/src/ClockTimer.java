@@ -1,7 +1,10 @@
 import java.time.LocalDateTime;
 import java.util.Observable;
-import org.apache.logging.log4j.Logger;
+
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 /*
 The "ClockTimer" class is the class responsible for reporting the time
 every 2 seconds for the interval to update its time and that of its
@@ -15,18 +18,19 @@ the printer and activities are synchronized.
  */
 
 public class ClockTimer extends Observable {
-  private LocalDateTime dateTime;
   private static ClockTimer instance = null;
-  private boolean loop = true;
   private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private LocalDateTime dateTime;
+  private boolean loop = true;
+
   private ClockTimer() {
     loggerMilestone1.debug("Entering the ClockTimer private constructor.");
     this.dateTime = null;
     loggerMilestone1.trace("The default value of the dateTime attribute is: {}", dateTime);
     loggerMilestone1.debug("Exiting the ClockTimer private builder");
   } /*The ClockTimer is a private constructor used to create an instance of this class. It is
-  private to prevent anyone outside the class from creating more than one instance, since the idea is that there is only
-  one clock for the whole program.*/
+  private to prevent anyone outside the class from creating more than one instance, since the
+  idea is that there is only one clock for the whole program.*/
 
   public static ClockTimer getInstance() {
     loggerMilestone1.debug("Entering the getInstance method of ClockTimer.");
@@ -37,7 +41,8 @@ public class ClockTimer extends Observable {
     loggerMilestone1.debug("Exiting the getInstance method of ClockTimer.");
     return instance;
   } /*This method is a getter that serves to return the unique instance of
-  the clock that shares all the program, in case that an instance does not exist it creates it and returns it.*/
+  the clock that shares all the program, in case that an instance does not
+  exist it creates it and returns it.*/
 
   private void tick() {
     loggerMilestone1.debug("Entering the tick method of ClockTimer.");
@@ -48,7 +53,7 @@ public class ClockTimer extends Observable {
   } /*The "tick" method is the method that is called every 2 seconds to notify the current
     time to all observers.*/
 
-  public void startTimer() throws InterruptedException  {
+  public void startTimer() throws InterruptedException {
     loggerMilestone1.debug("Entering the startTimer method of ClockTimer.");
     loggerMilestone1.trace("The value of the loop attribute is: {}", loop);
     while (loop) {

@@ -17,29 +17,14 @@ A task is an activity that cannot be decomposed into other activities such as th
 an activity is made up of intervals that indicate the time slots in which the task has been active.
 */
 public class Task extends Activity {
-  private final List<Interval> intervalList = new ArrayList<>();
   private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
-
-  private void checkInvariant() {
-        assert ((nameActivity == null && father == null)
-                || (nameActivity != null && father != null));
-        assert (Objects.requireNonNull(nameActivity).charAt(0) != ' ');
-        assert ((initialDate == null && finalDate == null)
-                || (initialDate != null && finalDate != null));
-        assert ((duration == Duration.ofSeconds(0))
-                || (duration.toDays() >= Duration.ofSeconds(0).toDays()
-                && duration.toHours() >= Duration.ofSeconds(0).toHours()
-                && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
-                && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
-                && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
-  } /*The check Invariant method is used to apply the design by contract, this
-  method is used to check if the values of the attributes are valid.*/
+  private final List<Interval> intervalList = new ArrayList<>();
 
   public Task(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
-    loggerMilestone1.debug("The parent constructor has just been executed to initialize the Task class with the " +
-            "values passed as parameters.");
+    loggerMilestone1.debug("The parent constructor has just been executed to "
+        + "initialize the Task class with the values passed as parameters.");
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
   } /*This is the constructor of the
@@ -86,14 +71,30 @@ public class Task extends Activity {
   } /*It is a constructor used to load data from the JSON file to
   initialize the task.*/
 
+  private void checkInvariant() {
+    assert ((nameActivity == null && father == null)
+        || (nameActivity != null && father != null));
+    assert (Objects.requireNonNull(nameActivity).charAt(0) != ' ');
+    assert ((initialDate == null && finalDate == null)
+        || (initialDate != null && finalDate != null));
+    assert ((duration == Duration.ofSeconds(0))
+        || (duration.toDays() >= Duration.ofSeconds(0).toDays()
+        && duration.toHours() >= Duration.ofSeconds(0).toHours()
+        && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
+        && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
+        && duration.toMillis() >= Duration.ofSeconds(0).toMillis()));
+  } /*The check Invariant method is used to apply the design by contract, this
+  method is used to check if the values of the attributes are valid.*/
+
   public int getSizeList() {
     return intervalList.size();
-  } /*This is a getter that is used to return the "intervalList" size in order to know how many execution time intervals
-  does the task have.*/
+  } /*This is a getter that is used to return the "intervalList" size in order to
+  know how many execution time intervals does the task have.*/
 
   public Object getElementsFromList(int i) {
     return intervalList.get(i);
-  } /*This is a getter used to return an interval indicated by parameter that is part of the project.*/
+  } /*This is a getter used to return an interval indicated by parameter that is part
+  of the project.*/
 
   public boolean getRunning() {
     return running;
@@ -103,9 +104,10 @@ public class Task extends Activity {
   public void start() {
     checkInvariant(); //Invariant
     if (running) { //Pre condition
-      loggerMilestone1.error("An attempt is being made to initiate a transaction that has already been initiated");
+      loggerMilestone1.error("An attempt is being made to initiate a transaction that "
+          + "has already been initiated");
       throw new IllegalArgumentException("An attempt is being made to initiate a "
-                                       + "transaction that has already been initiated");
+          + "transaction that has already been initiated");
     }
 
     loggerMilestone1.info(nameActivity + " starts");
@@ -125,7 +127,7 @@ public class Task extends Activity {
     if (!running) { //Pre condition
       loggerMilestone1.error("An attempt is being made to finalize a completed share");
       throw new IllegalArgumentException("An attempt is being made to "
-                                       + "finalize a completed share");
+          + "finalize a completed share");
     }
 
     intervalList.get(intervalList.size() - 1).stop();
@@ -145,12 +147,12 @@ public class Task extends Activity {
       duration = duration.plus(interval.getDuration());
     }
 
-        assert ((duration == Duration.ofSeconds(0))
-                || (duration.toDays() >= Duration.ofSeconds(0).toDays()
-                && duration.toHours() >= Duration.ofSeconds(0).toHours()
-                && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
-                && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
-                && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
+    assert ((duration == Duration.ofSeconds(0))
+        || (duration.toDays() >= Duration.ofSeconds(0).toDays()
+        && duration.toHours() >= Duration.ofSeconds(0).toHours()
+        && duration.toMinutes() >= Duration.ofSeconds(0).toMinutes()
+        && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
+        && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
     checkInvariant(); //Invariant
   } /*Calculates the active time of the task consisting of
   the sum of the active time of all its intervals.*/
@@ -173,14 +175,14 @@ public class Task extends Activity {
     assert (this.initialDate != null && this.finalDate != null); //Post condition
     checkInvariant(); //Invariant
   } /*This method is used so that when
-  one of its intervals updates its time, the interval can update the time of the rate it belongs to by calling this
-  method.*/
+  one of its intervals updates its time, the interval can update the time of the
+  rate it belongs to by calling this method.*/
 
   @Override
   public void acceptVisitor(Visitor visitor) {
     visitor.visitTask(this);
-  } /*This method is used for a visitor to call an activity so that the Project can execute one of the visitor's
-  functionalities.*/
+  } /*This method is used for a visitor to call an activity so that the Project can
+  execute one of the visitor's functionalities.*/
 
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Task.");

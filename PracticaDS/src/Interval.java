@@ -13,18 +13,18 @@ class. The design pattern that applies to this class is the "Observer-Observable
 because this class is pending of clock warnings to update the start-end data of an interval.
 */
 public class Interval implements Observer {
+  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private LocalDateTime initialDate;
   private LocalDateTime finalDate;
   private Task father;
   private Duration duration;
   private boolean running;
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
   public Interval() {
     initialDate = null;
     finalDate = null;
-    running =  true;
+    running = true;
     ClockTimer.getInstance().addObserver(this);
   }
 
@@ -71,8 +71,9 @@ public class Interval implements Observer {
 
   public void setFather(Task father) {
     this.father = father;
-  } /*This method is a setter that serves to indicate who is the parent of the interval, in other words it serves to
-  initialize the variable father with the task to which the interval belongs.*/
+  } /*This method is a setter that serves to indicate who is the parent of the interval,
+  in other words it serves to initialize the variable father with the task to which the
+  interval belongs.*/
 
   public void stop() {
     loggerMilestone1.debug("Entering the stop method of Interval.");
@@ -92,13 +93,13 @@ public class Interval implements Observer {
     father.changeTime(initialDate, finalDate); /*With this line of code,
     its parent is notified recursively to update its times.*/
   } /*The update method is used so that the interval can
-  receive notifications from the ClockTimer class when there is an update of the time for the interval to change its
-  dates.*/
+  receive notifications from the ClockTimer class when there is an update of the time
+  for the interval to change its dates.*/
 
   public void acceptVisitor(Visitor visitor) {
     visitor.visitInterval(this);
-  } /*This method is used for a visitor to call the interval so that the interval can execute one of the visitor's
-  functionalities.*/
+  } /*This method is used for a visitor to call the interval so that the interval can
+  execute one of the visitor's functionalities.*/
 
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Interval.");

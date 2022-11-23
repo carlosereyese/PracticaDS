@@ -1,7 +1,10 @@
 import java.util.Observable;
 import java.util.Observer;
-import org.apache.logging.log4j.Logger;
+
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 /*
 Printer is a class that contains the methods to screen print the generated tree
 to keep track of which activities are active. This class implements the "Visitor"
@@ -23,18 +26,20 @@ public class Printer implements Visitor, Observer {
     root = activity;
     loggerMilestone1.debug("Exiting the Printer private constructor");
   } /*This is a private constructor of the "Printer" class and it is used to
-  initialize the "root" variable (the root variable is the activity from which the printer will always start printing)
-  with the value passed as a parameter. It is a private constructor to avoid creating more than one instance of this
+  initialize the "root" variable (the root variable is the activity from which
+  the printer will always start printing) with the value passed as a parameter.
+  It is a private constructor to avoid creating more than one instance of this
   class, since we only want a single printer in the program.*/
 
   public static void getInstance(Activity root) {
     loggerMilestone1.debug("Entering the getInstance method of Printer.");
-    if (instance ==  null) {
+    if (instance == null) {
       instance = new Printer(root);
     }
     loggerMilestone1.debug("Exiting the getInstance method of Printer.");
   } /*This getter is used to access the only instance of the printer
-  class in order to be able to use its methods, if the instance does not exist, it creates it at the moment.*/
+  class in order to be able to use its methods, if the instance does not exist,
+  it creates it at the moment.*/
 
   @Override
   public void visitProject(Project project) {
@@ -47,8 +52,8 @@ public class Printer implements Visitor, Observer {
         && (project.getFinalDate() != null))
         && (project.getRunning())) {
       loggerMilestone1.info("activity: " + project.getNameActivity() + "\t"
-              + project.getInitialDate() + "\t" + project.getFinalDate() + "\t"
-              + project.getDuration().getSeconds());
+          + project.getInitialDate() + "\t" + project.getFinalDate() + "\t"
+          + project.getDuration().getSeconds());
     }
   } /*This method is the method that the project uses to print its
   content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
@@ -70,8 +75,8 @@ public class Printer implements Visitor, Observer {
 
     if (((task.getInitialDate() != null) && (task.getFinalDate() != null)) && (printTask)) {
       loggerMilestone1.info("activity: " + task.getNameActivity() + "\t"
-              + task.getInitialDate() + "\t" + task.getFinalDate() + "\t"
-              + task.getDuration().getSeconds());
+          + task.getInitialDate() + "\t" + task.getFinalDate() + "\t"
+          + task.getDuration().getSeconds());
     }
   } /*This method is the method that the task uses to print its
   content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
@@ -81,8 +86,8 @@ public class Printer implements Visitor, Observer {
     if ((interval.getInitialDate() != null) && (interval.getFinalDate() != null)
         && (interval.getRunning())) {
       loggerMilestone1.info("interval: " + "\t" + interval.getInitialDate()
-              + "\t" + interval.getFinalDate() + "\t"
-              + interval.getDuration().getSeconds());
+          + "\t" + interval.getFinalDate() + "\t"
+          + interval.getDuration().getSeconds());
     }
   } /*This method is the method that the interval uses to print its
   content when the project receives a call to its "acceptVisitor" method with a "Printer" visitor.*/
@@ -91,6 +96,6 @@ public class Printer implements Visitor, Observer {
   public void update(Observable o, Object arg) {
     root.acceptVisitor(instance);
   } /*With the "update" method it is possible to receive the
-  notifications of the observed class "ClockTimer" in order to proceed to print the active projects, tasks and
-  activities.*/
+  notifications of the observed class "ClockTimer" in order to proceed
+  to print the active projects, tasks and activities.*/
 }

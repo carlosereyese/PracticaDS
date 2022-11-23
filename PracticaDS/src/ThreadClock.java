@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 to the main thread to execute the ClockTimer.*/
 class ThreadClock extends Thread {
   private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+
   @Override
   public void run() {
     try {
