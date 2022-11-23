@@ -12,9 +12,9 @@ import org.json.JSONObject;
 /*The test class contains all the tests necessary to check the correct functionality of the
 Time Tracker program.*/
 public class Test {
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private static Test instance = null;
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private final Thread threadClock = new ThreadClock();
 
   public static Test getInstance() {
@@ -94,7 +94,7 @@ public class Test {
     try (FileWriter file = new FileWriter(jsonPath)) {
       file.write(root.toJson().toString());
     } catch (IOException e) {
-      loggerMilestone1.warn("{}", e);
+      loggerMilestone1.warn("Error: ", e);
     }
     loggerMilestone1.debug("Finishing test B");
   } /*This method is the one that executes the second test to
@@ -117,36 +117,36 @@ public class Test {
 
     loggerMilestone2.info("---------------- SEARCH BY TAG: java ----------------");
     List<Activity> activity1 = searchTag.searchByTag("java");
-    for (int i = 0; i < activity1.size(); i++) {
-      loggerMilestone2.info("ACTIVITY: " + activity1.get(i).getNameActivity());
+    for (Activity activity : activity1) {
+      loggerMilestone2.info("ACTIVITY: " + activity.getNameActivity());
     }
 
     loggerMilestone2.info("---------------- SEARCH BY TAG: Java ----------------");
     searchTag.resetList();
     List<Activity> activity2 = searchTag.searchByTag("Java");
-    for (int i = 0; i < activity2.size(); i++) {
-      loggerMilestone2.info("ACTIVITY: " + activity2.get(i).getNameActivity());
+    for (Activity activity : activity2) {
+      loggerMilestone2.info("ACTIVITY: " + activity.getNameActivity());
     }
 
     loggerMilestone2.info("--------------- SEARCH BY TAG: intellij --------------");
     searchTag.resetList();
     List<Activity> activity3 = searchTag.searchByTag("intellij");
-    for (int i = 0; i < activity3.size(); i++) {
-      loggerMilestone2.info("ACTIVITY: " + activity3.get(i).getNameActivity());
+    for (Activity activity : activity3) {
+      loggerMilestone2.info("ACTIVITY: " + activity.getNameActivity());
     }
 
     loggerMilestone2.info("---------------- SEARCH BY TAG: c++ ------------------");
     searchTag.resetList();
     List<Activity> activity4 = searchTag.searchByTag("c++");
-    for (int i = 0; i < activity4.size(); i++) {
-      loggerMilestone2.info("ACTIVITY: " + activity4.get(i).getNameActivity());
+    for (Activity activity : activity4) {
+      loggerMilestone2.info("ACTIVITY: " + activity.getNameActivity());
     }
 
     loggerMilestone2.info("---------------- SEARCH BY TAG: python ---------------");
     searchTag.resetList();
     List<Activity> activity5 = searchTag.searchByTag("python");
-    for (int i = 0; i < activity5.size(); i++) {
-      loggerMilestone2.info("ACTIVITY: " + activity5.get(i).getNameActivity());
+    for (Activity activity : activity5) {
+      loggerMilestone2.info("ACTIVITY: " + activity.getNameActivity());
     }
     loggerMilestone2.debug("Finishing test C");
 

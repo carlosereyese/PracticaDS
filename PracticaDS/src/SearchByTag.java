@@ -10,7 +10,7 @@ this class implements the "Visitor".
 */
 
 public class SearchByTag implements Visitor {
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private final Activity root;
   private final List<Activity> foundActivity = new ArrayList<>();
   private String tag;

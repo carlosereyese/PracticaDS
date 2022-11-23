@@ -13,8 +13,8 @@ class. The design pattern that applies to this class is the "Observer-Observable
 because this class is pending of clock warnings to update the start-end data of an interval.
 */
 public class Interval implements Observer {
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private LocalDateTime initialDate;
   private LocalDateTime finalDate;
   private Task father;

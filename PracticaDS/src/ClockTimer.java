@@ -18,8 +18,8 @@ the printer and activities are synchronized.
  */
 
 public class ClockTimer extends Observable {
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static ClockTimer instance = null;
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private LocalDateTime dateTime;
   private boolean loop = true;
 

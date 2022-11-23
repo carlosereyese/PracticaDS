@@ -6,7 +6,7 @@ The "SearchByName" class is used to search for an activity by name,
 this class implements the "Visitor".
 */
 public class SearchByName implements Visitor {
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private final Activity root;
   private Activity foundActivity;
   private String name;

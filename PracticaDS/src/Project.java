@@ -16,8 +16,8 @@ been created in the application. A project can be decomposed into more activitie
 decomposed into more projects and tasks.
 */
 public class Project extends Activity {
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private List<Activity> activityList = new ArrayList<>();
 
   public Project() {

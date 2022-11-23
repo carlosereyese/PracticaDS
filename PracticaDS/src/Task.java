@@ -17,8 +17,8 @@ A task is an activity that cannot be decomposed into other activities such as th
 an activity is made up of intervals that indicate the time slots in which the task has been active.
 */
 public class Task extends Activity {
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
+  private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private final List<Interval> intervalList = new ArrayList<>();
 
   public Task(String nameActivity, List<String> listOfTags, Activity father) {

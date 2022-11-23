@@ -15,10 +15,9 @@ activities need to be printed on the screen.
 */
 
 public class Printer implements Visitor, Observer {
+  private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static Printer instance = null;
   private static Activity root;
-  private static Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
-  private static Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
 
   private Printer(Activity activity) {
     loggerMilestone1.debug("Entering the Printer private constructor.");
