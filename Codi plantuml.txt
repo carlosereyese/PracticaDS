@@ -4,6 +4,8 @@ skinparam classAttributeIconSize 0
 
 class           Client
 {
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + {static} main() : void
 }
 
@@ -11,6 +13,8 @@ class           Test
 {
      - {static} instance : Test
      - threadClock : Thread
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + {static} getInstance() : Test
      + testA() : Activity 
      + testB() : Activity 
@@ -19,6 +23,7 @@ class           Test
 
 class           ThreadClock
 {
+     - {static} loggerMilestone1 : Looger
      + run : void
 }
 
@@ -35,6 +40,7 @@ abstract class           Activity
      # finalDate : LocalDateTime
      # duration : Duration
      # running : boolean
+     - {static} loggerMilestone1 : Looger
      + Activity(nameActivity : String, father : Activity)
      + add(a : Activity)
      + {abstract} changeTime(initialDate : LocalDateTime, finalDate : LocalDateTime) : void
@@ -45,6 +51,8 @@ abstract class           Activity
 class           Task
 {
      - checkInvariant() : void
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + Task(nameProject : String , listOfTags : List<String>, father : Activity)
      + Task(jsonObj : JSONObject)
      + start() : void
@@ -58,6 +66,8 @@ class           Task
 class           Project
 {
      - checkInvariant() : void
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + Project(nameProject : String , listOfTags : List<String>, father : Activity)
      + Project(jsonObj : JSONObject)
      + add(a Activity) : void
@@ -74,6 +84,8 @@ class           Interval
      - father : Task
      - duration : Duration
      - running : boolean
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + Interval (jsonObj : JSONObject)
      + stop() : void
      + update(arg() : Observable, arg1 : Object) : void
@@ -103,6 +115,7 @@ class           ClockTimer
      - {static} instance : ClockTimer
      - dateTimer : LocalDateTime
      - loop : boolean
+     - {static} loggerMilestone1 : Looger
      - tick() : void
      + {static} getInstance() : ClockTimer 
      + startTimer() : void
@@ -120,6 +133,8 @@ class           Printer
 {
      - {static} instance : Visitor
      - {static} root : Activity
+     - {static} loggerMilestone1 : Looger
+     - {static} loggerMilestone2 : Looger
      + Printer(activity : Activity)
      + getInstance(root : Activity) : void
      + visitProject(project : Project) : void
@@ -133,6 +148,7 @@ class           SearchByName
      - {final} root : Activity
      - foundActivity : Activity
      - name : String
+     - {static} loggerMilestone2 : Looger
      + SearchByName(activity : Activity)
      + visitProject(project : Project) : void
      + visitTask(task : Task) : void
@@ -144,6 +160,7 @@ class           SearchByTag
 {
      - {final} root : Activity
      - tag : String
+     - {static} loggerMilestone2 : Looger
      + SearchByTag(activity : Activity)
      + visitProject(project : Project) : void
      + visitTask(task : Task) : void
