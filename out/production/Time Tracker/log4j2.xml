@@ -4,6 +4,7 @@
         <Console name="Console">
             <PatternLayout pattern="%d{HH:mm:ss} %-5level %logger{36} - %msg%n"/>
         </Console>
+        <!-- -->
         <File name="HTML" fileName="loggerTimeTracker.html" append="false">
             <HTMLLayout>
             </HTMLLayout>

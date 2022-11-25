@@ -23,7 +23,7 @@ public class Printer implements Visitor, Observer {
     ClockTimer.getInstance().addObserver(this);
     root = activity;
     loggerMilestone1.debug("Exiting the Printer private constructor");
-  } /*This is a private constructor of the "Printer" class and it is used to
+  } /*This is a private constructor of the "Printer" class, and it is used to
   initialize the "root" variable (the root variable is the activity from which
   the printer will always start printing) with the value passed as a parameter.
   It is a private constructor to avoid creating more than one instance of this

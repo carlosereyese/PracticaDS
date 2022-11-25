@@ -72,7 +72,7 @@ public class SearchByTag implements Visitor {
     //This method is not implemented because the intervals have no tag.
   } /*This method is implemented but not used and therefore has no logic
   inside. It is implemented because the class is obliged to do it because it
-  implements the visitor class and it is one of its methods.*/
+  implements the visitor class, and it is one of its methods.*/
 
   public void resetList() {
     foundActivity.clear();

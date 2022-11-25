@@ -53,7 +53,7 @@ public class SearchByName implements Visitor {
     //This method is not implemented because the intervals have no name.
   } /*This method is implemented but not used and therefore has no logic
   inside. It is implemented because the class is obliged to do it because it
-  implements the visitor class and it is one of its methods.*/
+  implements the visitor class, and it is one of its methods.*/
 
   /**
    * This method is used so that an activity can be searched by name.
