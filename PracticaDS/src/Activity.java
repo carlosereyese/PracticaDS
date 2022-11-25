@@ -3,17 +3,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-/*
-The class Activity is a component from which the classes task and project inherit,
-it is used to represent the different activities of the Time Tracker. The design
-pattern applied in this class is the "composite", because an activity is composed
-of tasks and projects and at the same time projects are composed of more projects and tasks.
-*/
+/**
+ * The class Activity is a component from which the classes task and project inherit,
+ * it is used to represent the different activities of the Time Tracker. The design
+ * pattern applied in this class is the "composite", because an activity is composed
+ * of tasks and projects and at the same time projects are composed of more projects and tasks.
+ */
 public abstract class Activity {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   protected String nameActivity;
@@ -24,6 +23,9 @@ public abstract class Activity {
   protected Duration duration;
   protected boolean running;
 
+  /**
+   * Initialize variables by default.
+   */
   public Activity() {
     initialDate = null;
     finalDate = null;
@@ -31,6 +33,10 @@ public abstract class Activity {
     duration = Duration.ofSeconds(0);
   }
 
+  /**
+   * This is the constructor of the Activity class, it initializes the attributes of this class
+   * with the parameters it receives.
+   */
   public Activity(String nameActivity, List<String> listOfTags, Activity father) {
     loggerMilestone1.debug("It has just entered the constructor by parameters of "
         + "the class Activity.");
@@ -47,8 +53,7 @@ public abstract class Activity {
     loggerMilestone1.trace("The default value of running is: {}", running);
     loggerMilestone1.debug("The attributes of the Activity class have been initialized with "
         + "the values passed by parameter to the constructor.");
-  } /*This is the constructor of the
-  Activity class, it initializes the attributes of this class with the parameters it receives.*/
+  }
 
   public String getNameActivity() {
     return Objects.requireNonNullElse(nameActivity, "null");

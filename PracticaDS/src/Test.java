@@ -3,30 +3,38 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 
-/*The test class contains all the tests necessary to check the correct functionality of the
-Time Tracker program.*/
+/**
+* The test class contains all the tests necessary to check the correct functionality of the
+* Time Tracker program.
+*/
 public class Test {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private static Test instance = null;
   private final Thread threadClock = new ThreadClock();
 
+  /**
+   * This method is a getter that serves to return the unique instance of
+   * the test that shares all the program, in case that an instance does not
+   * exist it creates it and returns it.
+   */
   public static Test getInstance() {
     if (instance == null) {
       instance = new Test();
     }
 
     return instance;
-  } /*This method is a getter that serves to return the unique instance of
-    the test that shares all the program, in case that an instance does not
-    exist it creates it and returns it.*/
+  }
 
+  /**
+   * Used to test if the project-task-interval tree is
+   * generated correctly.
+   */
   public void testA() {
     loggerMilestone1.debug("Starting test A");
     Project root = new Project("root", List.of(), null);
@@ -41,9 +49,13 @@ public class Test {
     Task t4 = new Task("read handout", List.of(), p5);
     Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
     loggerMilestone1.debug("Finishing test A");
-  } /*Used to test if the project-task-interval tree is
-    generated correctly.*/
+  }
 
+  /**
+   * This method is the one that executes the second test to
+   * check if the tasks are started and stopped correctly by printing the
+   * contents of each task every 2 seconds.
+   */
   public void testB() throws InterruptedException {
     loggerMilestone1.debug("Starting test B");
     threadClock.setPriority(Thread.MAX_PRIORITY);
@@ -97,10 +109,12 @@ public class Test {
       loggerMilestone1.warn("Error: ", e);
     }
     loggerMilestone1.debug("Finishing test B");
-  } /*This method is the one that executes the second test to
-    check if the tasks are started and stopped correctly by printing the
-    contents of each task every 2 seconds.*/
+  }
 
+  /**
+   * This method is the one that executes the third test to check if when searching for an
+   * activity by tag the search does well.
+   */
   public void testC() {
     loggerMilestone2.debug("Starting test C");
     String jsonPath = "activityJSON.json";
@@ -150,7 +164,6 @@ public class Test {
     }
     loggerMilestone2.debug("Finishing test C");
 
-  } /*This method is the one that executes the third test to check if when searching for an
-    activity by tag the search does well.*/
+  }
 }
 

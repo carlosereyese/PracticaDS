@@ -2,15 +2,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Observable;
 import java.util.Observer;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-/*
-Interval is a class that contains the start and end time of a time interval contained in a task
-class. The design pattern that applies to this class is the "Observer-Observable" pattern,
-because this class is pending of clock warnings to update the start-end data of an interval.
+/**
+* Interval is a class that contains the start and end time of a time interval contained in a task
+* class. The design pattern that applies to this class is the "Observer-Observable" pattern,
+* because this class is pending of clock warnings to update the start-end data of an interval.
 */
 public class Interval implements Observer {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
@@ -21,6 +20,9 @@ public class Interval implements Observer {
   private Duration duration;
   private boolean running;
 
+  /**
+   * Initialize variables by default.
+   */
   public Interval() {
     initialDate = null;
     finalDate = null;
@@ -28,6 +30,10 @@ public class Interval implements Observer {
     ClockTimer.getInstance().addObserver(this);
   }
 
+  /**
+   * It is a constructor used to load data from the JSON file to
+   * initialize the interval.
+   */
   public Interval(JSONObject jsonObj) {
     loggerMilestone2.debug("Entering the interval constructor from JSON file.");
     if (!jsonObj.isNull("initialDate")) {
@@ -49,8 +55,7 @@ public class Interval implements Observer {
 
     running = jsonObj.getBoolean("running");
     loggerMilestone2.debug("Exiting in the interval builder from JSON file.");
-  } /*It is a constructor used to load data from the JSON file to
-    initialize the interval.*/
+  }
 
   public LocalDateTime getInitialDate() {
     return initialDate;
@@ -75,13 +80,16 @@ public class Interval implements Observer {
   in other words it serves to initialize the variable father with the task to which the
   interval belongs.*/
 
+  /**
+   * This method is used to indicate when the interval has finished its execution.
+   */
   public void stop() {
     loggerMilestone1.debug("Entering the stop method of Interval.");
     ClockTimer.getInstance().deleteObserver(this);
     loggerMilestone1.debug("Exiting the stop method of Interval.");
     running = false;
     loggerMilestone1.trace("The value of the running attribute in Interval is: {}", running);
-  } /*This method is used to indicate when the interval has finished its execution.*/
+  }
 
   @Override
   public void update(Observable observable, Object object) {
@@ -101,6 +109,10 @@ public class Interval implements Observer {
   } /*This method is used for a visitor to call the interval so that the interval can
   execute one of the visitor's functionalities.*/
 
+  /**
+   * It is a function used to write the interval data in a JSON file so that
+   * it can be loaded in the future.
+   */
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Interval.");
     JSONObject intervalJson = new JSONObject();
@@ -131,6 +143,5 @@ public class Interval implements Observer {
 
     loggerMilestone1.debug("Exiting the toJson method of Interval.");
     return intervalJson;
-  } /*It is a function used to write the interval data in a JSON file so that
-    it can be loaded in the future.*/
+  }
 }

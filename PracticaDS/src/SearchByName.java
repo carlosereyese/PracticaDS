@@ -1,9 +1,9 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
-The "SearchByName" class is used to search for an activity by name,
-this class implements the "Visitor".
+/**
+* The "SearchByName" class is used to search for an activity by name,
+* this class implements the "Visitor".
 */
 public class SearchByName implements Visitor {
   private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
@@ -11,14 +11,17 @@ public class SearchByName implements Visitor {
   private Activity foundActivity;
   private String name;
 
+  /**
+   * This is a constructor of the SearchByName class, the utility of this
+   * class is to initialize the "root" variable (the "root" variable is used to
+   * indicate from which activity to start searching for an activity by name) with the
+   * value that is passed by the parameter.
+   */
   public SearchByName(Activity activity) {
     loggerMilestone2.debug("Entering the SearchByName constructor.");
     root = activity;
     loggerMilestone2.debug("Exiting the SearchByName constructor");
-  } /*This is a constructor of the SearchByName class, the utility of this
-  class is to initialize the "root" variable (the "root" variable is used to
-  indicate from which activity to start searching for an activity by name) with the
-  value that is passed by the parameter.*/
+  }
 
   @Override
   public void visitProject(Project project) {
@@ -52,13 +55,16 @@ public class SearchByName implements Visitor {
   inside. It is implemented because the class is obliged to do it because it
   implements the visitor class and it is one of its methods.*/
 
+  /**
+   * This method is used so that an activity can be searched by name.
+   * What this method does is to store the name to be searched and calls the
+   * "acceptVisitor" method of the root to start a recursive search.
+   */
   public Activity searchByName(String name) {
     loggerMilestone2.debug("Entering the searchByName method.");
     this.name = name;
     root.acceptVisitor(this);
     loggerMilestone2.debug("Exiting the searchByName method.");
     return foundActivity;
-  } /*This method is used so that an activity can be searched by name.
-  What this method does is to store the name to be searched and calls the
-  "acceptVisitor" method of the root to start a recursive search.*/
+  }
 }

@@ -2,24 +2,26 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-/*
-Project is a class that inherits from Activity and that contains more projects and tasks
-(it acts as a container), this means a project is a set of projects and tasks that have
-been created in the application. A project can be decomposed into more activities, it can be
-decomposed into more projects and tasks.
+/**
+* Project is a class that inherits from Activity and that contains more projects and tasks
+* (it acts as a container), this means a project is a set of projects and tasks that have
+* been created in the application. A project can be decomposed into more activities, it can be
+* decomposed into more projects and tasks.
 */
 public class Project extends Activity {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private List<Activity> activityList = new ArrayList<>();
 
+  /**
+   * Initialize variables by default.
+   */
   public Project() {
     nameActivity = "";
     initialDate = null;
@@ -30,15 +32,25 @@ public class Project extends Activity {
     assert (this.nameActivity != null); //Post condition
   }
 
+  /**
+   * This is the constructor of the
+   * Project class, it initializes the attributes of this class with the parameters it receives.
+   */
   public Project(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
     loggerMilestone1.debug("The parent constructor has just been executed to initialize "
         + "the Project class with the values passed as parameters.");
     assert (this.nameActivity != null); //Post condition
     checkInvariant(); //Invariant
-  } /*This is the constructor of the
-    Project class, it initializes the attributes of this class with the parameters it receives.*/
+  }
 
+  /**
+   * This is a constructor of the Project class, this constructor initializes
+   * the attributes of this class with the data that it has stored in a JSON format
+   * file that it had generated at the end of the last execution. The objective of
+   * this constructor is to recover the last state of the class before shutting
+   * down the program.
+   */
   public Project(JSONObject jsonObj) {
     loggerMilestone2.debug("Entering the project constructor from JSON file.");
     nameActivity = jsonObj.getString("nameActivity");
@@ -80,11 +92,7 @@ public class Project extends Activity {
     assert (this.nameActivity != null); //Post condition
     checkInvariant(); //Invariant
     loggerMilestone2.debug("Exiting in the project builder from JSON file.");
-  } /*This is a constructor of the Project class, this constructor initializes
-    the attributes of this class with the data that it has stored in a JSON format
-    file that it had generated at the end of the last execution. The objective of
-    this constructor is to recover the last state of the class before shutting
-    down the program.*/
+  }
 
   private void checkInvariant() {
     assert nameActivity == null || nameActivity.charAt(0) != ' ';
@@ -109,6 +117,11 @@ public class Project extends Activity {
   } /*This is a getter that is used to return the "activityList" size in order to
   know how many activities are part of a project.*/
 
+  /**
+   * This method has the objective of returning if the activity is being executed or
+   * not. To find out if the project is in execution, the method looks at all the activities
+   * that make up the project to see if there is any active activity.
+   */
   public boolean getRunning() {
     boolean run = false;
     int i = 0;
@@ -123,10 +136,11 @@ public class Project extends Activity {
 
     running = run;
     return running;
-  } /*This method has the objective of returning if the activity is being executed or
-    not. To find out if the project is in execution, the method looks at all the activities
-    that make up the project to see if there is any active activity.*/
+  }
 
+  /**
+   * This method is used to add one more activity to the list attribute.
+   */
   public void add(Activity a) {
     checkInvariant(); //Invariant
     if (a == null) { //Pre condition
@@ -138,8 +152,12 @@ public class Project extends Activity {
 
     assert (activityList != null);
     checkInvariant(); //Invariant
-  } /*This method is used to add one more activity to the list attribute.*/
+  }
 
+  /**
+   * Calculates the active time of the project consisting of
+   * the sum of the active time of all its children (projects+tasks).
+   */
   public void calculateTotalTime() {
     checkInvariant(); //Invariant
 
@@ -155,9 +173,13 @@ public class Project extends Activity {
         && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
         && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
     checkInvariant(); //Invariant
-  } /*Calculates the active time of the project consisting of
-    the sum of the active time of all its children (projects+tasks).*/
+  }
 
+  /**
+   * This method is used so that if
+   * any activity that is part of this project updates its time it can update the time
+   * of its parent (this project) for consistency by calling this method.
+   */
   public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate) {
     checkInvariant(); //Invariant
     if (initialDate == null) { //Pre condition
@@ -178,9 +200,7 @@ public class Project extends Activity {
 
     assert (this.initialDate != null && this.finalDate != null); //Post condition
     checkInvariant(); //Invariant
-  } /*This method is used so that if
-    any activity that is part of this project updates its time it can update the time
-    of its parent (this project) for consistency by calling this method.*/
+  }
 
   @Override
   public void acceptVisitor(Visitor visitor) {

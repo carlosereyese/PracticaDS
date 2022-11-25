@@ -3,33 +3,40 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-/*
-Task is a class that inherits from Activity and contains execution intervals that indicate
-how long the task has been active.
-A task is an activity that cannot be decomposed into other activities such as the project,
-an activity is made up of intervals that indicate the time slots in which the task has been active.
+/**
+* Task is a class that inherits from Activity and contains execution intervals that indicate
+* how long the task has been active.
+* A task is an activity that cannot be decomposed into other activities such as the project,
+* an activity is made up of intervals that indicate the time slots in which the task has
+* been active.
 */
 public class Task extends Activity {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private final List<Interval> intervalList = new ArrayList<>();
 
+  /**
+   * This is the constructor of the
+   * Task class, it initializes the attributes of this class with the parameters it receives.
+   */
   public Task(String nameActivity, List<String> listOfTags, Activity father) {
     super(nameActivity, listOfTags, father);
     loggerMilestone1.debug("The parent constructor has just been executed to "
         + "initialize the Task class with the values passed as parameters.");
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
-  } /*This is the constructor of the
-  Task class, it initializes the attributes of this class with the parameters it receives.*/
+  }
 
+  /**
+   * It is a constructor used to load data from the JSON file to
+   * initialize the task.
+   */
   public Task(JSONObject jsonObj) {
     loggerMilestone2.debug("Entering the task constructor from JSON file.");
     nameActivity = jsonObj.getString("nameActivity");
@@ -68,8 +75,7 @@ public class Task extends Activity {
     assert (this.nameActivity != null && this.father != null); //Post condition
     checkInvariant(); //Invariant
     loggerMilestone2.debug("Exiting in the task builder from JSON file.");
-  } /*It is a constructor used to load data from the JSON file to
-  initialize the task.*/
+  }
 
   private void checkInvariant() {
     assert ((nameActivity == null && father == null)
@@ -101,6 +107,10 @@ public class Task extends Activity {
   } /*This method has the objective of returning if the activity is being
     executed or not.*/
 
+  /**
+   * This method is used to indicate that a task becomes active, when activating the rate a new
+   * execution interval is created.
+   */
   public void start() {
     checkInvariant(); //Invariant
     if (running) { //Pre condition
@@ -119,9 +129,11 @@ public class Task extends Activity {
     assert (running); //Post condition
     assert (intervalList != null); //Post condition
     checkInvariant(); //Invariant
-  } /*This method is used to indicate that a task becomes active, when activating the rate a new
-  execution interval is created.*/
+  }
 
+  /**
+   * This method is used to indicate that a transaction is no longer running.
+   */
   public void stop() {
     checkInvariant(); //Invariant
     if (!running) { //Pre condition
@@ -136,8 +148,12 @@ public class Task extends Activity {
 
     assert (!running); //Post condition
     checkInvariant(); //Invariant
-  } /*This method is used to indicate that a transaction is no longer running.*/
+  }
 
+  /**
+   * Calculates the active time of the task consisting of
+   * the sum of the active time of all its intervals.
+   */
   public void calculateTotalTime() {
 
     checkInvariant(); //Invariant
@@ -154,9 +170,13 @@ public class Task extends Activity {
         && duration.toSeconds() >= Duration.ofSeconds(0).toSeconds()
         && duration.toMillis() >= Duration.ofSeconds(0).toMillis())); //Post condition
     checkInvariant(); //Invariant
-  } /*Calculates the active time of the task consisting of
-  the sum of the active time of all its intervals.*/
+  }
 
+  /**
+   * This method is used so that when
+   * one of its intervals updates its time, the interval can update the time of the
+   * rate it belongs to by calling this method.
+   */
   public void changeTime(LocalDateTime initialDate, LocalDateTime finalDate) {
     checkInvariant(); //Invariant
     if (initialDate == null) { //Pre condition
@@ -174,9 +194,7 @@ public class Task extends Activity {
 
     assert (this.initialDate != null && this.finalDate != null); //Post condition
     checkInvariant(); //Invariant
-  } /*This method is used so that when
-  one of its intervals updates its time, the interval can update the time of the
-  rate it belongs to by calling this method.*/
+  }
 
   @Override
   public void acceptVisitor(Visitor visitor) {
@@ -184,6 +202,10 @@ public class Task extends Activity {
   } /*This method is used for a visitor to call an activity so that the Project can
   execute one of the visitor's functionalities.*/
 
+  /**
+   * It is a function used to write the task data in a JSON file so that
+   * it can be loaded in the future.
+   */
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Task.");
     checkInvariant(); //Invariant
@@ -225,6 +247,5 @@ public class Task extends Activity {
     checkInvariant(); //Invariant
     loggerMilestone1.debug("Exiting the toJson method of Task.");
     return compJson;
-  } /*It is a function used to write the task data in a JSON file so that
-  it can be loaded in the future.*/
+  }
 }

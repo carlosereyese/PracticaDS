@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/*
-The "SearchByTag" class is used to search for all activities that has a specific tag,
-this class implements the "Visitor".
+/**
+* The "SearchByTag" class is used to search for all activities that has a specific tag,
+* this class implements the "Visitor".
 */
 
 public class SearchByTag implements Visitor {
@@ -15,14 +14,17 @@ public class SearchByTag implements Visitor {
   private final List<Activity> foundActivity = new ArrayList<>();
   private String tag;
 
+  /**
+   * This is a constructor of the SearchByTag class, the utility of this
+   * class is to initialize the "root" variable (the "root" variable is used to
+   * indicate from which activity to start searching for activities by tag) with the
+   * value that is passed by the parameter.
+   */
   public SearchByTag(Activity activity) {
     loggerMilestone2.debug("Entering the SearchByTag constructor.");
     root = activity;
     loggerMilestone2.debug("Exiting the SearchByTag constructor");
-  } /*This is a constructor of the SearchByTag class, the utility of this
-  class is to initialize the "root" variable (the "root" variable is used to
-  indicate from which activity to start searching for activities by tag) with the
-  value that is passed by the parameter.*/
+  }
 
   @Override
   public void visitProject(Project project) {
@@ -76,13 +78,16 @@ public class SearchByTag implements Visitor {
     foundActivity.clear();
   } /*This method is used to clean up the list of activities that are generated.*/
 
+  /**
+   * This method is used so that an activity can be searched by tag.
+   * What this method does is to store the name to be searched and calls
+   * the "acceptVisitor" method of the root to start a recursive search.
+   */
   public List<Activity> searchByTag(String tag) {
     loggerMilestone2.debug("Entering the searchByTag method.");
     this.tag = tag;
     root.acceptVisitor(this);
     loggerMilestone2.debug("Exiting the searchByTag method.");
     return foundActivity;
-  } /*This method is used so that an activity can be searched by tag.
-  What this method does is to store the name to be searched and calls
-  the "acceptVisitor" method of the root to start a recursive search.*/
+  }
 }

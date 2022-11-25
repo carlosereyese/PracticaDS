@@ -1,17 +1,16 @@
 import java.util.Observable;
 import java.util.Observer;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-/*
-Printer is a class that contains the methods to screen print the generated tree
-to keep track of which activities are active. This class implements the "Visitor"
-interface so that the project, the task and the interval can be self-printed.
-In addition to implementing the "Visitor" pattern, it also implements the
-"Observer-Observable" pattern so that the clock can notify the printer when active
-activities need to be printed on the screen.
+/**
+* Printer is a class that contains the methods to screen print the generated tree
+* to keep track of which activities are active. This class implements the "Visitor"
+* interface so that the project, the task and the interval can be self-printed.
+* In addition to implementing the "Visitor" pattern, it also implements the
+* "Observer-Observable" pattern so that the clock can notify the printer when active
+* activities need to be printed on the screen.
 */
 
 public class Printer implements Visitor, Observer {
@@ -30,15 +29,18 @@ public class Printer implements Visitor, Observer {
   It is a private constructor to avoid creating more than one instance of this
   class, since we only want a single printer in the program.*/
 
+  /**
+   * This getter is used to access the only instance of the printer
+   * class in order to be able to use its methods, if the instance does not exist,
+   * it creates it at the moment.
+   */
   public static void getInstance(Activity root) {
     loggerMilestone1.debug("Entering the getInstance method of Printer.");
     if (instance == null) {
       instance = new Printer(root);
     }
     loggerMilestone1.debug("Exiting the getInstance method of Printer.");
-  } /*This getter is used to access the only instance of the printer
-  class in order to be able to use its methods, if the instance does not exist,
-  it creates it at the moment.*/
+  }
 
   @Override
   public void visitProject(Project project) {
