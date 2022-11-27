@@ -1,29 +1,22 @@
 package webserver;
 
-import core.Activity;
-import core.ClockTimer;
-import core.Project;
-import core.Task;
-
+import core.*;
 import java.util.List;
 
 public class MainWebServer {
+  private static final Thread threadClock = new ThreadClock();
   public static void main(String[] args) {
     webServer();
   }
 
   public static void webServer() {
+    threadClock.setPriority(Thread.MAX_PRIORITY);
+    threadClock.start();
     final Activity root = makeTreeCourses();
     // implement this method that returns the tree of
     // appendix A in the practicum handout
     new WebServer(root);
     // start your clock
-    try {
-      ClockTimer.getInstance().startTimer();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
-
   }
 
   private static Activity makeTreeCourses() {
