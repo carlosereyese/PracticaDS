@@ -16,12 +16,14 @@ import org.json.JSONObject;
 public abstract class Activity {
   private static final Logger loggerMilestone1 = LogManager.getLogger("Milestone 1");
   protected String nameActivity;
+  protected int id;
   protected List<String> listOfTags = new ArrayList<>();
   protected Activity father;
   protected LocalDateTime initialDate;
   protected LocalDateTime finalDate;
   protected Duration duration;
   protected boolean running;
+
 
   /**
    * Initialize variables by default.
@@ -47,6 +49,7 @@ public abstract class Activity {
     }
     this.nameActivity = nameActivity;
     loggerMilestone1.trace("The default value of nameActivity is: {}", nameActivity);
+    this.id = IdProvider.getInstance().generateId();
     this.listOfTags = listOfTags;
     this.father = father;
     running = false;

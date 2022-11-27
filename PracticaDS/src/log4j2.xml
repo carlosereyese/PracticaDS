@@ -15,7 +15,7 @@
             <AppenderRef ref="Console"/>
             <AppenderRef ref="HTML"/>
         </Root>
-        <logger name="Milestone 1" level="trace"/> <!-- level="off" to deactivate-->
+        <logger name="Milestone 1" level="off"/> <!-- level="off" to deactivate-->
         <logger name="Milestone 2" level="trace"/> <!-- level="off" to deactivate-->
     </Loggers>
 </Configuration>

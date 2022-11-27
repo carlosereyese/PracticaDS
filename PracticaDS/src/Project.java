@@ -55,6 +55,7 @@ public class Project extends Activity {
     loggerMilestone2.debug("Entering the project constructor from JSON file.");
     nameActivity = jsonObj.getString("nameActivity");
     father = null;
+    id = jsonObj.getInt("id");
 
     JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
     for (int i = 0; i < jsonListTags.length(); i++) {
@@ -213,6 +214,8 @@ public class Project extends Activity {
     loggerMilestone1.debug("Entering the toJson method of Project.");
     JSONObject compJson = new JSONObject();
     compJson.put("nameActivity", nameActivity);
+
+    compJson.put("id", id);
 
     JSONArray jl = new JSONArray();
     for (String tag : listOfTags) {

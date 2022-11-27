@@ -16,6 +16,7 @@ public class Interval implements Observer {
   private static final Logger loggerMilestone2 = LogManager.getLogger("Milestone 2");
   private LocalDateTime initialDate;
   private LocalDateTime finalDate;
+  private int id;
   private Task father;
   private Duration duration;
   private boolean running;
@@ -36,6 +37,8 @@ public class Interval implements Observer {
    */
   public Interval(JSONObject jsonObj) {
     loggerMilestone2.debug("Entering the interval constructor from JSON file.");
+    id = jsonObj.getInt("id");
+
     if (!jsonObj.isNull("initialDate")) {
       initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
     } else {
@@ -79,6 +82,9 @@ public class Interval implements Observer {
   } /*This method is a setter that serves to indicate who is the parent of the interval,
   in other words it serves to initialize the variable father with the task to which the
   interval belongs.*/
+  public void setId (int id) {
+    this.id = id;
+  }
 
   /**
    * This method is used to indicate when the interval has finished its execution.
@@ -116,6 +122,8 @@ public class Interval implements Observer {
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Interval.");
     JSONObject intervalJson = new JSONObject();
+    intervalJson.put("id", id);
+
     String tempDate;
     if (initialDate == null) {
       intervalJson.put("initialDate", JSONObject.NULL);

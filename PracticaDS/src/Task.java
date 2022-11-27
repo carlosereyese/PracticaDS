@@ -41,6 +41,8 @@ public class Task extends Activity {
     loggerMilestone2.debug("Entering the task constructor from JSON file.");
     nameActivity = jsonObj.getString("nameActivity");
 
+    id = jsonObj.getInt("id");
+
     father = new Project();
 
     JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
@@ -123,6 +125,7 @@ public class Task extends Activity {
     loggerMilestone1.info(nameActivity + " starts");
     Interval newInterval = new Interval();
     newInterval.setFather(this);
+    newInterval.setId(IdProvider.getInstance().generateId());
     intervalList.add(newInterval);
     running = true;
 
@@ -212,6 +215,8 @@ public class Task extends Activity {
 
     JSONObject compJson = new JSONObject();
     compJson.put("nameActivity", nameActivity);
+
+    compJson.put("id", id);
 
     JSONArray jl = new JSONArray();
     for (String tag : listOfTags) {
