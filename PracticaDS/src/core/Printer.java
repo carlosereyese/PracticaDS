@@ -1,3 +1,5 @@
+package core;
+
 import java.util.Observable;
 import java.util.Observer;
 import org.apache.logging.log4j.LogManager;

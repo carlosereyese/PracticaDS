@@ -1,6 +1,7 @@
+package core;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 /**
  * This method is the first method that
  * executes the program at startup, this method is the one that calls the different tests

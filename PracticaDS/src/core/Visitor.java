@@ -1,3 +1,5 @@
+package core;
+
 /**
 * The "visitor" interface is an interface that has the necessary methods so that project,
 * task and interval can use the different functionalities that they inherit from it.

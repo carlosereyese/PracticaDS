@@ -1,3 +1,5 @@
+package core;
+
 public class IdProvider {
   private static IdProvider instance = null;
   private int id;
