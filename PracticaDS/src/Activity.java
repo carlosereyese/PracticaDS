@@ -96,6 +96,8 @@ public abstract class Activity {
   (project and task). This method is used for a visitor to call an activity so
   that the activity can execute one of the visitor's functionalities.*/
 
+  public abstract Activity findActivityById(int id);
+
   public abstract JSONObject toJson(); /*This is an abstract method that is implemented
   by the classes that inherit from the activity class (project and task). The "toJson"
   method is used so that before closing the program or ending the execution, the data

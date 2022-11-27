@@ -200,6 +200,15 @@ public class Task extends Activity {
   }
 
   @Override
+  public Activity findActivityById(int id) {
+    if (this.id == id)
+    {
+      return this;
+    } else {
+      return null;
+    }
+  }
+  @Override
   public void acceptVisitor(Visitor visitor) {
     visitor.visitTask(this);
   } /*This method is used for a visitor to call an activity so that the Project can

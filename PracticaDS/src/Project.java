@@ -118,6 +118,23 @@ public class Project extends Activity {
   } /*This is a getter that is used to return the "activityList" size in order to
   know how many activities are part of a project.*/
 
+  @Override
+  public Activity findActivityById(int id) {
+    if (this.id == id)
+    {
+      return this;
+    } else {
+      Activity foundActivity = null;
+      for (Activity activity : activityList) {
+         foundActivity = activity.findActivityById(id);
+         if (foundActivity != null)
+         {
+           break;
+         }
+      }
+      return foundActivity;
+    }
+  }
   /**
    * This method has the objective of returning if the activity is being executed or
    * not. To find out if the project is in execution, the method looks at all the activities
