@@ -229,45 +229,50 @@ public class Project extends Activity {
   can execute one of the visitor's functionalities.*/
 
   @Override
-  public JSONObject toJson() {
-    loggerMilestone1.debug("Entering the toJson method of Project.");
+  public JSONObject toJson(int depth) {
     JSONObject compJson = new JSONObject();
-    compJson.put("nameActivity", nameActivity);
+    if (depth != 0)
+    {
+      loggerMilestone1.debug("Entering the toJson method of Project.");
+      compJson.put("nameActivity", nameActivity);
 
-    compJson.put("id", id);
+      compJson.put("id", id);
 
-    JSONArray jl = new JSONArray();
-    for (String tag : listOfTags) {
-      jl.put(tag);
+      JSONArray jl = new JSONArray();
+      for (String tag : listOfTags) {
+        jl.put(tag);
+      }
+      compJson.put("listOfTags", jl);
+
+      String tempDate;
+      if (initialDate == null) {
+        compJson.put("initialDate", JSONObject.NULL);
+      } else {
+        tempDate = initialDate.toString();
+        compJson.put("initialDate", tempDate);
+      }
+
+      if (finalDate == null) {
+        compJson.put("finalDate", JSONObject.NULL);
+      } else {
+        tempDate = finalDate.toString();
+        compJson.put("finalDate", tempDate);
+      }
+
+      compJson.put("duration", duration.toString());
+      compJson.put("running", running);
+
+      JSONArray ja = new JSONArray();
+      for (Activity activity : activityList) {
+        depth--;
+        ja.put(activity.toJson(depth));
+      }
+      compJson.put("activityList", ja);
+
+      checkInvariant(); //Invariant
+      loggerMilestone1.debug("Exiting the toJson method of Project.");
     }
-    compJson.put("listOfTags", jl);
 
-    String tempDate;
-    if (initialDate == null) {
-      compJson.put("initialDate", JSONObject.NULL);
-    } else {
-      tempDate = initialDate.toString();
-      compJson.put("initialDate", tempDate);
-    }
-
-    if (finalDate == null) {
-      compJson.put("finalDate", JSONObject.NULL);
-    } else {
-      tempDate = finalDate.toString();
-      compJson.put("finalDate", tempDate);
-    }
-
-    compJson.put("duration", duration.toString());
-    compJson.put("running", running);
-
-    JSONArray ja = new JSONArray();
-    for (Activity activity : activityList) {
-      ja.put(activity.toJson());
-    }
-    compJson.put("activityList", ja);
-
-    checkInvariant(); //Invariant
-    loggerMilestone1.debug("Exiting the toJson method of Project.");
     return compJson;
   } /*It is a function used to write the project data in a JSON file so that
     it can be loaded in the future.*/

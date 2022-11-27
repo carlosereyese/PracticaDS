@@ -106,7 +106,7 @@ public class Test {
 
     String jsonPath = "activityJSON.json";
     try (FileWriter file = new FileWriter(jsonPath)) {
-      file.write(root.toJson().toString());
+      file.write(root.toJson(200).toString());
     } catch (IOException e) {
       loggerMilestone1.warn("Error: ", e);
     }
