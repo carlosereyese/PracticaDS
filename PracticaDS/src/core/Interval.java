@@ -125,6 +125,7 @@ public class Interval implements Observer {
     loggerMilestone1.debug("Entering the toJson method of Interval.");
     JSONObject intervalJson = new JSONObject();
     intervalJson.put("id", id);
+    intervalJson.put("class", "Interval");
 
     String tempDate;
     if (initialDate == null) {
@@ -144,11 +145,10 @@ public class Interval implements Observer {
     if (duration == null) {
       intervalJson.put("duration", JSONObject.NULL);
     } else {
-      String tempDuration = duration.toString();
-      intervalJson.put("duration", tempDuration);
+      intervalJson.put("duration", duration.toSeconds());
     }
 
-    intervalJson.put("duration", duration.toString());
+    intervalJson.put("duration", duration.toSeconds());
     intervalJson.put("running", running);
 
     loggerMilestone1.debug("Exiting the toJson method of Interval.");

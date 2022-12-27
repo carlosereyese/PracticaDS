@@ -116,7 +116,7 @@ public class WebServer {
           int id = Integer.parseInt(tokens[1]);
           Activity activity = findActivityById(id);
           assert (activity!=null);
-          body = activity.toJson(1).toString();
+          body = activity.toJson(16).toString();
           break;
         }
         case "start": {

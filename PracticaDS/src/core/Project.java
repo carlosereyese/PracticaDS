@@ -231,10 +231,12 @@ public class Project extends Activity {
   @Override
   public JSONObject toJson(int depth) {
     JSONObject compJson = new JSONObject();
-    if (depth != 0)
+    compJson.put("class", "Project");
+    if (depth > 0)
     {
       loggerMilestone1.debug("Entering the toJson method of Project.");
       compJson.put("nameActivity", nameActivity);
+
 
       compJson.put("id", id);
 
@@ -259,13 +261,12 @@ public class Project extends Activity {
         compJson.put("finalDate", tempDate);
       }
 
-      compJson.put("duration", duration.toString());
+      compJson.put("duration", duration.toSeconds());
       compJson.put("running", running);
 
       JSONArray ja = new JSONArray();
       for (Activity activity : activityList) {
-        depth--;
-        ja.put(activity.toJson(depth));
+        ja.put(activity.toJson(depth--));
       }
       compJson.put("activityList", ja);
 

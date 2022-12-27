@@ -222,7 +222,8 @@ public class Task extends Activity {
    */
   public JSONObject toJson(int depth) {
     JSONObject compJson = new JSONObject();
-    if (depth != 0) {
+    compJson.put("class", "Task");
+    if (depth > 0) {
       loggerMilestone1.debug("Entering the toJson method of Task.");
       checkInvariant(); //Invariant
 
@@ -252,7 +253,7 @@ public class Task extends Activity {
         compJson.put("finalDate", tempDate);
       }
 
-      compJson.put("duration", duration.toString());
+      compJson.put("duration", duration.toSeconds());
       compJson.put("running", running);
 
       JSONArray ja = new JSONArray();
@@ -264,8 +265,9 @@ public class Task extends Activity {
 
       checkInvariant(); //Invariant
       loggerMilestone1.debug("Exiting the toJson method of Task.");
+    } else {
+      compJson.put("intervals", new JSONArray());
     }
-    depth--;
     return compJson;
   }
 }
