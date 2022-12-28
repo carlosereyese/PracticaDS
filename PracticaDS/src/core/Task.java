@@ -2,6 +2,7 @@ package core;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -53,18 +54,19 @@ public class Task extends Activity {
     }
 
     if (!jsonObj.isNull("initialDate")) {
-      initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
+      initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"), formatter);
     } else {
       initialDate = null;
     }
 
     if (!jsonObj.isNull("finalDate")) {
-      finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"));
+      finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"), formatter);
     } else {
       finalDate = null;
     }
 
-    duration = Duration.parse(jsonObj.getString("duration"));
+    int dur = jsonObj.getInt("duration");
+    duration = Duration.ofSeconds(dur);
     running = jsonObj.getBoolean("running");
 
     JSONArray jsonList = jsonObj.getJSONArray("intervalList");
@@ -216,6 +218,8 @@ public class Task extends Activity {
   } /*This method is used for a visitor to call an activity so that the Project can
   execute one of the visitor's functionalities.*/
 
+  protected static final DateTimeFormatter formatter =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   /**
    * It is a function used to write the task data in a JSON file so that
    * it can be loaded in the future.
@@ -242,14 +246,14 @@ public class Task extends Activity {
       if (initialDate == null) {
         compJson.put("initialDate", JSONObject.NULL);
       } else {
-        tempDate = initialDate.toString();
+        tempDate = formatter.format(initialDate);
         compJson.put("initialDate", tempDate);
       }
 
       if (finalDate == null) {
         compJson.put("finalDate", JSONObject.NULL);
       } else {
-        tempDate = finalDate.toString();
+        tempDate = formatter.format(finalDate);
         compJson.put("finalDate", tempDate);
       }
 

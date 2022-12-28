@@ -2,6 +2,7 @@ package core;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 import org.apache.logging.log4j.LogManager;
@@ -42,18 +43,19 @@ public class Interval implements Observer {
     id = jsonObj.getInt("id");
 
     if (!jsonObj.isNull("initialDate")) {
-      initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"));
+      initialDate = LocalDateTime.parse(jsonObj.getString("initialDate"), formatter);
     } else {
       initialDate = null;
     }
     if (!jsonObj.isNull("finalDate")) {
-      finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"));
+      finalDate = LocalDateTime.parse(jsonObj.getString("finalDate"), formatter);
     } else {
       finalDate = null;
     }
 
     if (!jsonObj.isNull("duration")) {
-      duration = Duration.parse(jsonObj.getString("duration"));
+      int dur = jsonObj.getInt("duration");
+      duration = Duration.ofSeconds(dur);
     } else {
       duration = null;
     }
@@ -117,10 +119,13 @@ public class Interval implements Observer {
   } /*This method is used for a visitor to call the interval so that the interval can
   execute one of the visitor's functionalities.*/
 
+  protected static final DateTimeFormatter formatter =
+      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   /**
    * It is a function used to write the interval data in a JSON file so that
    * it can be loaded in the future.
    */
+
   public JSONObject toJson() {
     loggerMilestone1.debug("Entering the toJson method of Interval.");
     JSONObject intervalJson = new JSONObject();
@@ -131,14 +136,14 @@ public class Interval implements Observer {
     if (initialDate == null) {
       intervalJson.put("initialDate", JSONObject.NULL);
     } else {
-      tempDate = initialDate.toString();
+      tempDate = formatter.format(initialDate);
       intervalJson.put("initialDate", tempDate);
     }
 
     if (finalDate == null) {
       intervalJson.put("finalDate", JSONObject.NULL);
     } else {
-      tempDate = finalDate.toString();
+      tempDate = formatter.format(finalDate);
       intervalJson.put("finalDate", tempDate);
     }
 

@@ -1,6 +1,11 @@
 package webserver;
 
 import core.*;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class MainWebServer {
@@ -20,6 +25,23 @@ public class MainWebServer {
   }
 
   private static Activity makeTreeCourses() {
+    String jsonPath = "webServer.json";
+    Project root = new Project("root", List.of(), null);
+    Project aux = new Project();
+    try {
+      String jsonString = new String((Files.readAllBytes(Paths.get(jsonPath))));
+      if (jsonString.length() > 3) {
+        JSONObject jsonObj = new JSONObject(jsonString);
+        aux = new Project(jsonObj);
+        if (aux != null)
+        {
+          root = aux;
+        }
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    /*
     Project root = new Project("root", List.of(), null);
     Project p1 = new Project("software design", List.of("java", "flutter"), root);
     Project p2 = new Project("software testing", List.of("c++", "Java", "python"), root);
@@ -31,6 +53,7 @@ public class MainWebServer {
     Task t3 = new Task("second list", List.of("Dart"), p4);
     Task t4 = new Task("read handout", List.of(), p5);
     Task t5 = new Task("first milestone", List.of("Java", "IntelliJ"), p5);
+     */
     return root;
   }
 }

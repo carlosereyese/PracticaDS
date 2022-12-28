@@ -1,13 +1,14 @@
 package webserver;
 
 import core.Activity;
+import core.Project;
 import core.Task;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 // Based on
@@ -137,6 +138,51 @@ public class WebServer {
           body = "{}";
           break;
         }
+        case "addTask": {
+          int id = Integer.parseInt((tokens[3]));
+          Activity activity = findActivityById(id);
+          String tags = tokens[2];
+          String name = tokens[1];
+          tags = tags.replaceAll(" ", "");
+          tags = tags.replaceAll("%20", "");
+          String[] parts = tags.split(",");
+          List<String> tagsList = new ArrayList<>();
+          for (int i = 0; i < parts.length; i++)
+          {
+            tagsList.add(parts[i]);
+          }
+          Task newTask = new Task(name, tagsList, activity);
+          Activity root = findActivityById(0);
+          String jsonPath = "webServer.json";
+          try (FileWriter file = new FileWriter(jsonPath)) {
+            file.write(root.toJson(200).toString());
+          } catch (IOException e) {
+          }
+          break;
+        }
+        case "addProject": {
+          int id = Integer.parseInt((tokens[3]));
+          Activity activity = findActivityById(id);
+          String tags = tokens[2];
+          String name = tokens[1];
+          tags = tags.replaceAll(" ", "");
+          tags = tags.replaceAll("%20", "");
+          String[] parts = tags.split(",");
+          List<String> tagsList = new ArrayList<>();
+          for (int i = 0; i < parts.length; i++)
+          {
+            tagsList.add(parts[i]);
+          }
+          Project newProject = new Project(name, tagsList, activity);
+          Activity root = findActivityById(0);
+          String jsonPath = "webServer.json";
+          try (FileWriter file = new FileWriter(jsonPath)) {
+            file.write(root.toJson(200).toString());
+          } catch (IOException e) {
+          }
+          break;
+        }
+
         // TODO: add new task, project
         // TODO: edit task, project properties
         default:
