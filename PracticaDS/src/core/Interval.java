@@ -120,7 +120,7 @@ public class Interval implements Observer {
   execute one of the visitor's functionalities.*/
 
   protected static final DateTimeFormatter formatter =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+      DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
   /**
    * It is a function used to write the interval data in a JSON file so that
    * it can be loaded in the future.

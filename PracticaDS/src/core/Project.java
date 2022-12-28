@@ -231,7 +231,7 @@ public class Project extends Activity {
   can execute one of the visitor's functionalities.*/
 
   protected static final DateTimeFormatter formatter =
-      DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+      DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
   @Override
   public JSONObject toJson(int depth) {
     JSONObject compJson = new JSONObject();
