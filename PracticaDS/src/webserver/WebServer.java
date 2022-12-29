@@ -145,6 +145,8 @@ public class WebServer {
           String name = tokens[1];
           tags = tags.replaceAll(" ", "");
           tags = tags.replaceAll("%20", "");
+          tags = tags.replaceAll("%5B", "");
+          tags = tags.replaceAll("%5D", "");
           String[] parts = tags.split(",");
           List<String> tagsList = new ArrayList<>();
           for (int i = 0; i < parts.length; i++)
@@ -167,6 +169,8 @@ public class WebServer {
           String name = tokens[1];
           tags = tags.replaceAll(" ", "");
           tags = tags.replaceAll("%20", "");
+          tags = tags.replaceAll("%5B", "");
+          tags = tags.replaceAll("%5D", "");
           String[] parts = tags.split(",");
           List<String> tagsList = new ArrayList<>();
           for (int i = 0; i < parts.length; i++)

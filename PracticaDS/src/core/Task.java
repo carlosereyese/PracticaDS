@@ -45,6 +45,7 @@ public class Task extends Activity {
     nameActivity = jsonObj.getString("nameActivity");
 
     id = jsonObj.getInt("id");
+    IdProvider.getInstance().setId(id);
 
     father = new Project();
 

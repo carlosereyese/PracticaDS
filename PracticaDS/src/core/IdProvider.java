@@ -15,7 +15,12 @@ public class IdProvider {
 
     return instance;
   }
-
+  public void setId(int id) {
+    if (this.id < id)
+    {
+      this.id = id;
+    }
+  }
   public int generateId() {
     id++;
     return id;

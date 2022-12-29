@@ -59,6 +59,7 @@ public class Project extends Activity {
     nameActivity = jsonObj.getString("nameActivity");
     father = null;
     id = jsonObj.getInt("id");
+    IdProvider.getInstance().setId(id);
 
     JSONArray jsonListTags = jsonObj.getJSONArray("listOfTags");
     for (int i = 0; i < jsonListTags.length(); i++) {
